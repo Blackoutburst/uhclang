@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from "next/link"
 import {
   CodeBracketIcon,
   BookOpenIcon,
   CubeIcon,
   WrenchScrewdriverIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/outline"
 
 export default function Home() {
   return (
@@ -48,7 +48,7 @@ export default function Home() {
         </section>
       </main>
     </div>
-  );
+  )
 }
 
 function FeatureBlock({ title, description, icon: Icon, href }) {
@@ -64,17 +64,17 @@ function FeatureBlock({ title, description, icon: Icon, href }) {
       </h2>
       <p className="text-zinc-400 text-sm leading-relaxed">{description}</p>
     </>
-  );
+  )
 
-  const cls = `group flex flex-col gap-4 rounded-2xl border border-rose-800 bg-[#1a1c1e] p-6 transition-colors cursor-pointer hover:border-rose-300 duration-300`;
+  const cls = `group flex flex-col gap-4 rounded-2xl border border-rose-800 bg-[#1a1c1e] p-6 transition-colors cursor-pointer hover:border-rose-300 duration-300`
 
   if (href) {
     return (
       <Link href={href} className={cls}>
         {inner}
       </Link>
-    );
+    )
   }
 
-  return <div className={cls}>{inner}</div>;
+  return <div className={cls}>{inner}</div>
 }

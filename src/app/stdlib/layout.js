@@ -1,9 +1,9 @@
-import StdlibSidebar from "@/components/StdlibSidebar";
-import { CodeTabsProvider } from "@/components/CodeTabsContext";
+import StdlibSidebar from "@/components/StdlibSidebar"
+import { CodeTabsProvider } from "@/components/CodeTabsContext"
 
 export const metadata = {
   title: "Standard Library — UnholyC",
-};
+}
 
 export default function StdlibLayout({ children }) {
   return (
@@ -15,5 +15,5 @@ export default function StdlibLayout({ children }) {
         </main>
       </div>
     </CodeTabsProvider>
-  );
+  )
 }

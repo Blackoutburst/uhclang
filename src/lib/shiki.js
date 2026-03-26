@@ -1,5 +1,5 @@
-import { createHighlighter } from "shiki";
-import { unholycGrammar } from "./unholyc-grammar";
+import { createHighlighter } from "shiki"
+import { unholycGrammar } from "./unholyc-grammar"
 
 const unholycTheme = {
   name: "unholyc-dark",
@@ -62,24 +62,24 @@ const unholycTheme = {
       settings: { foreground: "#c8c8c8" },
     },
   ],
-};
+}
 
-let _highlighter = null;
+let _highlighter = null
 
 export async function getHighlighter() {
   if (!_highlighter) {
     _highlighter = createHighlighter({
       themes: [unholycTheme],
       langs: ["cpp", unholycGrammar],
-    });
+    })
   }
-  return _highlighter;
+  return _highlighter
 }
 
 export async function highlight(code, lang) {
-  const hl = await getHighlighter();
+  const hl = await getHighlighter()
   return hl.codeToHtml(code.trim(), {
     lang: lang === "uhc" ? "UnholyC" : "cpp",
     theme: "unholyc-dark",
-  });
+  })
 }

@@ -1,6 +1,6 @@
-import CodeTabs from "@/components/CodeTabs";
-import Link from "next/link";
-import { AnchorHeading } from "@/components/AnchorHeading";
+import CodeTabs from "@/components/CodeTabs"
+import Link from "next/link"
+import { AnchorHeading } from "@/components/AnchorHeading"
 
 export function useMDXComponents(components) {
   return {
@@ -70,5 +70,5 @@ export function useMDXComponents(components) {
     strong: (props) => <strong className="text-zinc-200 font-semibold" {...props} />,
     hr: () => <hr className="border-zinc-800 my-8" />,
     ...components,
-  };
+  }
 }

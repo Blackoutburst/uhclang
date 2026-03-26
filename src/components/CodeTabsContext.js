@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react"
 
-const CodeTabsContext = createContext(null);
+const CodeTabsContext = createContext(null)
 
 export function CodeTabsProvider({ children }) {
-  const [activeLang, setActiveLang] = useState("uhc");
+  const [activeLang, setActiveLang] = useState("uhc")
   return (
     <CodeTabsContext.Provider value={{ activeLang, setActiveLang }}>
       {children}
     </CodeTabsContext.Provider>
-  );
+  )
 }
 
 export function useCodeTabs() {
-  return useContext(CodeTabsContext);
+  return useContext(CodeTabsContext)
 }

@@ -1,15 +1,15 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Geist, Geist_Mono } from "next/font/google"
+import "./globals.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
+})
 
 export const metadata = {
   metadataBase: new URL("https://www.uhclang.org/"),
@@ -36,7 +36,7 @@ export const metadata = {
   other: {
     "theme-color": "#4d0218",
   },
-};
+}
 
 export default function RootLayout({ children }) {
   return (
@@ -46,5 +46,5 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
-  );
+  )
 }
