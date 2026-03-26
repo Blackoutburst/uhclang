@@ -18,7 +18,7 @@ export const metadata = {
   openGraph: {
     title: "UnholyC",
     description: "C++ & HolyC unwanted child",
-    images: [{ url: "/uhc.png" }],
+    images: [{ url: "/uhc.png", width: 512, height: 512 }],
   },
   twitter: {
     card: "summary",
@@ -26,6 +26,11 @@ export const metadata = {
     description: "C++ & HolyC unwanted child",
     images: ["/uhc.png"],
   },
+};
+
+// theme-color is read by Discord for the embed's left-border accent colour
+export const viewport = {
+  themeColor: "#4d0218",
 };
 
 export default function RootLayout({ children }) {

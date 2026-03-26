@@ -30,13 +30,13 @@ export default function Home() {
             icon={CodeBracketIcon}
           />
           <FeatureBlock
-            title="Std Lib"
+            title="Std lib"
             description="Complete documentation of the UnholyC std lib"
             icon={BookOpenIcon}
             href="/stdlib"
           />
           <FeatureBlock
-            title="Graphic Lib"
+            title="Graphic lib"
           description="Complete documentation of UnholyC grapgics library"
             icon={CubeIcon}
           />
