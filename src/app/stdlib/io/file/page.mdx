@@ -1,0 +1,84 @@
+# File
+
+The `File` namespace provides low-level file system operations: opening, reading, writing, and inspecting files on disk.
+
+---
+
+<h2 id="getSize">getSize</h2>
+
+Returns the size of a file in bytes.
+
+```
+File.getSize(path: String) -> Int
+```
+
+**Parameters**
+- `path` — absolute or relative path to the file
+
+**Example**
+
+```
+let size = File.getSize("data.txt")
+println(size) -- 1024
+```
+
+---
+
+<h2 id="open">open</h2>
+
+Opens a file and returns a file handle. The file must be explicitly closed after use.
+
+```
+File.open(path: String, mode: String) -> FileHandle
+```
+
+**Parameters**
+- `path` — path to the file
+- `mode` — `"r"` (read), `"w"` (write), `"a"` (append)
+
+**Example**
+
+```
+let f = File.open("data.txt", "r")
+```
+
+---
+
+<h2 id="close">close</h2>
+
+Closes an open file handle and flushes any pending writes.
+
+```
+File.close(handle: FileHandle) -> Void
+```
+
+**Parameters**
+- `handle` — a handle previously returned by `open`
+
+**Example**
+
+```
+let f = File.open("data.txt", "r")
+File.close(f)
+```
+
+---
+
+<h2 id="read">read</h2>
+
+Reads the entire contents of an open file handle as a string.
+
+```
+File.read(handle: FileHandle) -> String
+```
+
+**Parameters**
+- `handle` — a handle previously returned by `open`
+
+**Example**
+
+```
+let f = File.open("data.txt", "r")
+let contents = File.read(f)
+File.close(f)
+```
