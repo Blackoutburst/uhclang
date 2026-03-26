@@ -8,19 +8,13 @@ The `File` namespace provides low-level file system operations: opening, reading
 
 Returns the size of a file in bytes.
 
-```
-File.getSize(path: String) -> Int
-```
+<CodeTabs
+  uhc={`I32 File.getSize(U8* path);`}
+  cpp={`int getSize(const char* path);`}
+/>
 
 **Parameters**
 - `path` — absolute or relative path to the file
-
-**Example**
-
-```
-let size = File.getSize("data.txt")
-println(size) -- 1024
-```
 
 ---
 
@@ -28,19 +22,14 @@ println(size) -- 1024
 
 Opens a file and returns a file handle. The file must be explicitly closed after use.
 
-```
-File.open(path: String, mode: String) -> FileHandle
-```
+<CodeTabs
+  uhc={`FileHandle File.open(U8* path, U8* mode);`}
+  cpp={`FileHandle* open(const char* path, const char* mode);`}
+/>
 
 **Parameters**
 - `path` — path to the file
 - `mode` — `"r"` (read), `"w"` (write), `"a"` (append)
-
-**Example**
-
-```
-let f = File.open("data.txt", "r")
-```
 
 ---
 
@@ -48,19 +37,13 @@ let f = File.open("data.txt", "r")
 
 Closes an open file handle and flushes any pending writes.
 
-```
-File.close(handle: FileHandle) -> Void
-```
+<CodeTabs
+  uhc={`U0 File.close(FileHandle handle);`}
+  cpp={`void close(FileHandle* handle);`}
+/>
 
 **Parameters**
 - `handle` — a handle previously returned by `open`
-
-**Example**
-
-```
-let f = File.open("data.txt", "r")
-File.close(f)
-```
 
 ---
 
@@ -68,17 +51,10 @@ File.close(f)
 
 Reads the entire contents of an open file handle as a string.
 
-```
-File.read(handle: FileHandle) -> String
-```
+<CodeTabs
+  uhc={`U8* File.read(FileHandle handle);`}
+  cpp={`char* read(FileHandle* handle);`}
+/>
 
 **Parameters**
 - `handle` — a handle previously returned by `open`
-
-**Example**
-
-```
-let f = File.open("data.txt", "r")
-let contents = File.read(f)
-File.close(f)
-```

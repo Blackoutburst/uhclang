@@ -1,14 +1,17 @@
+import CodeTabs from "@/components/CodeTabs";
+
 export function useMDXComponents(components) {
   return {
+    CodeTabs,
     h1: (props) => (
       <h1
-        className="text-3xl font-bold text-white mb-6 pb-3 border-b border-zinc-800"
+        className="text-3xl font-bold text-rose-800 mb-6 pb-3 border-b border-zinc-800"
         {...props}
       />
     ),
     h2: (props) => (
       <h2
-        className="text-xl font-semibold text-zinc-100 mt-10 mb-3"
+        className="text-xl font-semibold text-rose-800 mt-10 mb-3"
         {...props}
       />
     ),

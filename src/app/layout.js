@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "uhclang",
-  description: "A custom programming language",
+  title: "UnholyC",
+  description: "C++ & HolyC unwanted child",
 };
 
 export default function RootLayout({ children }) {

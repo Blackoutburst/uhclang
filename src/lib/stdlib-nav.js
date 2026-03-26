@@ -1,5 +1,10 @@
 export const stdlibNav = [
   {
+    label: "Index",
+    slug: "",
+    namespaces: []
+  },
+  {
     label: "IO",
     slug: "io",
     namespaces: [
@@ -29,7 +34,7 @@ export const stdlibNav = [
     ],
   },
   {
-    label: "MATH",
+    label: "Math",
     slug: "math",
     namespaces: [
       { 
@@ -112,7 +117,7 @@ export const stdlibNav = [
     ],
   },
   {
-    label: "NETWORK",
+    label: "Network",
     slug: "network",
     namespaces: [
       { 
@@ -145,7 +150,7 @@ export const stdlibNav = [
   },
 
   {
-    label: "STD",
+    label: "Std",
     slug: "std",
     namespaces: [
       { 
@@ -156,6 +161,7 @@ export const stdlibNav = [
           { label: "UHC_LITTLE_ENDIAN", slug: "UHC_LITTLE_ENDIAN" },
           { label: "UHC_BIG_ENDIAN", slug: "UHC_BIG_ENDIAN" },
           { label: "setOrder", slug: "setOrder" },
+          { label: "reset", slug: "reset" },
           { label: "getI8", slug: "getI8" },
           { label: "getU8", slug: "getU8" },
           { label: "getI16", slug: "getI16" },

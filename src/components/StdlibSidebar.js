@@ -96,13 +96,18 @@ export default function StdlibSidebar() {
   }
 
   return (
-    <aside className="flex flex-col h-full w-60 min-w-[15rem] border-r border-zinc-800 bg-zinc-950">
+    <aside className="flex flex-col h-full w-60 min-w-[15rem] border-r border-zinc-800 bg-[#1a1c1e]">
       {/* Logo */}
-      <div className="px-5 py-5 border-b border-zinc-800 shrink-0">
-        <Link href="/" className="text-2xl font-bold tracking-tight text-white">
-          uhc<span className="text-indigo-400">lang</span>
+      <div className="flex flex-col items-center gap-2 px-5 py-5">
+        <Link href="/" className="cursor-pointer text-2xl font-bold tracking-tight text-white">
+              <img
+                src="/logo.png"
+                width={128}
+                height={128}
+                alt="UnholyC logo"
+              />
         </Link>
-        <p className="text-xs text-zinc-500 mt-0.5">Standard Library</p>
+        <p className="text-xl font-bold text-rose-800 mt-0.5">Standard Library</p>
       </div>
 
       {/* Search */}
@@ -112,14 +117,14 @@ export default function StdlibSidebar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search…"
-          className="w-full rounded-lg bg-zinc-900 border border-zinc-700 px-3 py-1.5 text-sm text-zinc-100 placeholder-zinc-500 outline-none focus:border-indigo-500 transition-colors"
+          className="w-full rounded-lg bg-zinc-900 border border-zinc-700 px-3 py-1.5 text-sm text-zinc-100 placeholder-zinc-500 outline-none focus:border-rose-800 transition-colors"
         />
       </div>
 
       {/* Tree */}
       <nav className="flex-1 overflow-y-auto px-2 py-3 text-sm">
         {tree.length === 0 && (
-          <p className="text-xs text-zinc-500 px-2 py-2">No results.</p>
+          <p className="text-base text-zinc-300 px-2 py-2">No results.</p>
         )}
 
         {tree.map((section) => {
@@ -131,19 +136,19 @@ export default function StdlibSidebar() {
           return (
             <div key={section.slug} className="mb-0.5">
               {/* Section row */}
-              <div className="flex items-center gap-1">
-                <button
+              <div className="flex items-center gap-1 cursor-pointer">
+                {section.namespaces.length > 0 && <button
                   onClick={() => toggle(sectionKey)}
-                  className="flex items-center justify-center w-5 h-6 shrink-0 rounded hover:bg-zinc-800"
+                  className="flex items-center justify-center w-5 h-6 shrink-0 rounded cursor-pointer hover:bg-zinc-800"
                 >
                   <ChevronIcon open={sectionOpen} />
-                </button>
+                </button>}
                 <Link
                   href={sectionHref}
                   className={`flex-1 rounded-md px-2 py-1 font-semibold tracking-wide transition-colors ${
                     sectionActive
-                      ? "bg-indigo-500/20 text-indigo-300"
-                      : "text-zinc-200 hover:bg-zinc-800 hover:text-white"
+                      ? "font-bold text-rose-800"
+                      : "text-rose-800 hover:text-white"
                   }`}
                 >
                   {section.label}
@@ -166,7 +171,7 @@ export default function StdlibSidebar() {
                         <div className="flex items-center gap-1">
                           <button
                             onClick={() => toggle(nsKey)}
-                            className={`flex items-center justify-center w-5 h-6 shrink-0 rounded hover:bg-zinc-800 ${!hasMethods ? "invisible" : ""}`}
+                            className={`flex items-center justify-center w-5 h-6 shrink-0 rounded cursor-pointer hover:bg-zinc-800 ${!hasMethods ? "invisible" : ""}`}
                             tabIndex={hasMethods ? 0 : -1}
                           >
                             <ChevronIcon open={nsOpen} />
@@ -175,8 +180,8 @@ export default function StdlibSidebar() {
                             href={nsHref}
                             className={`flex-1 rounded-md px-2 py-1 transition-colors ${
                               nsActive
-                                ? "bg-indigo-500/20 text-indigo-300"
-                                : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
+                                ? "font-bold text-zinc-400"
+                                : "text-zinc-400 hover:text-zinc-100"
                             }`}
                           >
                             {ns.label}
@@ -192,7 +197,7 @@ export default function StdlibSidebar() {
                                 <Link
                                   key={method.slug}
                                   href={mHref}
-                                  className="rounded-md px-2 py-1 font-mono text-xs text-zinc-500 hover:bg-zinc-800 hover:text-zinc-200 transition-colors"
+                                  className="rounded-md px-2 py-1 font-mono text-xs text-zinc-500 hover:text-zinc-200 transition-colors"
                                 >
                                   {method.label}
                                 </Link>
