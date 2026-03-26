@@ -1,60 +1,68 @@
 # File
 
-The `File` namespace provides low-level file system operations: opening, reading, writing, and inspecting files on disk.
+Provide easy file reading
 
 ---
 
-<h2 id="getSize">getSize</h2>
+<H2 id="Header">Header</H2>
+
+<CodeTabs
+  uhc={`#include <uhcio.uhh>`}
+  cpp={`#include <uhcio.hh>`}
+/>
+
+---
+
+<H2 id="getSize">getSize</H2>
 
 Returns the size of a file in bytes.
 
 <CodeTabs
-  uhc={`I32 File.getSize(U8* path);`}
-  cpp={`int getSize(const char* path);`}
+  uhc={`I64 getSize(FILE* file);`}
+  cpp={`int64_t getSize(FILE* file);`}
 />
 
 **Parameters**
-- `path` — absolute or relative path to the file
+- `file` — the file handle
 
 ---
 
-<h2 id="open">open</h2>
+<H2 id="open">open</H2>
 
 Opens a file and returns a file handle. The file must be explicitly closed after use.
 
 <CodeTabs
-  uhc={`FileHandle File.open(U8* path, U8* mode);`}
-  cpp={`FileHandle* open(const char* path, const char* mode);`}
+  uhc={`FILE* open(const I8* filePath);`}
+  cpp={`FILE* open(const char* filePath);`}
 />
 
 **Parameters**
 - `path` — path to the file
-- `mode` — `"r"` (read), `"w"` (write), `"a"` (append)
 
 ---
 
-<h2 id="close">close</h2>
+<H2 id="close">close</H2>
 
-Closes an open file handle and flushes any pending writes.
+Closes and delete a file handle.
 
 <CodeTabs
-  uhc={`U0 File.close(FileHandle handle);`}
-  cpp={`void close(FileHandle* handle);`}
+  uhc={`U0 close(FILE* file);`}
+  cpp={`void close(FILE* file);`}
 />
 
 **Parameters**
-- `handle` — a handle previously returned by `open`
+- `handle` — the file handle
 
 ---
 
-<h2 id="read">read</h2>
+<H2 id="read">read</H2>
 
-Reads the entire contents of an open file handle as a string.
+Reads the entire contents and return a string of it.
 
 <CodeTabs
-  uhc={`U8* File.read(FileHandle handle);`}
-  cpp={`char* read(FileHandle* handle);`}
+  uhc={`I8* read(FILE* file);`}
+  cpp={`char* read(FILE* file);`}
 />
 
 **Parameters**
-- `handle` — a handle previously returned by `open`
+- `handle` — the file handle

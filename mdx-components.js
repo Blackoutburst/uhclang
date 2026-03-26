@@ -1,4 +1,6 @@
 import CodeTabs from "@/components/CodeTabs";
+import Link from "next/link";
+import { AnchorHeading } from "@/components/AnchorHeading";
 
 export function useMDXComponents(components) {
   return {
@@ -33,7 +35,7 @@ export function useMDXComponents(components) {
     li: (props) => <li className="leading-7" {...props} />,
     code: (props) => (
       <code
-        className="font-mono text-sm bg-zinc-800 text-indigo-300 px-1.5 py-0.5 rounded"
+        className="font-mono text-sm bg-zinc-800 text-rose-300 px-1.5 py-0.5 rounded"
         {...props}
       />
     ),
@@ -42,6 +44,28 @@ export function useMDXComponents(components) {
         className="font-mono text-sm bg-zinc-900 border border-zinc-800 rounded-xl p-5 overflow-x-auto mb-6 text-zinc-300"
         {...props}
       />
+    ),
+    a: ({ href, ...props }) => (
+      <Link
+        href={href ?? "#"}
+        className="text-uhc text-rose-800 font-bold underline underline-offset-2 hover:text-uhc-subtle transition-colors"
+        {...props}
+      />
+    ),
+    H1: ({ id, children }) => (
+      <AnchorHeading as="h1" id={id} className="text-3xl font-bold text-rose-800 mb-6 pb-3 border-b border-zinc-800">
+        {children}
+      </AnchorHeading>
+    ),
+    H2: ({ id, children }) => (
+      <AnchorHeading as="h2" id={id} className="text-xl font-semibold text-rose-800 mt-10 mb-3">
+        {children}
+      </AnchorHeading>
+    ),
+    H3: ({ id, children }) => (
+      <AnchorHeading as="h3" id={id} className="text-base font-semibold text-zinc-200 mt-6 mb-2">
+        {children}
+      </AnchorHeading>
     ),
     strong: (props) => <strong className="text-zinc-200 font-semibold" {...props} />,
     hr: () => <hr className="border-zinc-800 my-8" />,

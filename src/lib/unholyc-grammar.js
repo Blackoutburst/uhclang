@@ -19,8 +19,10 @@ export const unholycGrammar = {
     { include: "#screaming-snake" },
     { include: "#dot-type" },
     { include: "#underscore-t" },
+    { include: "#pointer" },
     { include: "#operator" },
     { include: "#keyword" },
+    { include: "#pascal-case" },
   ],
   repository: {
     comment: {
@@ -146,9 +148,16 @@ export const unholycGrammar = {
       name: "storage.type.uhc",
     },
 
+    // * as pointer declarator / dereference — same scope as C++ so it inherits
+    // the storage.modifier purple from the theme
+    pointer: {
+      name: "storage.modifier.pointer.uhc",
+      match: "\\*",
+    },
+
     operator: {
       name: "keyword.operator.uhc",
-      match: "::|[+\\-*/^%=<>!~|&?:.\\[\\]({}),;]",
+      match: "::|[+\\-/^%=<>!~|&?:.\\[\\]{},;]",
     },
 
     keyword: {

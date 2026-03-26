@@ -3,8 +3,8 @@
 import { useCodeTabs } from "./CodeTabsContext";
 
 const TABS = [
-  { key: "uhc", label: "UnholyC" },
-  { key: "cpp", label: "C++" },
+  { key: "uhc", label: "/uhc.png" },
+  { key: "cpp", label: "/cpp.png" },
 ];
 
 export default function CodeTabsClient({ uhcHtml, cppHtml }) {
@@ -12,7 +12,6 @@ export default function CodeTabsClient({ uhcHtml, cppHtml }) {
 
   return (
     <div className="my-6 rounded-xl overflow-hidden border border-zinc-800">
-      {/* Tab bar */}
       <div className="flex items-center gap-1 px-3 py-2 bg-zinc-900 border-b border-zinc-800">
         {TABS.map((tab) => (
           <button
@@ -24,12 +23,11 @@ export default function CodeTabsClient({ uhcHtml, cppHtml }) {
                 : "text-zinc-500 hover:text-zinc-300"
             }`}
           >
-            {tab.label}
+            <img width={20} height={20} src={tab.label}/>
           </button>
         ))}
       </div>
 
-      {/* Code panels */}
       <div
         className="[&>pre]:!m-0 [&>pre]:!rounded-none [&>pre]:!border-0 [&>pre]:p-5 [&>pre]:overflow-x-auto [&>pre]:text-sm"
         dangerouslySetInnerHTML={{

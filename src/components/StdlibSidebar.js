@@ -65,11 +65,8 @@ export default function StdlibSidebar() {
 
   const tree = useMemo(() => filterTree(stdlibNav, query), [query]);
 
-  // Track open items as a Set of slug keys.
-  // Self-contained toggle functions avoid stale closure bugs.
   const [openItems, setOpenItems] = useState(new Set());
 
-  // Auto-open items that match the current path.
   useEffect(() => {
     const parts = pathname.replace("/stdlib", "").split("/").filter(Boolean);
     if (parts.length === 0) return;
@@ -97,11 +94,10 @@ export default function StdlibSidebar() {
 
   return (
     <aside className="flex flex-col h-full w-60 min-w-[15rem] border-r border-zinc-800 bg-[#1a1c1e]">
-      {/* Logo */}
       <div className="flex flex-col items-center gap-2 px-5 py-5">
         <Link href="/" className="cursor-pointer text-2xl font-bold tracking-tight text-white">
               <img
-                src="/logo.png"
+                src="/uhc.png"
                 width={128}
                 height={128}
                 alt="UnholyC logo"
@@ -110,7 +106,6 @@ export default function StdlibSidebar() {
         <p className="text-xl font-bold text-rose-800 mt-0.5">Standard Library</p>
       </div>
 
-      {/* Search */}
       <div className="px-3 py-3 border-b border-zinc-800 shrink-0">
         <input
           type="text"
@@ -121,7 +116,6 @@ export default function StdlibSidebar() {
         />
       </div>
 
-      {/* Tree */}
       <nav className="flex-1 overflow-y-auto px-2 py-3 text-sm">
         {tree.length === 0 && (
           <p className="text-base text-zinc-300 px-2 py-2">No results.</p>
@@ -135,7 +129,6 @@ export default function StdlibSidebar() {
 
           return (
             <div key={section.slug} className="mb-0.5">
-              {/* Section row */}
               <div className="flex items-center gap-1 cursor-pointer">
                 {section.namespaces.length > 0 && <button
                   onClick={() => toggle(sectionKey)}
@@ -155,7 +148,6 @@ export default function StdlibSidebar() {
                 </Link>
               </div>
 
-              {/* Namespaces */}
               {sectionOpen && (
                 <div className="ml-5 mt-0.5">
                   {section.namespaces.map((ns) => {
@@ -167,7 +159,6 @@ export default function StdlibSidebar() {
 
                     return (
                       <div key={ns.slug} className="mb-0.5">
-                        {/* Namespace row */}
                         <div className="flex items-center gap-1">
                           <button
                             onClick={() => toggle(nsKey)}
@@ -188,7 +179,6 @@ export default function StdlibSidebar() {
                           </Link>
                         </div>
 
-                        {/* Methods */}
                         {hasMethods && nsOpen && (
                           <div className="ml-5 mt-0.5 flex flex-col gap-0.5">
                             {ns.methods.map((method) => {

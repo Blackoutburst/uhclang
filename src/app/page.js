@@ -4,7 +4,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans">
       <main className="max-w-5xl mx-auto px-6 py-24 flex flex-col items-center gap-20">
-        {/* Logo / Hero */}
         <section className="flex flex-col items-center gap-4 text-center">
           <h1 className="text-6xl font-bold tracking-tight text-white">
             uhc<span className="text-indigo-400">lang</span>
@@ -14,7 +13,6 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Three blocks */}
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full">
           <FeatureBlock
             title="Language"
