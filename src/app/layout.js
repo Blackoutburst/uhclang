@@ -18,7 +18,14 @@ export const metadata = {
   openGraph: {
     title: "UnholyC",
     description: "C++ & HolyC unwanted child",
-    images: [{ url: "/uhc.png", width: 512, height: 512 }],
+    images: [
+      {
+        url: "/uhc.png",
+        width: 512,
+        height: 512,
+        alt: "UnholyC Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary",
