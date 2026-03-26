@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://unholyc.dev"),
+  metadataBase: new URL("https://www.uhclang.org/"),
   title: "UnholyC",
   description: "C++ & HolyC unwanted child",
   openGraph: {
@@ -26,11 +26,9 @@ export const metadata = {
     description: "C++ & HolyC unwanted child",
     images: ["/uhc.png"],
   },
-};
-
-// theme-color is read by Discord for the embed's left-border accent colour
-export const viewport = {
-  themeColor: "#4d0218",
+  other: {
+    "theme-color": "#4d0218",
+  },
 };
 
 export default function RootLayout({ children }) {
