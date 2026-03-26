@@ -12,8 +12,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://unholyc.dev"),
   title: "UnholyC",
   description: "C++ & HolyC unwanted child",
+  openGraph: {
+    title: "UnholyC",
+    description: "C++ & HolyC unwanted child",
+    images: [{ url: "/uhc.png" }],
+  },
+  twitter: {
+    card: "summary",
+    title: "UnholyC",
+    description: "C++ & HolyC unwanted child",
+    images: ["/uhc.png"],
+  },
 };
 
 export default function RootLayout({ children }) {
