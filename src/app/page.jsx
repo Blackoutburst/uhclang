@@ -21,6 +21,14 @@ export default function Home() {
             UnholyC is a custom dialect transpiled to C++ which mean it has
             perfect interop with C and C++
           </p>
+           <Link target="_blank" rel="noopener noreferrer" href="https://github.com/Blackoutburst/unholyc" className="cursor-pointer text-2xl font-bold tracking-tight text-white">
+              <img
+                src="/github.svg"
+                width={64}
+                height={64}
+                alt="GitHub logo"
+              />
+        </Link>
         </section>
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
