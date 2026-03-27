@@ -1,3 +1,85 @@
 # Mutex
 
 Mutex helper
+
+<H2 id="It">It</H2>
+
+Mutex object
+
+<CodeTabs
+  uhc={`#if defined(_WIN32) || defined(_WIN64)
+    struct It {
+      CRITICAL_SECTION handle;
+    };
+  #else
+    struct It {
+      pthread_mutex_t handle;
+    };
+  #endif
+  `}
+  cpp={`#if defined(_WIN32) || defined(_WIN64)
+    struct It {
+      CRITICAL_SECTION handle;
+    };
+  #else
+    struct It {
+      pthread_mutex_t handle;
+    };
+  #endif
+  `}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Create a new mutex
+
+<CodeTabs
+  uhc={`Mutex.It create();`}
+  cpp={`Mutex::It create();`}
+/>
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a mutex
+
+<CodeTabs
+  uhc={`U0 destroy(Mutex.It& mutex);`}
+  cpp={`void destroy(Mutex::It& mutex);`}
+/>
+
+**Parameters**
+- `mutex` — The mutex
+
+---
+
+<H2 id="lock">lock</H2>
+
+Lock a mutex
+
+<CodeTabs
+  uhc={`U0 lock(Mutex.It& mutex);`}
+  cpp={`void lock(Mutex::It& mutex);`}
+/>
+
+**Parameters**
+- `mutex` — The mutex
+
+---
+
+<H2 id="unlock">unlock</H2>
+
+Unlock a mutex
+
+<CodeTabs
+  uhc={`U0 unlock(Mutex.It& mutex);`}
+  cpp={`void unlock(Mutex::It& mutex);`}
+/>
+
+**Parameters**
+- `mutex` — The mutex
+
+---

@@ -1,3 +1,166 @@
 # List
 
 Simple list
+
+<H2 id="It">It</H2>
+
+List object
+
+<CodeTabs
+  uhc={`struct It {
+    std::list<T> handle;
+  };
+  `}
+  cpp={`struct It {
+    std::list<T> handle;
+  };
+  `}
+/>
+
+---
+
+<H2 id="add">add</H2>
+
+Add an element at the end of the list
+
+<CodeTabs
+  uhc={`U0 add(List.It<T>& list, T value);`}
+  cpp={`void add(List::It<T>& list, T value);`}
+/>
+
+**Parameters**
+- `list` — The list
+- `value` — Value
+
+---
+
+<H2 id="addAt">addAt</H2>
+
+Add an element at a specific index
+
+<CodeTabs
+  uhc={`U0 addAt(List.It<T>& list, T value, I32 index);`}
+  cpp={`void addAt(List::It<T>& list, T value, int32_t index);`}
+/>
+
+**Parameters**
+- `list` — The list
+- `value` — Value
+- `index` — The index at which the element should be added
+
+---
+
+<H2 id="remove">remove</H2>
+
+Remove the first matching elemnt from a list
+
+<CodeTabs
+  uhc={`U8 remove(List.It<T>& list, T value);`}
+  cpp={`unsigned char remove(List::It<T>& list, T value);`}
+/>
+
+**Parameters**
+- `list` — The list
+- `value` — Value
+
+---
+
+<H2 id="removeAt">removeAt</H2>
+
+Remove an element at a specific index
+
+<CodeTabs
+  uhc={`U0 removeAt(List.It<T>& list, I32 index);`}
+  cpp={`void removeAt(List::It<T>& list, int32_t index);`}
+/>
+
+**Parameters**
+- `list` — The list
+- `index` — The index at which the element should be removed
+
+---
+
+<H2 id="get">get</H2>
+
+Get an element at a specific index
+
+<CodeTabs
+  uhc={`T* get(List.It<T>& list, I32 index);`}
+  cpp={`T* get(List::It<T>& list, int32_t index);`}
+/>
+
+**Parameters**
+- `list` — The list
+- `index` — The element index
+
+---
+
+<H2 id="set">set</H2>
+
+Set the value of an element at a specific index
+
+<CodeTabs
+  uhc={`U0 set(List.It<T>& list, I32 index, T value);`}
+  cpp={`void set(List::It<T>& list, int32_t index, T value);`}
+/>
+
+**Parameters**
+- `list` — The list
+- `value` — Value
+- `index` — The index of the element
+
+---
+
+<H2 id="first">first</H2>
+
+Return the first element of the list
+
+<CodeTabs
+  uhc={`T* first(List.It<T>& list);`}
+  cpp={`T* first(List::It<T>& list);`}
+/>
+
+**Parameters**
+- `list` — The list
+
+---
+
+<H2 id="last">last</H2>
+
+Return the last element of the list
+
+<CodeTabs
+  uhc={`T* last(List.It<T>& list);`}
+  cpp={`T* last(List::It<T>& list);`}
+/>
+
+**Parameters**
+- `list` — The list
+
+---
+
+<H2 id="size">size</H2>
+
+Return the list size
+
+<CodeTabs
+  uhc={`U64 size(List.It<T>& list);`}
+  cpp={`uint64_t size(List::It<T>& list);`}
+/>
+
+**Parameters**
+- `list` — The list
+
+---
+
+<H2 id="clear">clear</H2>
+
+Clear the list
+
+<CodeTabs
+  uhc={`U0 clear(List.It<T>& list);`}
+  cpp={`void clear(List.It<T>& list);`}
+/>
+
+**Parameters**
+- `list` — The list

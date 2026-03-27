@@ -1,3 +1,69 @@
 # Thread
 
 Thread helper
+
+<H2 id="Fn">Fn</H2>
+
+Thread function
+
+<CodeTabs
+  uhc={`typedef U0* (*Fn)(U0*);`}
+  cpp={`typedef void* (*Fn)(void*);`}
+/>
+
+
+<H2 id="It">It</H2>
+
+Thread object
+
+<CodeTabs
+  uhc={`#if defined(_WIN32) || defined(_WIN64)
+    struct It {
+      HANDLE handle;
+    };
+  #else
+    struct It {
+      pthread_t handle;
+    };
+  #endif
+  `}
+  cpp={`#if defined(_WIN32) || defined(_WIN64)
+    struct It {
+      HANDLE handle;
+    };
+  #else
+    struct It {
+      pthread_t handle;
+    };
+  #endif
+  `}
+/>
+
+---
+
+<H2 id="start">start</H2>
+
+Start a new thread
+
+<CodeTabs
+  uhc={`Thread.It start(Thread.Fn method, U0* arg);`}
+  cpp={`Thread::It start(Thread::Fn method, void* arg);`}
+/>
+
+**Parameters**
+- `method` — The thread function
+- `arg` — Thread function arguments
+
+---
+
+<H2 id="join">join</H2>
+
+Join a thread
+
+<CodeTabs
+  uhc={`U0 join(Thread.It& thread);`}
+  cpp={`void join(Thread::It& thread);`}
+/>
+
+**Parameters**
+- `thread` — The thread
