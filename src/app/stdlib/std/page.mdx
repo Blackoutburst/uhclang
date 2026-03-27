@@ -107,7 +107,7 @@ Various utilities such as mutex, thread, ...
   }
 
   namespace Thread {
-    typedef void* (*Fn)(void*);
+    typedef U0* (*Fn)(U0*);
 
     #if defined(_WIN32) || defined(_WIN64)
       struct It {
@@ -119,7 +119,7 @@ Various utilities such as mutex, thread, ...
       };
     #endif
 
-    Thread.It start(Thread.Fn method, void* arg);
+    Thread.It start(Thread.Fn method, U0* arg);
     U0 join(Thread.It& thread);
   }
   `}
