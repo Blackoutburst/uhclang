@@ -1,3 +1,323 @@
 # Buffer
 
 Buffer utilities
+
+<H2 id="It">It</H2>
+
+Buffer object
+
+<CodeTabs
+  uhc={`struct It {
+    U0* handle;
+    U8 order;
+    U32 cursor;
+  };
+  `}
+  cpp={`struct It {
+    void* handle;
+    unsigned char order;
+    uint32_t cursor;
+  };
+  `}
+/>
+
+---
+
+<H2 id="UHC_LITTLE_ENDIAN">UHC_LITTLE_ENDIAN</H2>
+
+Buffer little endian order
+
+<CodeTabs
+  uhc={`#define UHC_LITTLE_ENDIAN 0`}
+  cpp={`#define UHC_LITTLE_ENDIAN 0`}
+/>
+
+---
+
+<H2 id="UHC_BIG_ENDIAN">UHC_BIG_ENDIAN</H2>
+
+Buffer big endian order
+
+<CodeTabs
+  uhc={`#define UHC_BIG_ENDIAN 1`}
+  cpp={`#define UHC_BIG_ENDIAN 1`}
+/>
+
+---
+
+<H2 id="setOrder">setOrder</H2>
+
+Set buffer byte order
+
+<CodeTabs
+  uhc={`U0 setOrder(Buffer.It& buffer, U8 order);`}
+  cpp={`void setOrder(Buffer::It& buffer, unsigned char order);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `order` — The byte order use UHC_BIG_ENDIAN or UHC_LITTLE_ENDIAN
+
+---
+
+<H2 id="reset">reset</H2>
+
+Reset the buffer cursor
+
+<CodeTabs
+  uhc={`U0 reset(Buffer.It& buffer);`}
+  cpp={`void reset(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getI8">getI8</H2>
+
+<CodeTabs
+  uhc={`I8 getI8(Buffer.It& buffer);`}
+  cpp={`char getI8(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getU8">getU8</H2>
+
+<CodeTabs
+  uhc={`U8 getU8(Buffer.It& buffer);`}
+  cpp={`unsigned char getU8(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getI16">getI16</H2>
+
+<CodeTabs
+  uhc={`I16 getI16(Buffer.It& buffer);`}
+  cpp={`int16_t getI16(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getU16">getU16</H2>
+
+<CodeTabs
+  uhc={`U16 getU16(Buffer.It& buffer);`}
+  cpp={`uint16_t getU16(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getI32">getI32</H2>
+
+<CodeTabs
+  uhc={`I32 getI32(Buffer.It& buffer);`}
+  cpp={`int32_t getI32(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getU32">getU32</H2>
+
+<CodeTabs
+  uhc={`U32 getU32(Buffer.It& buffer);`}
+  cpp={`uint32_t getU32(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getI64">getI64</H2>
+
+<CodeTabs
+  uhc={`I64 getI64(Buffer.It& buffer);`}
+  cpp={`int64_t getI64(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getU64">getU64</H2>
+
+<CodeTabs
+  uhc={`U64 getU64(Buffer.It& buffer);`}
+  cpp={`uint64_t getU64(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getF32">getF32</H2>
+
+<CodeTabs
+  uhc={`F32 getF32(Buffer.It& buffer);`}
+  cpp={`float getF32(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getF64">getF64</H2>
+
+<CodeTabs
+  uhc={`F64 getF64(Buffer.It& buffer);`}
+  cpp={`double getF64(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="putI8">putI8</H2>
+
+<CodeTabs
+  uhc={`U0 putI8(Buffer.It& buffer, I8 value);`}
+  cpp={`void putI8(Buffer::It& buffer, char value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putU8">putU8</H2>
+
+<CodeTabs
+  uhc={`U0 putU8(Buffer.It& buffer, U8 value);`}
+  cpp={`void putU8(Buffer::It& buffer, unsigned char value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putI16">putI16</H2>
+
+<CodeTabs
+  uhc={`U0 putI16(Buffer.It& buffer, I16 value);`}
+  cpp={`void putI16(Buffer::It& buffer, int16_t value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putU16">putU16</H2>
+
+<CodeTabs
+  uhc={`U0 putU16(Buffer.It& buffer, U16 value);`}
+  cpp={`void putU16(Buffer::It& buffer, uint16_t value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putI32">putI32</H2>
+
+<CodeTabs
+  uhc={`U0 putI32(Buffer.It& buffer, I32 value);`}
+  cpp={`void putI32(Buffer::It& buffer, int32_t value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putU32">putU32</H2>
+
+<CodeTabs
+  uhc={`U0 putU32(Buffer.It& buffer, U32 value);`}
+  cpp={`void putU32(Buffer::It& buffer, uint32_t value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putI64">putI64</H2>
+
+<CodeTabs
+  uhc={`U0 putI64(Buffer.It& buffer, I64 value);`}
+  cpp={`void putI64(Buffer::It& buffer, int64_t value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putU64">putU64</H2>
+
+<CodeTabs
+  uhc={`U0 putU64(Buffer.It& buffer, U64 value);`}
+  cpp={`void putU64(Buffer::It& buffer, uint64_t value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putF32">putF32</H2>
+
+<CodeTabs
+  uhc={`U0 putF32(Buffer.It& buffer, F32 value);`}
+  cpp={`void putF32(Buffer::It& buffer, float value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
+
+---
+
+<H2 id="putF64">putF64</H2>
+
+<CodeTabs
+  uhc={`U0 putF64(Buffer.It& buffer, F64 value);`}
+  cpp={`void putF64(Buffer::It& buffer, double value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value insterted in the buffer
