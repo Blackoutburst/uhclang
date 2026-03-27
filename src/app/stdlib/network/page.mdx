@@ -1,0 +1,106 @@
+# Network
+
+TCP networking
+
+- [TCP client](/stdlib/network/tcpclient) — TCP client
+- [TCP server](/stdlib/network/tcpserver) — TCP server
+
+<H2 id="Header">Header</H2>
+
+<CodeTabs
+  uhc={`#include <uhcnet.uhh>`}
+  cpp={`#include <uhcnet.hh>`}
+/>
+
+<H2 id="Header">Cheat sheet</H2>
+
+<CodeTabs
+  uhc={`namespace TcpClient {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        SOCKET sockfd;
+        HANDLE thread;
+      };
+    #else
+      struct It {
+        I32 sockfd;
+        pthread_t thread;
+      };
+    #endif
+    
+      TcpClient.It create(I8* ip, I16 port);
+      U0 destroy(TcpClient.It& client);
+      U8 write(TcpClient.It& client, I8* buffer, U32 size);
+      U8 read(TcpClient.It& client, I8* buffer, U32 size);
+      U8 readAll(TcpClient.It& client, I8* buffer, U32 size);
+    }
+
+  namespace TcpServer {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        SOCKET sockfd;
+        U8 running;
+        U16 slots;
+      };
+    #else
+      struct It {
+        I32 sockfd;
+        U8 running;
+        U16 slots;
+      };
+    #endif
+
+    TcpServer.It create(I16 port, U16 slots);
+    U0 destroy(TcpServer.It& server);
+    U0 listen(TcpServer.It& server, U0 (*callback)(TcpClient.It*));
+    U8 write(TcpClient.It& client, I8* buffer, U32 size);
+    U8 read(TcpClient.It& client, I8* buffer, U32 size);
+    U8 readAll(TcpClient.It& client, I8* buffer, U32 size);
+    U0 broadcast(List.It<TcpClient.It> clients, I8* buffer, U32 size);
+  }
+  `}
+  cpp={`namespace TcpClient {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        SOCKET sockfd;
+        HANDLE thread;
+      };
+    #else
+      struct It {
+        int32_t sockfd;
+        pthread_t thread;
+      };
+    #endif
+    
+      TcpClient::It create(char* ip, int16_t port);
+      void destroy(TcpClient::It& client);
+      unsigned char write(TcpClient::It& client, char* buffer, uint32_t size);
+      unsigned char read(TcpClient::It& client, char* buffer, uint32_t size);
+      unsigned char readAll(TcpClient::It& client, char* buffer, uint32_t size);
+    }
+
+  namespace TcpServer {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        SOCKET sockfd;
+        unsigned char running;
+        uint16_t slots;
+      };
+    #else
+      struct It {
+        int32_t sockfd;
+        unsigned char running;
+        uint16_t slots;
+      };
+    #endif
+
+    TcpServer::It create(int16_t port, uint16_t slots);
+    void destroy(TcpServer::It& server);
+    void listen(TcpServer::It& server, void (*callback)(TcpClient::It*));
+    unsigned char write(TcpClient::It& client, char* buffer, uint32_t size);
+    unsigned char read(TcpClient::It& client, char* buffer, uint32_t size);
+    unsigned char readAll(TcpClient::It& client, char* buffer, uint32_t size);
+    void broadcast(List::It<TcpClient::It> clients, char* buffer, uint32_t size);
+  }
+  `}
+/>

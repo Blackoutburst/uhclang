@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source not "./stdlib/network/tcpserver";
+@source not "./stdlib/network/tcpclient";
 
 /* ── Raw values (swap these for dark mode or rebranding) ────────────────── */
 :root {
