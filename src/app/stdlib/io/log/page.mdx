@@ -1,0 +1,125 @@
+# Log
+
+Easy file reading
+
+---
+
+<H2 id="Level">Level</H2>
+
+Log level enum
+
+<CodeTabs
+  uhc={`
+    enum Level {
+      UHC_LOG_TRACE,
+      UHC_LOG_DEBUG,
+      UHC_LOG_INFO,
+      UHC_LOG_WARN,
+      UHC_LOG_ERROR,
+    };
+  `}
+  cpp={`
+    enum Level {
+      UHC_LOG_TRACE,
+      UHC_LOG_DEBUG,
+      UHC_LOG_INFO,
+      UHC_LOG_WARN,
+      UHC_LOG_ERROR,
+    };
+  `}
+/>
+---
+
+<H2 id="trace">trace</H2>
+
+Log message as trace
+
+<CodeTabs
+  uhc={`U0 trace(const I8* fmt, ...);`}
+  cpp={`void trace(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — A string using printf format
+- `...` — Vararg corresponding to the string format
+
+---
+
+---
+
+<H2 id="debug">debug</H2>
+
+Log message as debug
+
+<CodeTabs
+  uhc={`U0 debug(const I8* fmt, ...);`}
+  cpp={`void debug(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — A string using printf format
+- `...` — Vararg corresponding to the string format
+
+---
+
+<H2 id="info">info</H2>
+
+Log message as info
+
+<CodeTabs
+  uhc={`U0 info(const I8* fmt, ...);`}
+  cpp={`void info(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — A string using printf format
+- `...` — Vararg corresponding to the string format
+
+---
+
+<H2 id="warn">warn</H2>
+
+Log message as warn
+
+<CodeTabs
+  uhc={`U0 warn(const I8* fmt, ...);`}
+  cpp={`void warn(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — A string using printf format
+- `...` — Vararg corresponding to the string format
+
+---
+
+<H2 id="error">error</H2>
+
+Log message as error
+
+<CodeTabs
+  uhc={`U0 error(const I8* fmt, ...);`}
+  cpp={`void error(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — A string using printf format
+- `...` — Vararg corresponding to the string format
+
+---
+
+
+<H2 id="msg">msg</H2>
+
+Log message
+
+<CodeTabs
+  uhc={`U0 msg(const I8* fmt, ...);`}
+  cpp={`void msg(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — A string using printf format
+- `...` — Vararg corresponding to the string format
+
+---
+
