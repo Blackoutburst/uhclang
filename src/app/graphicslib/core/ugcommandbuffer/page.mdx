@@ -1,0 +1,75 @@
+# UgCommandBuffer
+
+Command buffer recording and submission wrapper.
+
+<H2 id="It">It</H2>
+
+Command buffer object.
+
+<CodeTabs
+  uhc={`struct It {
+    VkCommandBuffer handle;
+  };`}
+  cpp={`struct It {
+    VkCommandBuffer handle;
+  };`}
+/>
+
+---
+
+<H2 id="begin">begin</H2>
+
+Begin recording commands into the command buffer.
+
+<CodeTabs
+  uhc={`U0 begin(UgCommandBuffer.It& cmd);`}
+  cpp={`void begin(UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `cmd` — The command buffer to begin
+
+---
+
+<H2 id="end">end</H2>
+
+End command buffer recording.
+
+<CodeTabs
+  uhc={`U0 end(UgCommandBuffer.It& cmd);`}
+  cpp={`void end(UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `cmd` — The command buffer to end
+
+---
+
+<H2 id="create">create</H2>
+
+Allocate a new command buffer from the context's command pool.
+
+<CodeTabs
+  uhc={`UgCommandBuffer.It create(UgContext.It& ctx);`}
+  cpp={`UgCommandBuffer::It create(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+
+**Returns** — Allocated command buffer
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Free the command buffer back to the pool.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgCommandBuffer.It& cmd);`}
+  cpp={`void destroy(UgContext::It& ctx, UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `cmd` — The command buffer to free

@@ -1,0 +1,70 @@
+# UgShaderProgram
+
+Paired vertex and fragment shader program.
+
+<H2 id="It">It</H2>
+
+Shader program object holding a vertex and fragment shader.
+
+<CodeTabs
+  uhc={`struct It {
+    VkPipelineShaderStageCreateInfo handle[2];
+    VkShaderModule vertexShader;
+    VkShaderModule fragmentShader;
+  };`}
+  cpp={`struct It {
+    VkPipelineShaderStageCreateInfo handle[2];
+    VkShaderModule vertexShader;
+    VkShaderModule fragmentShader;
+  };`}
+/>
+
+---
+
+<H2 id="createShaderInfo">createShaderInfo</H2>
+
+Build a pipeline shader stage create-info for a given stage and module.
+
+<CodeTabs
+  uhc={`VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);`}
+  cpp={`VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);`}
+/>
+
+**Parameters**
+- `stage` — The shader stage (e.g. `VK_SHADER_STAGE_VERTEX_BIT`)
+- `shader` — The shader module
+
+**Returns** — Stage create-info struct
+
+---
+
+<H2 id="create">create</H2>
+
+Create a shader program from vertex and fragment SPIR-V files.
+
+<CodeTabs
+  uhc={`UgShaderProgram.It create(UgContext.It& ctx, const I8* vertexSource, const I8* fragmentSource);`}
+  cpp={`UgShaderProgram::It create(UgContext::It& ctx, const char* vertexSource, const char* fragmentSource);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `vertexSource` — Path to the compiled vertex `.spv` file
+- `fragmentSource` — Path to the compiled fragment `.spv` file
+
+**Returns** — Initialized shader program
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy both shader modules in the program.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgShaderProgram.It& shaderProgram);`}
+  cpp={`void destroy(UgContext::It& ctx, UgShaderProgram::It& shaderProgram);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `shaderProgram` — The shader program to destroy

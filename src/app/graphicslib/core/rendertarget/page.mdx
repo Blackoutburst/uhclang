@@ -1,0 +1,101 @@
+# RenderTarget
+
+Off-screen render target backed by a texture.
+
+<H2 id="It">It</H2>
+
+Render target object.
+
+<CodeTabs
+  uhc={`struct It {
+    VkRenderPass renderPass;
+    VkFramebuffer framebuffer;
+    UgTexture.It texture;
+    U32 width;
+    U32 height;
+  };`}
+  cpp={`struct It {
+    VkRenderPass renderPass;
+    VkFramebuffer framebuffer;
+    UgTexture::It texture;
+    uint32_t width;
+    uint32_t height;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Create an off-screen render target of the given dimensions.
+
+<CodeTabs
+  uhc={`UgRenderTarget.It create(UgContext.It& ctx, U32 width, U32 height);`}
+  cpp={`UgRenderTarget::It create(UgContext::It& ctx, uint32_t width, uint32_t height);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `width` — Width in pixels
+- `height` — Height in pixels
+
+**Returns** — Initialized render target
+
+---
+
+<H2 id="begin">begin</H2>
+
+Begin rendering into the render target.
+
+<CodeTabs
+  uhc={`U0 begin(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);`}
+  cpp={`void begin(UgRenderTarget::It& rt, UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `rt` — The render target
+- `cmd` — The active command buffer
+
+---
+
+<H2 id="end">end</H2>
+
+End rendering into the render target.
+
+<CodeTabs
+  uhc={`U0 end(UgCommandBuffer.It& cmd);`}
+  cpp={`void end(UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `cmd` — The active command buffer
+
+---
+
+<H2 id="setViewport">setViewport</H2>
+
+Set the dynamic viewport and scissor to the render target dimensions.
+
+<CodeTabs
+  uhc={`U0 setViewport(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);`}
+  cpp={`void setViewport(UgRenderTarget::It& rt, UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `rt` — The render target
+- `cmd` — The active command buffer
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the render target and all its resources.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgRenderTarget.It& rt);`}
+  cpp={`void destroy(UgContext::It& ctx, UgRenderTarget::It& rt);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `rt` — The render target to destroy

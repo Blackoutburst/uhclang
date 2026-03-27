@@ -1,0 +1,189 @@
+# UgPipeline
+
+Graphics pipeline creation and state building helpers.
+
+<H2 id="createDynamicState">createDynamicState</H2>
+
+Create a dynamic state create-info with viewport and scissor set as dynamic.
+
+<CodeTabs
+  uhc={`VkPipelineDynamicStateCreateInfo createDynamicState();`}
+  cpp={`VkPipelineDynamicStateCreateInfo createDynamicState();`}
+/>
+
+**Returns** — Dynamic state create-info struct
+
+---
+
+<H2 id="createInputAssembly">createInputAssembly</H2>
+
+Create a triangle-list input assembly state.
+
+<CodeTabs
+  uhc={`VkPipelineInputAssemblyStateCreateInfo createInputAssembly();`}
+  cpp={`VkPipelineInputAssemblyStateCreateInfo createInputAssembly();`}
+/>
+
+**Returns** — Input assembly create-info struct
+
+---
+
+<H2 id="createViewport">createViewport</H2>
+
+Create a viewport matching the swapchain extent.
+
+<CodeTabs
+  uhc={`VkViewport createViewport(UgContext.It& ctx, UgSwapchain.It& swapchain);`}
+  cpp={`VkViewport createViewport(UgContext::It& ctx, UgSwapchain::It& swapchain);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `swapchain` — The swapchain to derive the size from
+
+**Returns** — Viewport struct
+
+---
+
+<H2 id="createScissor">createScissor</H2>
+
+Create a scissor rectangle matching the swapchain extent.
+
+<CodeTabs
+  uhc={`VkRect2D createScissor(UgContext.It& ctx, UgSwapchain.It& swapchain);`}
+  cpp={`VkRect2D createScissor(UgContext::It& ctx, UgSwapchain::It& swapchain);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `swapchain` — The swapchain to derive the size from
+
+**Returns** — Scissor rect
+
+---
+
+<H2 id="createViewportState">createViewportState</H2>
+
+Combine a viewport and scissor into a viewport state.
+
+<CodeTabs
+  uhc={`VkPipelineViewportStateCreateInfo createViewportState(VkViewport* viewport, VkRect2D* scissor);`}
+  cpp={`VkPipelineViewportStateCreateInfo createViewportState(VkViewport* viewport, VkRect2D* scissor);`}
+/>
+
+**Parameters**
+- `viewport` — Pointer to the viewport
+- `scissor` — Pointer to the scissor rect
+
+**Returns** — Viewport state create-info
+
+---
+
+<H2 id="createRasterizerState">createRasterizerState</H2>
+
+Create a rasterizer state from vertex settings.
+
+<CodeTabs
+  uhc={`VkPipelineRasterizationStateCreateInfo createRasterizerState(const UgVertexSettings.It& settings);`}
+  cpp={`VkPipelineRasterizationStateCreateInfo createRasterizerState(const UgVertexSettings::It& settings);`}
+/>
+
+**Parameters**
+- `settings` — Vertex settings controlling polygon mode, cull mode, etc.
+
+**Returns** — Rasterization state create-info
+
+---
+
+<H2 id="createMultisamplingState">createMultisamplingState</H2>
+
+Create a multisampling state (1x, no MSAA).
+
+<CodeTabs
+  uhc={`VkPipelineMultisampleStateCreateInfo createMultisamplingState();`}
+  cpp={`VkPipelineMultisampleStateCreateInfo createMultisamplingState();`}
+/>
+
+**Returns** — Multisample state create-info
+
+---
+
+<H2 id="createColorBlendAttachmentState">createColorBlendAttachmentState</H2>
+
+Create a color blend attachment state from vertex settings.
+
+<CodeTabs
+  uhc={`VkPipelineColorBlendAttachmentState createColorBlendAttachmentState(const UgVertexSettings.It& settings);`}
+  cpp={`VkPipelineColorBlendAttachmentState createColorBlendAttachmentState(const UgVertexSettings::It& settings);`}
+/>
+
+**Parameters**
+- `settings` — Vertex settings controlling blend factors and operations
+
+**Returns** — Color blend attachment state
+
+---
+
+<H2 id="createColorBlendState">createColorBlendState</H2>
+
+Create a color blend state from a blend attachment.
+
+<CodeTabs
+  uhc={`VkPipelineColorBlendStateCreateInfo createColorBlendState(VkPipelineColorBlendAttachmentState* colorBlendAttachment);`}
+  cpp={`VkPipelineColorBlendStateCreateInfo createColorBlendState(VkPipelineColorBlendAttachmentState* colorBlendAttachment);`}
+/>
+
+**Parameters**
+- `colorBlendAttachment` — Pointer to the attachment blend state
+
+**Returns** — Color blend state create-info
+
+---
+
+<H2 id="createDepthStencil">createDepthStencil</H2>
+
+Create a depth/stencil state with depth testing enabled.
+
+<CodeTabs
+  uhc={`VkPipelineDepthStencilStateCreateInfo createDepthStencil();`}
+  cpp={`VkPipelineDepthStencilStateCreateInfo createDepthStencil();`}
+/>
+
+**Returns** — Depth/stencil state create-info
+
+---
+
+<H2 id="create">create</H2>
+
+Create a complete graphics pipeline.
+
+<CodeTabs
+  uhc={`VkPipeline create(UgContext.It& ctx, VkPipelineLayout layout, UgSwapchain.It& swapchain, UgShaderProgram.It& shaderProgram, VkRenderPass renderPass, VkPipelineVertexInputStateCreateInfo* vertexInput, const UgVertexSettings.It& settings);`}
+  cpp={`VkPipeline create(UgContext::It& ctx, VkPipelineLayout layout, UgSwapchain::It& swapchain, UgShaderProgram::It& shaderProgram, VkRenderPass renderPass, VkPipelineVertexInputStateCreateInfo* vertexInput, const UgVertexSettings::It& settings);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `layout` — The pipeline layout
+- `swapchain` — The swapchain (for viewport/scissor size)
+- `shaderProgram` — The vertex and fragment shaders
+- `renderPass` — The compatible render pass
+- `vertexInput` — Vertex input binding and attribute descriptions
+- `settings` — Rasterizer, blend, and depth settings
+
+**Returns** — Created `VkPipeline`
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a graphics pipeline.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, VkPipeline graphicsPipeline);`}
+  cpp={`void destroy(UgContext::It& ctx, VkPipeline graphicsPipeline);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `graphicsPipeline` — The pipeline to destroy

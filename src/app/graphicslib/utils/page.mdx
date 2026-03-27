@@ -1,0 +1,27 @@
+# Utils
+
+Miscellaneous rendering utilities.
+
+- [UgUtils](/graphicslib/utils/ugutils) — Clear color, memory type lookup
+
+<H2 id="Header">Header</H2>
+
+<CodeTabs
+  uhc={`#include <uhcgraphics.uhh>`}
+  cpp={`#include <uhcgraphics.hh>`}
+/>
+
+<H2 id="Cheat-sheet">Cheat sheet</H2>
+
+<CodeTabs
+  uhc={`namespace UgUtils {
+    U0 setClearColor(F32 r, F32 g, F32 b, F32 a);
+    VkClearColorValue getClearColor();
+    U32 findMemoryType(UgContext.It& ctx, U32 typeFilter, VkMemoryPropertyFlags properties);
+  }`}
+  cpp={`namespace UgUtils {
+    void setClearColor(float r, float g, float b, float a);
+    VkClearColorValue getClearColor();
+    uint32_t findMemoryType(UgContext::It& ctx, uint32_t typeFilter, VkMemoryPropertyFlags properties);
+  }`}
+/>

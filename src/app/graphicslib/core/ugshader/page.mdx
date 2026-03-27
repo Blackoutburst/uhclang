@@ -1,0 +1,33 @@
+# UgShader
+
+Load and destroy individual SPIR-V shader modules.
+
+<H2 id="create">create</H2>
+
+Load a compiled SPIR-V shader from a file.
+
+<CodeTabs
+  uhc={`VkShaderModule create(UgContext.It& ctx, const I8* filePath);`}
+  cpp={`VkShaderModule create(UgContext::It& ctx, const char* filePath);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `filePath` — Path to the compiled `.spv` file
+
+**Returns** — Created `VkShaderModule`
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a shader module.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, VkShaderModule shader);`}
+  cpp={`void destroy(UgContext::It& ctx, VkShaderModule shader);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `shader` — The shader module to destroy

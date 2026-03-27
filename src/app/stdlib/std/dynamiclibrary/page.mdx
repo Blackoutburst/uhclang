@@ -41,7 +41,7 @@ Dynamic Library object
 
 <H2 id="load">load</H2>
 
-Load a dynamic library
+Load a dynamic library by name or path.
 
 <CodeTabs
   uhc={`DynamicLibrary.It load(const I8* name);`}
@@ -49,7 +49,9 @@ Load a dynamic library
 />
 
 **Parameters**
-- `name` — The library name
+- `name` — The library name or path (e.g. `"libfoo.so"`, `"foo.dll"`)
+
+**Returns** — Library object — check `isValid` before use
 
 ---
 
@@ -63,8 +65,10 @@ Get a function from a library
 />
 
 **Parameters**
-- `dll` — The dynamic library 
-- `name` — The function name
+- `dll` — The dynamic library
+- `functionName` — The exported function name
+
+**Returns** — Raw function pointer (`void*`) — cast to the expected signature before calling
 
 ---
 

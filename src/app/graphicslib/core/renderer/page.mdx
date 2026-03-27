@@ -1,0 +1,162 @@
+# Renderer
+
+High-level renderer bundling the swapchain, framebuffers, and render pass.
+
+<H2 id="It">It</H2>
+
+Renderer object.
+
+<CodeTabs
+  uhc={`struct It {
+    UgSwapchain.It swapchain;
+    UgFrameBuffer.It framebuffers;
+    VkRenderPass renderPass;
+  };`}
+  cpp={`struct It {
+    UgSwapchain::It swapchain;
+    UgFrameBuffer::It framebuffers;
+    VkRenderPass renderPass;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Create a renderer with a swapchain, framebuffers, and render pass.
+
+<CodeTabs
+  uhc={`UgRenderer.It create(UgContext.It& ctx);`}
+  cpp={`UgRenderer::It create(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+
+**Returns** — Initialized renderer
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the renderer and all its resources.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgRenderer.It& renderer);`}
+  cpp={`void destroy(UgContext::It& ctx, UgRenderer::It& renderer);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `renderer` — The renderer to destroy
+
+---
+
+<H2 id="update">update</H2>
+
+Recreate the swapchain and framebuffers (e.g. on window resize).
+
+<CodeTabs
+  uhc={`U0 update(UgContext.It& ctx, UgRenderer.It& renderer);`}
+  cpp={`void update(UgContext::It& ctx, UgRenderer::It& renderer);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `renderer` — The renderer to update
+
+---
+
+<H2 id="begin">begin</H2>
+
+Begin the render pass for the current frame.
+
+<CodeTabs
+  uhc={`U0 begin(UgRenderer.It& renderer, UgCommandBuffer.It& cmd);`}
+  cpp={`void begin(UgRenderer::It& renderer, UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `renderer` — The renderer
+- `cmd` — The active command buffer
+
+---
+
+<H2 id="end">end</H2>
+
+End the render pass.
+
+<CodeTabs
+  uhc={`U0 end(UgCommandBuffer.It& cmd);`}
+  cpp={`void end(UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `cmd` — The active command buffer
+
+---
+
+<H2 id="setViewport">setViewport</H2>
+
+Set the dynamic viewport and scissor on the command buffer.
+
+<CodeTabs
+  uhc={`U0 setViewport(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd);`}
+  cpp={`void setViewport(UgContext::It& ctx, UgRenderer::It& renderer, UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `renderer` — The renderer (for swapchain extent)
+- `cmd` — The active command buffer
+
+---
+
+<H2 id="submit">submit</H2>
+
+Submit the command buffer to the graphics queue.
+
+<CodeTabs
+  uhc={`U0 submit(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd, UgFence.It& fence);`}
+  cpp={`void submit(UgContext::It& ctx, UgRenderer::It& renderer, UgCommandBuffer::It& cmd, UgFence::It& fence);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `renderer` — The renderer (for semaphores)
+- `cmd` — The command buffer to submit
+- `fence` — The fence to signal when done
+
+---
+
+<H2 id="present">present</H2>
+
+Present the current swapchain image to the screen.
+
+<CodeTabs
+  uhc={`VkResult present(UgContext.It& ctx, UgRenderer.It& renderer);`}
+  cpp={`VkResult present(UgContext::It& ctx, UgRenderer::It& renderer);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `renderer` — The renderer
+
+**Returns** — `VK_SUCCESS` or `VK_ERROR_OUT_OF_DATE_KHR` on resize
+
+---
+
+<H2 id="aquire">aquire</H2>
+
+Acquire the next swapchain image for rendering.
+
+<CodeTabs
+  uhc={`VkResult aquire(UgContext.It& ctx, UgRenderer.It& renderer);`}
+  cpp={`VkResult aquire(UgContext::It& ctx, UgRenderer::It& renderer);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `renderer` — The renderer
+
+**Returns** — `VK_SUCCESS` or `VK_ERROR_OUT_OF_DATE_KHR` on resize

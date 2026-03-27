@@ -1,0 +1,104 @@
+# Swapchain
+
+Vulkan swapchain management including image views, depth buffer, and synchronization semaphores.
+
+<H2 id="It">It</H2>
+
+Swapchain object.
+
+<CodeTabs
+  uhc={`struct It {
+    VkSwapchainKHR handle;
+    UgImageView.It* imageViews;
+    U32 imageCount;
+    U32 currentFrame;
+    U32 imageIndex;
+    UgSemaphore.It* pSemaphore;
+    UgSemaphore.It* rSemaphore;
+    VkSurfaceFormatKHR surfaceFormat;
+    VkPresentModeKHR presentMode;
+    VkSurfaceCapabilitiesKHR capabilities;
+    VkImage depthImage;
+    VkDeviceMemory depthImageMemory;
+    VkImageView depthImageView;
+  };`}
+  cpp={`struct It {
+    VkSwapchainKHR handle;
+    UgImageView::It* imageViews;
+    uint32_t imageCount;
+    uint32_t currentFrame;
+    uint32_t imageIndex;
+    UgSemaphore::It* pSemaphore;
+    UgSemaphore::It* rSemaphore;
+    VkSurfaceFormatKHR surfaceFormat;
+    VkPresentModeKHR presentMode;
+    VkSurfaceCapabilitiesKHR capabilities;
+    VkImage depthImage;
+    VkDeviceMemory depthImageMemory;
+    VkImageView depthImageView;
+  };`}
+/>
+
+---
+
+<H2 id="extend">extend</H2>
+
+Return the current swapchain extent (width × height).
+
+<CodeTabs
+  uhc={`VkExtent2D extend(UgContext.It& ctx, UgSwapchain.It& swapchain);`}
+  cpp={`VkExtent2D extend(UgContext::It& ctx, UgSwapchain::It& swapchain);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `swapchain` — The swapchain
+
+**Returns** — Current swapchain extent
+
+---
+
+<H2 id="update">update</H2>
+
+Recreate the swapchain (called on window resize).
+
+<CodeTabs
+  uhc={`U0 update(UgContext.It& ctx, UgSwapchain.It& swapchain, VkCommandBuffer cmdBuffer);`}
+  cpp={`void update(UgContext::It& ctx, UgSwapchain::It& swapchain, VkCommandBuffer cmdBuffer);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `swapchain` — The swapchain to recreate
+- `cmdBuffer` — A command buffer for layout transitions during recreation
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the swapchain and all associated resources.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgSwapchain.It& swapchain);`}
+  cpp={`void destroy(UgContext::It& ctx, UgSwapchain::It& swapchain);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `swapchain` — The swapchain to destroy
+
+---
+
+<H2 id="create">create</H2>
+
+Create a swapchain with image views, depth buffer, and semaphores.
+
+<CodeTabs
+  uhc={`UgSwapchain.It create(UgContext.It& ctx);`}
+  cpp={`UgSwapchain::It create(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+
+**Returns** — Initialized swapchain

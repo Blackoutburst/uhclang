@@ -1,0 +1,166 @@
+# UgUniformBuffer
+
+Uniform buffer backed by a descriptor set for shader data upload.
+
+<H2 id="It">It</H2>
+
+Uniform buffer object.
+
+<CodeTabs
+  uhc={`struct It {
+    UgBuffer.It buffer;
+    VkDescriptorSetLayout setLayout;
+    U0* mappedData;
+    U32 binding;
+    U32 size;
+    VkDescriptorSet descriptorSet;
+    U32 cursor;
+  };`}
+  cpp={`struct It {
+    UgBuffer::It buffer;
+    VkDescriptorSetLayout setLayout;
+    void* mappedData;
+    uint32_t binding;
+    uint32_t size;
+    VkDescriptorSet descriptorSet;
+    uint32_t cursor;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Create a uniform buffer at a given shader binding point.
+
+<CodeTabs
+  uhc={`UgUniformBuffer.It create(UgContext.It& ctx, U32 binding, U32 size);`}
+  cpp={`UgUniformBuffer::It create(UgContext::It& ctx, uint32_t binding, uint32_t size);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `binding` — Shader binding index
+- `size` — Buffer size in bytes
+
+**Returns** — Initialized uniform buffer
+
+---
+
+<H2 id="bind">bind</H2>
+
+Bind the uniform buffer descriptor set to the pipeline.
+
+<CodeTabs
+  uhc={`U0 bind(UgUniformBuffer.It& uniformBuffer, VkCommandBuffer cmdBuffer, VkPipelineLayout pipelineLayout);`}
+  cpp={`void bind(UgUniformBuffer::It& uniformBuffer, VkCommandBuffer cmdBuffer, VkPipelineLayout pipelineLayout);`}
+/>
+
+**Parameters**
+- `uniformBuffer` — The uniform buffer to bind
+- `cmdBuffer` — The active command buffer
+- `pipelineLayout` — The pipeline layout
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the uniform buffer and free its resources.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgUniformBuffer.It& uniformBuffer);`}
+  cpp={`void destroy(UgContext::It& ctx, UgUniformBuffer::It& uniformBuffer);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `uniformBuffer` — The uniform buffer to destroy
+
+---
+
+<H2 id="reset">reset</H2>
+
+Reset the write cursor to the beginning of the buffer.
+
+<CodeTabs
+  uhc={`U0 reset(UgUniformBuffer.It& uniformBuffer);`}
+  cpp={`void reset(UgUniformBuffer::It& uniformBuffer);`}
+/>
+
+**Parameters**
+- `uniformBuffer` — The uniform buffer to reset
+
+---
+
+<H2 id="setFloat">setFloat</H2>
+
+Write a float value into the uniform buffer at the current cursor position.
+
+<CodeTabs
+  uhc={`U0 setFloat(UgUniformBuffer.It& buffer, F32 value);`}
+  cpp={`void setFloat(UgUniformBuffer::It& buffer, float value);`}
+/>
+
+**Parameters**
+- `buffer` — The uniform buffer
+- `value` — The float value to write
+
+---
+
+<H2 id="setVec2f">setVec2f</H2>
+
+Write a 2-component float vector into the uniform buffer.
+
+<CodeTabs
+  uhc={`U0 setVec2f(UgUniformBuffer.It& buffer, VectorF.It vec);`}
+  cpp={`void setVec2f(UgUniformBuffer::It& buffer, VectorF::It vec);`}
+/>
+
+**Parameters**
+- `buffer` — The uniform buffer
+- `vec` — The vector to write
+
+---
+
+<H2 id="setVec3f">setVec3f</H2>
+
+Write a 3-component float vector into the uniform buffer.
+
+<CodeTabs
+  uhc={`U0 setVec3f(UgUniformBuffer.It& buffer, VectorF.It vec);`}
+  cpp={`void setVec3f(UgUniformBuffer::It& buffer, VectorF::It vec);`}
+/>
+
+**Parameters**
+- `buffer` — The uniform buffer
+- `vec` — The vector to write
+
+---
+
+<H2 id="setVec4f">setVec4f</H2>
+
+Write a 4-component float vector into the uniform buffer.
+
+<CodeTabs
+  uhc={`U0 setVec4f(UgUniformBuffer.It& buffer, VectorF.It vec);`}
+  cpp={`void setVec4f(UgUniformBuffer::It& buffer, VectorF::It vec);`}
+/>
+
+**Parameters**
+- `buffer` — The uniform buffer
+- `vec` — The vector to write
+
+---
+
+<H2 id="setMat">setMat</H2>
+
+Write a 4x4 matrix into the uniform buffer.
+
+<CodeTabs
+  uhc={`U0 setMat(UgUniformBuffer.It& buffer, Matrix.It mat);`}
+  cpp={`void setMat(UgUniformBuffer::It& buffer, Matrix::It mat);`}
+/>
+
+**Parameters**
+- `buffer` — The uniform buffer
+- `mat` — The matrix to write

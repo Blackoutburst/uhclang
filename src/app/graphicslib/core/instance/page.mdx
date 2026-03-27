@@ -1,0 +1,31 @@
+# Instance
+
+Vulkan instance creation and destruction.
+
+<H2 id="create">create</H2>
+
+Create a Vulkan instance, optionally with validation layers.
+
+<CodeTabs
+  uhc={`VkInstance create(U8 debug);`}
+  cpp={`VkInstance create(unsigned char debug);`}
+/>
+
+**Parameters**
+- `debug` — Non-zero to enable validation layers
+
+**Returns** — A new `VkInstance`
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the Vulkan instance.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx);`}
+  cpp={`void destroy(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The context whose instance will be destroyed

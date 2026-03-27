@@ -1,0 +1,61 @@
+# Context
+
+The central Vulkan context holding the instance, device, surface, descriptor pool, and command pool.
+
+<H2 id="It">It</H2>
+
+Context object.
+
+<CodeTabs
+  uhc={`struct It {
+    UgWindow.It window;
+    VkInstance instance;
+    VkDebugUtilsMessengerEXT logger;
+    VkSurfaceKHR surface;
+    VkPhysicalDevice physicalDevice;
+    UgDevice.It device;
+    VkDescriptorPool descriptorPool;
+    VkCommandPool cmdPool;
+  };`}
+  cpp={`struct It {
+    UgWindow::It window;
+    VkInstance instance;
+    VkDebugUtilsMessengerEXT logger;
+    VkSurfaceKHR surface;
+    VkPhysicalDevice physicalDevice;
+    UgDevice::It device;
+    VkDescriptorPool descriptorPool;
+    VkCommandPool cmdPool;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Initialize a full Vulkan context from a window.
+
+<CodeTabs
+  uhc={`UgContext.It create(UgWindow.It& window, U8 debug);`}
+  cpp={`UgContext::It create(UgWindow::It& window, unsigned char debug);`}
+/>
+
+**Parameters**
+- `window` — The GLFW window to create the surface from
+- `debug` — Non-zero to enable validation layers and debug messenger
+
+**Returns** — Fully initialized context
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the context and all associated Vulkan objects.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx);`}
+  cpp={`void destroy(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The context to destroy

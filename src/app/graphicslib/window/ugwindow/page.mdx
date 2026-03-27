@@ -1,0 +1,91 @@
+# UgWindow
+
+Window handle wrapping a GLFW window.
+
+<H2 id="It">It</H2>
+
+Window object
+
+<CodeTabs
+  uhc={`struct It {
+    GLFWwindow* handle;
+    const I8* name;
+  };`}
+  cpp={`struct It {
+    GLFWwindow* handle;
+    const char* name;
+  };`}
+/>
+
+---
+
+<H2 id="update">update</H2>
+
+Poll GLFW events. Call once per frame.
+
+<CodeTabs
+  uhc={`U0 update();`}
+  cpp={`void update();`}
+/>
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the window and free GLFW resources.
+
+<CodeTabs
+  uhc={`U0 destroy(UgWindow.It& window);`}
+  cpp={`void destroy(UgWindow::It& window);`}
+/>
+
+**Parameters**
+- `window` — The window to destroy
+
+---
+
+<H2 id="isMinimized">isMinimized</H2>
+
+Returns whether the window is currently minimized (iconified).
+
+<CodeTabs
+  uhc={`U8 isMinimized(UgWindow.It& window);`}
+  cpp={`unsigned char isMinimized(UgWindow::It& window);`}
+/>
+
+**Parameters**
+- `window` — The window to check
+
+**Returns** — Non-zero if minimized
+
+---
+
+<H2 id="isOpen">isOpen</H2>
+
+Returns whether the window has not been closed.
+
+<CodeTabs
+  uhc={`U8 isOpen(UgWindow.It& window);`}
+  cpp={`unsigned char isOpen(UgWindow::It& window);`}
+/>
+
+**Parameters**
+- `window` — The window to check
+
+**Returns** — Non-zero if the window is still open
+
+---
+
+<H2 id="create">create</H2>
+
+Create and open a new window.
+
+<CodeTabs
+  uhc={`UgWindow.It create(const I8* name);`}
+  cpp={`UgWindow::It create(const char* name);`}
+/>
+
+**Parameters**
+- `name` — The window title
+
+**Returns** — Initialized window object

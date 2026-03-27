@@ -1,0 +1,73 @@
+# UgVertexArray
+
+Vertex array object bundling a graphics pipeline, pipeline layout, and uniform buffer.
+
+<H2 id="It">It</H2>
+
+Vertex array object.
+
+<CodeTabs
+  uhc={`struct It {
+    VkPipelineLayout layout;
+    VkPipeline pipeline;
+    UgUniformBuffer.It uniformBuffer;
+  };`}
+  cpp={`struct It {
+    VkPipelineLayout layout;
+    VkPipeline pipeline;
+    UgUniformBuffer::It uniformBuffer;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Create a vertex array object with a fully built pipeline.
+
+<CodeTabs
+  uhc={`UgVertexArray.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass, UgVertexDesc.It& desc, UgUniformBuffer.It& uniformBuffer, UgTexture.It* texture, UgShaderProgram.It& shaderProgram, const UgVertexSettings.It& settings);`}
+  cpp={`UgVertexArray::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass, UgVertexDesc::It& desc, UgUniformBuffer::It& uniformBuffer, UgTexture::It* texture, UgShaderProgram::It& shaderProgram, const UgVertexSettings::It& settings);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `swapchain` — The swapchain (for viewport size)
+- `renderPass` — The compatible render pass
+- `desc` — Vertex layout descriptor
+- `uniformBuffer` — The uniform buffer for this VAO
+- `texture` — Optional texture (pass `null` for untextured geometry)
+- `shaderProgram` — Vertex and fragment shaders
+- `settings` — Pipeline render settings
+
+**Returns** — Initialized vertex array object
+
+---
+
+<H2 id="bind">bind</H2>
+
+Bind the VAO pipeline for the current draw call.
+
+<CodeTabs
+  uhc={`U0 bind(UgVertexArray.It& vao, UgCommandBuffer.It& cmd);`}
+  cpp={`void bind(UgVertexArray::It& vao, UgCommandBuffer::It& cmd);`}
+/>
+
+**Parameters**
+- `vao` — The vertex array object to bind
+- `cmd` — The active command buffer
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the vertex array object and its pipeline.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgVertexArray.It& vao);`}
+  cpp={`void destroy(UgContext::It& ctx, UgVertexArray::It& vao);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `vao` — The vertex array object to destroy

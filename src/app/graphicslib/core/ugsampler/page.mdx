@@ -1,0 +1,32 @@
+# UgSampler
+
+Vulkan texture sampler creation and destruction.
+
+<H2 id="create">create</H2>
+
+Create a texture sampler with default filtering settings.
+
+<CodeTabs
+  uhc={`VkSampler create(UgContext.It& ctx);`}
+  cpp={`VkSampler create(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+
+**Returns** — Created `VkSampler`
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a sampler.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, VkSampler sampler);`}
+  cpp={`void destroy(UgContext::It& ctx, VkSampler sampler);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `sampler` — The sampler to destroy

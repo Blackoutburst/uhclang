@@ -1,0 +1,53 @@
+# UgFrameBuffer
+
+Collection of Vulkan framebuffers, one per swapchain image.
+
+<H2 id="It">It</H2>
+
+Framebuffer collection object.
+
+<CodeTabs
+  uhc={`struct It {
+    VkFramebuffer* handles;
+    VkExtent2D extends;
+    U32 bufferCount;
+  };`}
+  cpp={`struct It {
+    VkFramebuffer* handles;
+    VkExtent2D extends;
+    uint32_t bufferCount;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Create framebuffers for each swapchain image.
+
+<CodeTabs
+  uhc={`UgFrameBuffer.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass);`}
+  cpp={`UgFrameBuffer::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `swapchain` — The swapchain whose images are used as attachments
+- `renderPass` — The compatible render pass
+
+**Returns** — Initialized framebuffer collection
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy all framebuffers in the collection.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgFrameBuffer.It& framebuffers);`}
+  cpp={`void destroy(UgContext::It& ctx, UgFrameBuffer::It& framebuffers);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `framebuffers` — The framebuffer collection to destroy

@@ -1,0 +1,33 @@
+# Surface
+
+Vulkan window surface creation and destruction.
+
+<H2 id="create">create</H2>
+
+Create a Vulkan surface from a GLFW window.
+
+<CodeTabs
+  uhc={`VkSurfaceKHR create(VkInstance instance, UgWindow.It& window);`}
+  cpp={`VkSurfaceKHR create(VkInstance instance, UgWindow::It& window);`}
+/>
+
+**Parameters**
+- `instance` — The Vulkan instance
+- `window` — The GLFW window
+
+**Returns** — Created `VkSurfaceKHR`
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a Vulkan surface.
+
+<CodeTabs
+  uhc={`U0 destroy(VkInstance instance, VkSurfaceKHR surface);`}
+  cpp={`void destroy(VkInstance instance, VkSurfaceKHR surface);`}
+/>
+
+**Parameters**
+- `instance` — The Vulkan instance
+- `surface` — The surface to destroy

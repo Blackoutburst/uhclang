@@ -1,0 +1,32 @@
+# CommandPool
+
+Vulkan command pool creation and destruction.
+
+<H2 id="create">create</H2>
+
+Create a command pool for the graphics queue family.
+
+<CodeTabs
+  uhc={`VkCommandPool create(UgContext.It& ctx);`}
+  cpp={`VkCommandPool create(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+
+**Returns** — A new `VkCommandPool`
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a command pool and free all command buffers allocated from it.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, VkCommandPool cmdPool);`}
+  cpp={`void destroy(UgContext::It& ctx, VkCommandPool cmdPool);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `cmdPool` — The command pool to destroy

@@ -1,0 +1,70 @@
+# UgImageView
+
+Vulkan image view creation and management.
+
+<H2 id="It">It</H2>
+
+Image view object wrapping a `VkImage` and its `VkImageView`.
+
+<CodeTabs
+  uhc={`struct It {
+    VkImage image;
+    VkImageView view;
+  };`}
+  cpp={`struct It {
+    VkImage image;
+    VkImageView view;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Create an image view for a given image and format.
+
+<CodeTabs
+  uhc={`UgImageView.It create(UgContext.It& ctx, VkImage image, VkFormat format);`}
+  cpp={`UgImageView::It create(UgContext::It& ctx, VkImage image, VkFormat format);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `image` — The Vulkan image
+- `format` — The image format
+
+**Returns** — Initialized image view object
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy an image view.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgImageView.It& imageView);`}
+  cpp={`void destroy(UgContext::It& ctx, UgImageView::It& imageView);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `imageView` — The image view to destroy
+
+---
+
+<H2 id="makeView">makeView</H2>
+
+Create a raw `VkImageView` with an explicit aspect mask.
+
+<CodeTabs
+  uhc={`VkImageView makeView(UgContext.It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);`}
+  cpp={`VkImageView makeView(UgContext::It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `image` — The Vulkan image
+- `format` — The image format
+- `aspectMask` — Which aspects to expose (color, depth, stencil)
+
+**Returns** — Raw `VkImageView` handle

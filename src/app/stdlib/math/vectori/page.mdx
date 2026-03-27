@@ -27,7 +27,7 @@ The int vector object
 
 <H2 id="equals">equals</H2>
 
-Check if 2 vector a equals
+Check if 2 vectors are equal
 
 <CodeTabs
   uhc={`U8 equals(VectorI.It& a, VectorI.It& b);`}
@@ -37,6 +37,8 @@ Check if 2 vector a equals
 **Parameters**
 - `a` — First vector
 - `b` — Second vector
+
+**Returns** — Non-zero if all components are equal
 
 ---
 
@@ -64,7 +66,7 @@ Normalize a vector values
 
 <CodeTabs
   uhc={`U0 normalize(VectorI.It& vec);`}
-  cpp={`void normalize(VectorI::It& vec;`}
+  cpp={`void normalize(VectorI::It& vec);`}
 />
 
 **Parameters**
@@ -74,7 +76,7 @@ Normalize a vector values
 
 <H2 id="length">length</H2>
 
-Return vector length
+Return the magnitude of the vector.
 
 <CodeTabs
   uhc={`F32 length(VectorI.It& vec);`}
@@ -84,11 +86,13 @@ Return vector length
 **Parameters**
 - `vec` — The vector
 
+**Returns** — Euclidean length
+
 ---
 
 <H2 id="zero">zero</H2>
 
-Set a vector to 0
+Set all vector components to 0
 
 <CodeTabs
   uhc={`U0 zero(VectorI.It& vec);`}
@@ -102,7 +106,7 @@ Set a vector to 0
 
 <H2 id="dot">dot</H2>
 
-Dot product between 2 vector
+Dot product between 2 vectors.
 
 <CodeTabs
   uhc={`I32 dot(VectorI.It& a, VectorI.It& b);`}
@@ -113,11 +117,13 @@ Dot product between 2 vector
 - `a` — First vector
 - `b` — Second vector
 
+**Returns** — Scalar dot product
+
 ---
 
 <H2 id="cross">cross</H2>
 
-Cross product between 2 vector
+Cross product between 2 vectors
 
 <CodeTabs
   uhc={`U0 cross(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
@@ -134,7 +140,7 @@ Cross product between 2 vector
 
 <H2 id="sub">sub</H2>
 
-Substract 2 vector
+Subtract vector `b` from vector `a`
 
 <CodeTabs
   uhc={`U0 sub(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}

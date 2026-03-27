@@ -3,7 +3,6 @@
 @source not "./stdlib/network/tcpclient";
 @source not "./stdlib/std/std";
 
-/* ── Raw values (swap these for dark mode or rebranding) ────────────────── */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -52,4 +51,27 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans, Arial, sans-serif);
+}
+
+::selection {
+  color: #a50036;
+  background: #959595;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 0;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0c0d0e;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #4d0218;
+  border-radius: 100vh;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #a50036;
 }

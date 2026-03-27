@@ -16,6 +16,8 @@ Returns the size of a file in bytes.
 **Parameters**
 - `file` — the file handle
 
+**Returns** — File size in bytes
+
 ---
 
 <H2 id="open">open</H2>
@@ -28,13 +30,15 @@ Opens a file and returns a file handle. The file must be explicitly closed after
 />
 
 **Parameters**
-- `path` — path to the file
+- `filePath` — path to the file
+
+**Returns** — Open file handle, or `null` on failure
 
 ---
 
 <H2 id="close">close</H2>
 
-Closes and delete a file handle.
+Close and free a file handle.
 
 <CodeTabs
   uhc={`U0 close(FILE* file);`}
@@ -42,13 +46,13 @@ Closes and delete a file handle.
 />
 
 **Parameters**
-- `handle` — the file handle
+- `file` — the file handle to close
 
 ---
 
 <H2 id="read">read</H2>
 
-Reads the entire contents and return a string of it.
+Read the entire file contents into a heap-allocated string.
 
 <CodeTabs
   uhc={`I8* read(FILE* file);`}
@@ -56,4 +60,6 @@ Reads the entire contents and return a string of it.
 />
 
 **Parameters**
-- `handle` — the file handle
+- `file` — the file handle
+
+**Returns** — Null-terminated string with the file contents (caller must free)

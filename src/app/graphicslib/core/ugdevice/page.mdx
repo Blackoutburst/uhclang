@@ -1,0 +1,123 @@
+# UgDevice
+
+Logical device creation and queue retrieval.
+
+<H2 id="It">It</H2>
+
+Logical device object with queues and properties.
+
+<CodeTabs
+  uhc={`struct It {
+    VkDevice handle;
+    VkPhysicalDeviceProperties properties;
+    VkQueue graphicQueue;
+    VkQueue presentQueue;
+  };`}
+  cpp={`struct It {
+    VkDevice handle;
+    VkPhysicalDeviceProperties properties;
+    VkQueue graphicQueue;
+    VkQueue presentQueue;
+  };`}
+/>
+
+---
+
+<H2 id="getQueue">getQueue</H2>
+
+Retrieve a queue handle from a logical device.
+
+<CodeTabs
+  uhc={`VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);`}
+  cpp={`VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);`}
+/>
+
+**Parameters**
+- `device` — The physical device
+- `logicalDevice` — The logical device
+- `queueType` — The desired queue capability
+
+**Returns** — Queue handle
+
+---
+
+<H2 id="getPresentationQueue">getPresentationQueue</H2>
+
+Retrieve the presentation queue handle.
+
+<CodeTabs
+  uhc={`VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);`}
+  cpp={`VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);`}
+/>
+
+**Parameters**
+- `device` — The physical device
+- `surface` — The window surface
+- `logicalDevice` — The logical device
+
+**Returns** — Presentation queue handle
+
+---
+
+<H2 id="getSurfaceSupport">getSurfaceSupport</H2>
+
+Get the index of the queue family that supports surface presentation.
+
+<CodeTabs
+  uhc={`U32 getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);`}
+  cpp={`uint32_t getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);`}
+/>
+
+**Parameters**
+- `device` — The physical device
+- `surface` — The window surface
+
+**Returns** — Queue family index that supports presentation
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the logical device.
+
+<CodeTabs
+  uhc={`U0 destroy(UgDevice.It& device);`}
+  cpp={`void destroy(UgDevice::It& device);`}
+/>
+
+**Parameters**
+- `device` — The device to destroy
+
+---
+
+<H2 id="make">make</H2>
+
+Create a raw `VkDevice` from a physical device and surface.
+
+<CodeTabs
+  uhc={`VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);`}
+  cpp={`VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);`}
+/>
+
+**Parameters**
+- `device` — The physical device
+- `surface` — The window surface
+
+**Returns** — Raw logical device handle
+
+---
+
+<H2 id="create">create</H2>
+
+Create a fully initialized logical device with graphics and presentation queues.
+
+<CodeTabs
+  uhc={`UgDevice.It create(VkPhysicalDevice device, VkSurfaceKHR surface);`}
+  cpp={`UgDevice::It create(VkPhysicalDevice device, VkSurfaceKHR surface);`}
+/>
+
+**Parameters**
+- `device` — The physical device
+- `surface` — The window surface
+
+**Returns** — Initialized device object

@@ -1,0 +1,74 @@
+# UgTexture
+
+GPU texture loading and binding.
+
+<H2 id="It">It</H2>
+
+Texture object with image, memory, view, sampler, and descriptor set.
+
+<CodeTabs
+  uhc={`struct It {
+    VkImage image;
+    VkDeviceMemory memory;
+    VkImageView view;
+    VkSampler sampler;
+    VkDescriptorSetLayout setLayout;
+    VkDescriptorSet descriptorSet;
+  };`}
+  cpp={`struct It {
+    VkImage image;
+    VkDeviceMemory memory;
+    VkImageView view;
+    VkSampler sampler;
+    VkDescriptorSetLayout setLayout;
+    VkDescriptorSet descriptorSet;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Load a texture from a file (PNG, JPEG, BMP, etc.) and upload it to the GPU.
+
+<CodeTabs
+  uhc={`UgTexture.It create(UgContext.It& ctx, const I8* path);`}
+  cpp={`UgTexture::It create(UgContext::It& ctx, const char* path);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `path` — Path to the image file
+
+**Returns** — Initialized texture ready for binding
+
+---
+
+<H2 id="bind">bind</H2>
+
+Bind the texture descriptor set to the pipeline.
+
+<CodeTabs
+  uhc={`U0 bind(UgTexture.It& texture, UgCommandBuffer.It& cmd, VkPipelineLayout pipelineLayout);`}
+  cpp={`void bind(UgTexture::It& texture, UgCommandBuffer::It& cmd, VkPipelineLayout pipelineLayout);`}
+/>
+
+**Parameters**
+- `texture` — The texture to bind
+- `cmd` — The active command buffer
+- `pipelineLayout` — The pipeline layout
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the texture and free all its GPU resources.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgTexture.It& texture);`}
+  cpp={`void destroy(UgContext::It& ctx, UgTexture::It& texture);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `texture` — The texture to destroy

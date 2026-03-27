@@ -1,0 +1,27 @@
+# ValidationLayers
+
+Enumerate the validation layers enabled by the graphics library.
+
+<H2 id="count">count</H2>
+
+Return the number of required validation layers.
+
+<CodeTabs
+  uhc={`I32 count();`}
+  cpp={`int32_t count();`}
+/>
+
+**Returns** — Number of validation layer names
+
+---
+
+<H2 id="get">get</H2>
+
+Return the array of required validation layer names.
+
+<CodeTabs
+  uhc={`const I8** get();`}
+  cpp={`const char** get();`}
+/>
+
+**Returns** — Null-terminated array of layer name strings (e.g. `"VK_LAYER_KHRONOS_validation"`)

@@ -1,0 +1,49 @@
+# UgUtils
+
+Miscellaneous rendering helpers.
+
+<H2 id="setClearColor">setClearColor</H2>
+
+Set the global clear color used at the start of each render pass.
+
+<CodeTabs
+  uhc={`U0 setClearColor(F32 r, F32 g, F32 b, F32 a);`}
+  cpp={`void setClearColor(float r, float g, float b, float a);`}
+/>
+
+**Parameters**
+- `r` — Red component (0.0 – 1.0)
+- `g` — Green component (0.0 – 1.0)
+- `b` — Blue component (0.0 – 1.0)
+- `a` — Alpha component (0.0 – 1.0)
+
+---
+
+<H2 id="getClearColor">getClearColor</H2>
+
+Return the currently set clear color.
+
+<CodeTabs
+  uhc={`VkClearColorValue getClearColor();`}
+  cpp={`VkClearColorValue getClearColor();`}
+/>
+
+**Returns** — `VkClearColorValue` with the current RGBA values
+
+---
+
+<H2 id="findMemoryType">findMemoryType</H2>
+
+Find a memory type index satisfying a type filter and property flags.
+
+<CodeTabs
+  uhc={`U32 findMemoryType(UgContext.It& ctx, U32 typeFilter, VkMemoryPropertyFlags properties);`}
+  cpp={`uint32_t findMemoryType(UgContext::It& ctx, uint32_t typeFilter, VkMemoryPropertyFlags properties);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `typeFilter` — Bitmask of acceptable memory type indices (from `VkMemoryRequirements`)
+- `properties` — Required memory property flags (e.g. `VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT`)
+
+**Returns** — Index of a suitable memory type

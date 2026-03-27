@@ -25,15 +25,15 @@ Convert deg to rad
 />
 
 **Parameters**
-- `angle` — The angle in deg
+- `angle` — The angle in degrees
+
+**Returns** — Equivalent angle in radians
 
 ---
 
 <H2 id="sign">sign</H2>
 
-Return 0 if the value is 0
-Return -1 if the value is negative
-Return 1 if the value is positive
+Return the sign of an integer value.
 
 <CodeTabs
   uhc={`I8 sign(I32 value);`}
@@ -41,15 +41,15 @@ Return 1 if the value is positive
 />
 
 **Parameters**
-- `value` — The value you need to check the sign
+- `value` — The value to check
+
+**Returns** — `-1` if negative, `0` if zero, `1` if positive
 
 ---
 
 <H2 id="fsign">fsign</H2>
 
-Return 0 if the value is 0
-Return -1 if the value is negative
-Return 1 if the value is positive
+Return the sign of a float as an integer.
 
 <CodeTabs
   uhc={`I8 fsign(F32 value);`}
@@ -57,15 +57,15 @@ Return 1 if the value is positive
 />
 
 **Parameters**
-- `value` — The value you need to check the sign
+- `value` — The value to check
+
+**Returns** — `-1` if negative, `0` if zero, `1` if positive
 
 ---
 
 <H2 id="fsignf">fsignf</H2>
 
-Return 0 if the value is 0
-Return -1 if the value is negative
-Return 1 if the value is positive
+Return the sign of a float as a float.
 
 <CodeTabs
   uhc={`F32 fsignf(F32 value);`}
@@ -73,13 +73,15 @@ Return 1 if the value is positive
 />
 
 **Parameters**
-- `value` — The value you need to check the sign
+- `value` — The value to check
+
+**Returns** — `-1.0` if negative, `0.0` if zero, `1.0` if positive
 
 ---
 
 <H2 id="clamp">clamp</H2>
 
-Clamp a value between boundaries
+Clamp an integer value between a min and max boundary.
 
 <CodeTabs
   uhc={`I32 clamp(I32 v, I32 min, I32 max);`}
@@ -87,15 +89,17 @@ Clamp a value between boundaries
 />
 
 **Parameters**
-- `v` — The value that will be clamped
-- `min` — The minimum range
-- `max` — The maximum range
+- `v` — The value to clamp
+- `min` — Lower boundary (inclusive)
+- `max` — Upper boundary (inclusive)
+
+**Returns** — Clamped integer value
 
 ---
 
 <H2 id="fclamp">fclamp</H2>
 
-Clamp a value between boundaries
+Clamp a float value between boundaries, returned as an integer.
 
 <CodeTabs
   uhc={`I32 fclamp(F32 v, F32 min, F32 max);`}
@@ -103,15 +107,17 @@ Clamp a value between boundaries
 />
 
 **Parameters**
-- `v` — The value that will be clamped
-- `min` — The minimum range
-- `max` — The maximum range
+- `v` — The value to clamp
+- `min` — Lower boundary (inclusive)
+- `max` — Upper boundary (inclusive)
+
+**Returns** — Clamped value as an integer
 
 ---
 
 <H2 id="fclampf">fclampf</H2>
 
-Clamp a value between boundaries
+Clamp a float value between boundaries, returned as a float.
 
 <CodeTabs
   uhc={`F32 fclampf(F32 v, F32 min, F32 max);`}
@@ -119,6 +125,8 @@ Clamp a value between boundaries
 />
 
 **Parameters**
-- `v` — The value that will be clamped
-- `min` — The minimum range
-- `max` — The maximum range
+- `v` — The value to clamp
+- `min` — Lower boundary (inclusive)
+- `max` — Upper boundary (inclusive)
+
+**Returns** — Clamped float value

@@ -1,0 +1,41 @@
+# Window
+
+Window creation and management via GLFW.
+
+- [UgWindow](/graphicslib/window/ugwindow) — Window handle and lifecycle
+
+<H2 id="Header">Header</H2>
+
+<CodeTabs
+  uhc={`#include <uhcgraphics.uhh>`}
+  cpp={`#include <uhcgraphics.hh>`}
+/>
+
+<H2 id="Cheat-sheet">Cheat sheet</H2>
+
+<CodeTabs
+  uhc={`namespace UgWindow {
+    struct It {
+      GLFWwindow* handle;
+      const I8* name;
+    };
+
+    U0 update();
+    U0 destroy(UgWindow.It& window);
+    U8 isMinimized(UgWindow.It& window);
+    U8 isOpen(UgWindow.It& window);
+    UgWindow.It create(const I8* name);
+  }`}
+  cpp={`namespace UgWindow {
+    struct It {
+      GLFWwindow* handle;
+      const char* name;
+    };
+
+    void update();
+    void destroy(UgWindow::It& window);
+    unsigned char isMinimized(UgWindow::It& window);
+    unsigned char isOpen(UgWindow::It& window);
+    UgWindow::It create(const char* name);
+  }`}
+/>

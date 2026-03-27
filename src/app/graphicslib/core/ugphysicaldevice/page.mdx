@@ -1,0 +1,114 @@
+# UgPhysicalDevice
+
+Physical GPU enumeration and selection.
+
+<H2 id="getProperties">getProperties</H2>
+
+Get the properties of a physical device.
+
+<CodeTabs
+  uhc={`VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);`}
+  cpp={`VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);`}
+/>
+
+**Parameters**
+- `device` — The physical device
+
+**Returns** — Device properties struct
+
+---
+
+<H2 id="typeName">typeName</H2>
+
+Return a human-readable string for a device type.
+
+<CodeTabs
+  uhc={`const I8* typeName(VkPhysicalDeviceType type);`}
+  cpp={`const char* typeName(VkPhysicalDeviceType type);`}
+/>
+
+**Parameters**
+- `type` — The Vulkan device type enum value
+
+**Returns** — Null-terminated string (e.g. `"Discrete GPU"`)
+
+---
+
+<H2 id="hasExtensions">hasExtensions</H2>
+
+Check whether a physical device supports the required extensions.
+
+<CodeTabs
+  uhc={`U8 hasExtensions(VkPhysicalDevice device);`}
+  cpp={`unsigned char hasExtensions(VkPhysicalDevice device);`}
+/>
+
+**Parameters**
+- `device` — The physical device to check
+
+**Returns** — Non-zero if all required extensions are supported
+
+---
+
+<H2 id="count">count</H2>
+
+Return the number of available physical devices.
+
+<CodeTabs
+  uhc={`U32 count(VkInstance instance);`}
+  cpp={`uint32_t count(VkInstance instance);`}
+/>
+
+**Parameters**
+- `instance` — The Vulkan instance
+
+**Returns** — Number of physical devices
+
+---
+
+<H2 id="list">list</H2>
+
+Print information about all available physical devices.
+
+<CodeTabs
+  uhc={`U0 list(VkInstance instance);`}
+  cpp={`void list(VkInstance instance);`}
+/>
+
+**Parameters**
+- `instance` — The Vulkan instance
+
+---
+
+<H2 id="get">get</H2>
+
+Select a physical device of a desired type.
+
+<CodeTabs
+  uhc={`VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, U8 desiredType);`}
+  cpp={`VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, unsigned char desiredType);`}
+/>
+
+**Parameters**
+- `instance` — The Vulkan instance
+- `surface` — The window surface (for presentation support check)
+- `desiredType` — Preferred `VkPhysicalDeviceType`
+
+**Returns** — Selected physical device
+
+---
+
+<H2 id="create">create</H2>
+
+Automatically select the best available physical device.
+
+<CodeTabs
+  uhc={`VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);`}
+  cpp={`VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);`}
+/>
+
+**Parameters**
+- `instance` — The Vulkan instance
+- `surface` — The window surface
+
+**Returns** — The chosen physical device

@@ -1,0 +1,68 @@
+# UgBuffer
+
+Raw GPU buffer allocation and data upload.
+
+<H2 id="It">It</H2>
+
+GPU buffer object.
+
+<CodeTabs
+  uhc={`struct It {
+    VkBuffer handle;
+    VkDeviceMemory memory;
+  };`}
+  cpp={`struct It {
+    VkBuffer handle;
+    VkDeviceMemory memory;
+  };`}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Allocate a GPU buffer with the given usage flags.
+
+<CodeTabs
+  uhc={`UgBuffer.It create(UgContext.It& ctx, U32 size, VkBufferUsageFlagBits usage);`}
+  cpp={`UgBuffer::It create(UgContext::It& ctx, uint32_t size, VkBufferUsageFlagBits usage);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `size` — Size in bytes
+- `usage` — Vulkan buffer usage flags
+
+**Returns** — Initialized buffer object
+
+---
+
+<H2 id="upload">upload</H2>
+
+Upload CPU data to a GPU buffer.
+
+<CodeTabs
+  uhc={`U0 upload(UgContext.It& ctx, UgBuffer.It& buffer, U0* data, U32 size);`}
+  cpp={`void upload(UgContext::It& ctx, UgBuffer::It& buffer, void* data, uint32_t size);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `buffer` — The destination buffer
+- `data` — Pointer to the source data
+- `size` — Number of bytes to upload
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a GPU buffer and free its memory.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgBuffer.It& buffer);`}
+  cpp={`void destroy(UgContext::It& ctx, UgBuffer::It& buffer);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `buffer` — The buffer to destroy

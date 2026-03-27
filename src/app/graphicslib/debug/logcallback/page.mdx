@@ -1,0 +1,73 @@
+# LogCallback
+
+Vulkan debug messenger setup and the validation layer log callback.
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the debug messenger.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx);`}
+  cpp={`void destroy(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The context whose debug messenger will be destroyed
+
+---
+
+<H2 id="getCreateInfo">getCreateInfo</H2>
+
+Return a pre-filled `VkDebugUtilsMessengerCreateInfoEXT` for instance creation.
+
+<CodeTabs
+  uhc={`VkDebugUtilsMessengerCreateInfoEXT getCreateInfo();`}
+  cpp={`VkDebugUtilsMessengerCreateInfoEXT getCreateInfo();`}
+/>
+
+**Returns** — Create-info struct pointing to `logCallback`
+
+---
+
+<H2 id="create">create</H2>
+
+Register the debug messenger with the Vulkan instance.
+
+<CodeTabs
+  uhc={`VkDebugUtilsMessengerEXT create(UgContext.It& ctx);`}
+  cpp={`VkDebugUtilsMessengerEXT create(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+
+**Returns** — The created `VkDebugUtilsMessengerEXT`
+
+---
+
+<H2 id="logCallback">logCallback</H2>
+
+The Vulkan debug callback that prints validation messages. Registered automatically by `create`.
+
+<CodeTabs
+  uhc={`VKAPI_ATTR VkBool32 VKAPI_CALL logCallback(
+    VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+    VkDebugUtilsMessageTypeFlagsEXT messageType,
+    const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+    U0* pUserData
+  );`}
+  cpp={`VKAPI_ATTR VkBool32 VKAPI_CALL logCallback(
+    VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+    VkDebugUtilsMessageTypeFlagsEXT messageType,
+    const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+    void* pUserData
+  );`}
+/>
+
+**Parameters**
+- `messageSeverity` — Severity level of the validation message
+- `messageType` — General / validation / performance category
+- `pCallbackData` — Message details including the message string
+- `pUserData` — User-provided data pointer (unused)
+
+**Returns** — `VK_FALSE` (do not abort the Vulkan call)

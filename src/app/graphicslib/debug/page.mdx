@@ -1,0 +1,50 @@
+# Debug
+
+Vulkan validation layers and debug messenger utilities.
+
+- [LogCallback](/graphicslib/debug/logcallback) — Debug messenger callback setup
+- [ValidationLayers](/graphicslib/debug/validationlayers) — Validation layer enumeration
+
+<H2 id="Header">Header</H2>
+
+<CodeTabs
+  uhc={`#include <uhcgraphics.uhh>`}
+  cpp={`#include <uhcgraphics.hh>`}
+/>
+
+<H2 id="Cheat-sheet">Cheat sheet</H2>
+
+<CodeTabs
+  uhc={`namespace UgLogCallback {
+    U0 destroy(UgContext.It& ctx);
+    VkDebugUtilsMessengerCreateInfoEXT getCreateInfo();
+    VkDebugUtilsMessengerEXT create(UgContext.It& ctx);
+    VKAPI_ATTR VkBool32 VKAPI_CALL logCallback(
+      VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+      VkDebugUtilsMessageTypeFlagsEXT messageType,
+      const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+      U0* pUserData
+    );
+  }
+
+  namespace UgValidationLayer {
+    I32 count();
+    const I8** get();
+  }`}
+  cpp={`namespace UgLogCallback {
+    void destroy(UgContext::It& ctx);
+    VkDebugUtilsMessengerCreateInfoEXT getCreateInfo();
+    VkDebugUtilsMessengerEXT create(UgContext::It& ctx);
+    VKAPI_ATTR VkBool32 VKAPI_CALL logCallback(
+      VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+      VkDebugUtilsMessageTypeFlagsEXT messageType,
+      const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+      void* pUserData
+    );
+  }
+
+  namespace UgValidationLayer {
+    int32_t count();
+    const char** get();
+  }`}
+/>

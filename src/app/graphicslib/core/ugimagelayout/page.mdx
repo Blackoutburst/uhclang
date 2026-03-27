@@ -1,0 +1,19 @@
+# UgImageLayout
+
+Insert pipeline barriers to transition images between Vulkan layouts.
+
+<H2 id="transition">transition</H2>
+
+Transition an image from one layout to another via a pipeline barrier.
+
+<CodeTabs
+  uhc={`U0 transition(VkCommandBuffer cmdBuffer, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);`}
+  cpp={`void transition(VkCommandBuffer cmdBuffer, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);`}
+/>
+
+**Parameters**
+- `cmdBuffer` — The active command buffer
+- `image` — The image to transition
+- `format` — The image format
+- `oldLayout` — The current image layout
+- `newLayout` — The target image layout

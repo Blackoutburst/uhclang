@@ -4,7 +4,7 @@ TCP server
 
 <H2 id="It">It</H2>
 
-TCP client object
+TCP server object
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
@@ -41,7 +41,7 @@ TCP client object
 
 <H2 id="create">create</H2>
 
-Create a TCP server
+Create a TCP server bound to a port.
 
 <CodeTabs
   uhc={`TcpServer.It create(I16 port, U16 slots);`}
@@ -49,8 +49,10 @@ Create a TCP server
 />
 
 **Parameters**
-- `port` — Server listen port
-- `slots` — Amount of connection the server can accept
+- `port` — Port to listen on
+- `slots` — Maximum number of simultaneous connections
+
+**Returns** — Initialized server object
 
 ---
 
@@ -87,7 +89,7 @@ This method start a new thread and return new client in a callback
 
 <H2 id="write">write</H2>
 
-Write a message to a specific client
+Write a message to a specific client.
 
 <CodeTabs
   uhc={`U8 write(TcpClient.It& client, I8* buffer, U32 size);`}
@@ -95,35 +97,39 @@ Write a message to a specific client
 />
 
 **Parameters**
-- `client` — The TCP client
-- `buffer` — The data
-- `size` — The data length
+- `client` — The target client
+- `buffer` — The data to send
+- `size` — Number of bytes to send
+
+**Returns** — Non-zero on success
 
 ---
 
 <H2 id="read">read</H2>
 
-Read a message from the client
+Read a message from a client.
 
 > [!IMPORTANT]
-> This method is non blocking and all byte may not be read
-> To read everything use readAll
+> This method is non-blocking and may not read all bytes.
+> Use `readAll` to guarantee the full payload is received.
 
 <CodeTabs
   uhc={`U8 read(TcpClient.It& client, I8* buffer, U32 size);`}
-  cpp={`unsigned char read(TcpClient::It& client, I8* buffer, U32 size);`}
+  cpp={`unsigned char read(TcpClient::It& client, char* buffer, uint32_t size);`}
 />
 
 **Parameters**
-- `client` — The TCP client
-- `buffer` — The data
-- `size` — Amount of byte read
+- `client` — The source client
+- `buffer` — Buffer to receive data into
+- `size` — Maximum number of bytes to read
+
+**Returns** — Non-zero on success
 
 ---
 
 <H2 id="readAll">readAll</H2>
 
-Read a message from the client
+Read from a client, blocking until all bytes are received.
 
 <CodeTabs
   uhc={`U8 readAll(TcpClient.It& client, I8* buffer, U32 size);`}
@@ -131,9 +137,11 @@ Read a message from the client
 />
 
 **Parameters**
-- `client` — The TCP client
-- `buffer` — The data
-- `size` — Amount of byte read
+- `client` — The source client
+- `buffer` — Buffer to receive data into
+- `size` — Exact number of bytes to read
+
+**Returns** — Non-zero on success
 
 ---
 

@@ -37,7 +37,7 @@ TCP client object
 
 <H2 id="create">create</H2>
 
-Create a TCP client and connect it to a server
+Create a TCP client and connect it to a server.
 
 <CodeTabs
   uhc={`TcpClient.It create(I8* ip, I16 port);`}
@@ -45,8 +45,10 @@ Create a TCP client and connect it to a server
 />
 
 **Parameters**
-- `ip` — Server IP
+- `ip` — Server IP address
 - `port` — Server port
+
+**Returns** — Connected client object
 
 ---
 
@@ -66,7 +68,7 @@ Destroy a TCP client and close connection if any
 
 <H2 id="write">write</H2>
 
-Write a message to the server
+Write a message to the server.
 
 <CodeTabs
   uhc={`U8 write(TcpClient.It& client, I8* buffer, U32 size);`}
@@ -75,8 +77,10 @@ Write a message to the server
 
 **Parameters**
 - `client` — The TCP client
-- `buffer` — The data
-- `size` — The data length
+- `buffer` — The data to send
+- `size` — Number of bytes to send
+
+**Returns** — Non-zero on success
 
 ---
 
@@ -90,19 +94,21 @@ Read a message from the server
 
 <CodeTabs
   uhc={`U8 read(TcpClient.It& client, I8* buffer, U32 size);`}
-  cpp={`unsigned char read(TcpClient::It& client, I8* buffer, U32 size);`}
+  cpp={`unsigned char read(TcpClient::It& client, char* buffer, uint32_t size);`}
 />
 
 **Parameters**
 - `client` — The TCP client
-- `buffer` — The data
-- `size` — Amount of byte read
+- `buffer` — Buffer to receive data into
+- `size` — Maximum number of bytes to read
+
+**Returns** — Non-zero on success
 
 ---
 
 <H2 id="readAll">readAll</H2>
 
-Read a message from the server
+Read a message from the server, blocking until all bytes are received
 
 <CodeTabs
   uhc={`U8 readAll(TcpClient.It& client, I8* buffer, U32 size);`}
@@ -111,5 +117,7 @@ Read a message from the server
 
 **Parameters**
 - `client` — The TCP client
-- `buffer` — The data
-- `size` — Amount of byte read
+- `buffer` — Buffer to receive data into
+- `size` — Exact number of bytes to read
+
+**Returns** — Non-zero on success

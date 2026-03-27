@@ -37,8 +37,9 @@ export default function Home() {
           />
           <FeatureBlock
             title="Graphic lib"
-          description="Complete documentation of UnholyC grapgics library"
+            description="Complete documentation of UnholyC grapgics library"
             icon={CubeIcon}
+            href="/graphicslib"
           />
           <FeatureBlock
             title="Tools"

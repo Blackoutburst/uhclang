@@ -181,7 +181,7 @@ Put a matrix back to identity values
 />
 
 **Parameters**
-- `mat` — Matrix that vill be reset to identity
+- `mat` — Matrix that will be reset to identity
 
 ---
 
@@ -286,10 +286,10 @@ Scale a matrix
 
 **Parameters**
 - `mat` — Matrix that will hold the result
-- `x` — X axys scale factor
-- `y` — Y axys scale factor
-- `z` — Z axys scale factor
-- `w` — W axys scale factor
+- `x` — X axis scale factor
+- `y` — Y axis scale factor
+- `z` — Z axis scale factor
+- `w` — W axis scale factor
 
 ---
 
@@ -304,10 +304,10 @@ Translate a matrix
 
 **Parameters**
 - `mat` — Matrix that will hold the result
-- `x` — X axys translate factor
-- `y` — Y axys translate factor
-- `z` — Z axys translate factor
-- `w` — W axys translate factor
+- `x` — X axis translate factor
+- `y` — Y axis translate factor
+- `z` — Z axis translate factor
+- `w` — W axis translate factor
 
 ---
 
@@ -323,15 +323,15 @@ Rotate a matrix
 **Parameters**
 - `mat` — Matrix that will hold the result
 - `angle` — The rotation angle in rad
-- `x` — Allow rotation on X axys [0 - 1]
-- `y` — Allow rotation on Y axys [0 - 1]
-- `z` — Allow rotation on Z axys [0 - 1]
+- `x` — Allow rotation on X axis [0 - 1]
+- `y` — Allow rotation on Y axis [0 - 1]
+- `z` — Allow rotation on Z axis [0 - 1]
 
 ---
 
 <H2 id="lookAt">lookAt</H2>
 
-Rotate a matrix
+Build a view (camera) matrix from eye position, target, and up vector
 
 <CodeTabs
   uhc={`U0 lookAt(Matrix.It& mat, VectorF.It& eye, VectorF.It& center, VectorF.It& up);`}

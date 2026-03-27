@@ -52,7 +52,7 @@ Add an element at a specific index
 
 <H2 id="remove">remove</H2>
 
-Remove the first matching elemnt from a list
+Remove the first matching element from the list.
 
 <CodeTabs
   uhc={`U8 remove(List.It<T>& list, T value);`}
@@ -61,7 +61,9 @@ Remove the first matching elemnt from a list
 
 **Parameters**
 - `list` — The list
-- `value` — Value
+- `value` — Value to remove
+
+**Returns** — Non-zero if the element was found and removed
 
 ---
 
@@ -93,6 +95,8 @@ Get an element at a specific index
 - `list` — The list
 - `index` — The element index
 
+**Returns** — Pointer to the element at `index`
+
 ---
 
 <H2 id="set">set</H2>
@@ -113,7 +117,7 @@ Set the value of an element at a specific index
 
 <H2 id="first">first</H2>
 
-Return the first element of the list
+Return the first element of the list.
 
 <CodeTabs
   uhc={`T* first(List.It<T>& list);`}
@@ -123,11 +127,13 @@ Return the first element of the list
 **Parameters**
 - `list` — The list
 
+**Returns** — Pointer to the first element
+
 ---
 
 <H2 id="last">last</H2>
 
-Return the last element of the list
+Return the last element of the list.
 
 <CodeTabs
   uhc={`T* last(List.It<T>& list);`}
@@ -137,11 +143,13 @@ Return the last element of the list
 **Parameters**
 - `list` — The list
 
+**Returns** — Pointer to the last element
+
 ---
 
 <H2 id="size">size</H2>
 
-Return the list size
+Return the number of elements in the list.
 
 <CodeTabs
   uhc={`U64 size(List.It<T>& list);`}
@@ -151,6 +159,8 @@ Return the list size
 **Parameters**
 - `list` — The list
 
+**Returns** — Number of elements
+
 ---
 
 <H2 id="clear">clear</H2>
@@ -159,7 +169,7 @@ Clear the list
 
 <CodeTabs
   uhc={`U0 clear(List.It<T>& list);`}
-  cpp={`void clear(List.It<T>& list);`}
+  cpp={`void clear(List::It<T>& list);`}
 />
 
 **Parameters**

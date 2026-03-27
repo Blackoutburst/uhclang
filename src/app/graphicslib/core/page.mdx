@@ -1,0 +1,696 @@
+# Core
+
+Vulkan core abstractions for rendering.
+
+- [Buffer](/graphicslib/core/buffer) — GPU buffers, frame buffers, uniform buffers, command buffers
+- [CommandPool](/graphicslib/core/commandpool) — Command pool management
+- [Context](/graphicslib/core/context) — Vulkan context (instance, device, surface, pools)
+- [DescriptorPool](/graphicslib/core/descriptorpool) — Descriptor pool management
+- [Device](/graphicslib/core/device) — Physical device, queue families, logical device
+- [Fence](/graphicslib/core/fence) — CPU-GPU synchronization fence
+- [Image](/graphicslib/core/image) — Image views and layout transitions
+- [Instance](/graphicslib/core/instance) — Vulkan instance creation
+- [Pipeline](/graphicslib/core/pipeline) — Graphics pipeline and pipeline layout
+- [Renderer](/graphicslib/core/renderer) — High-level renderer (swapchain + framebuffers + render pass)
+- [RenderPass](/graphicslib/core/renderpass) — Render pass management
+- [RenderTarget](/graphicslib/core/rendertarget) — Off-screen render target
+- [Semaphore](/graphicslib/core/semaphore) — GPU-GPU synchronization semaphore
+- [Shader](/graphicslib/core/shader) — Shader module and shader program
+- [Surface](/graphicslib/core/surface) — Window surface
+- [Swapchain](/graphicslib/core/swapchain) — Swapchain management
+- [Texture](/graphicslib/core/texture) — Textures and samplers
+- [VAO](/graphicslib/core/vao) — Vertex attributes, descriptors, settings, and vertex arrays
+
+<H2 id="Header">Header</H2>
+
+<CodeTabs
+  uhc={`#include <uhcgraphics.uhh>`}
+  cpp={`#include <uhcgraphics.hh>`}
+/>
+
+<H2 id="Cheat-sheet">Cheat sheet</H2>
+
+<CodeTabs
+  uhc={`namespace UgBuffer {
+    struct It { 
+      VkBuffer handle; 
+      VkDeviceMemory memory; 
+    };
+    
+    UgBuffer.It create(UgContext.It& ctx, U32 size, VkBufferUsageFlagBits usage);
+    U0 upload(UgContext.It& ctx, UgBuffer.It& buffer, U0* data, U32 size);
+    U0 destroy(UgContext.It& ctx, UgBuffer.It& buffer);
+  }
+
+  namespace UgFrameBuffer {
+    struct It { 
+      VkFramebuffer* handles; 
+      VkExtent2D extends; 
+      U32 bufferCount; 
+    };
+    
+    UgFrameBuffer.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass);
+    U0 destroy(UgContext.It& ctx, UgFrameBuffer.It& framebuffers);
+  }
+
+  namespace UgUniformBuffer {
+    struct It { 
+      UgBuffer.It buffer; 
+      VkDescriptorSetLayout setLayout; 
+      U0* mappedData; 
+      U32 binding; 
+      U32 size; 
+      VkDescriptorSet descriptorSet; 
+      U32 cursor; 
+    };
+    
+    UgUniformBuffer.It create(UgContext.It& ctx, U32 binding, U32 size);
+    U0 bind(UgUniformBuffer.It& uniformBuffer, VkCommandBuffer cmdBuffer, VkPipelineLayout pipelineLayout);
+    U0 destroy(UgContext.It& ctx, UgUniformBuffer.It& uniformBuffer);
+    U0 reset(UgUniformBuffer.It& uniformBuffer);
+    U0 setFloat(UgUniformBuffer.It& buffer, F32 value);
+    U0 setVec2f(UgUniformBuffer.It& buffer, VectorF.It vec);
+    U0 setVec3f(UgUniformBuffer.It& buffer, VectorF.It vec);
+    U0 setVec4f(UgUniformBuffer.It& buffer, VectorF.It vec);
+    U0 setMat(UgUniformBuffer.It& buffer, Matrix.It mat);
+  }
+
+  namespace UgCommandBuffer {
+    struct It { 
+      VkCommandBuffer handle; 
+    };
+    
+    UgCommandBuffer.It create(UgContext.It& ctx);
+    U0 begin(UgCommandBuffer.It& cmd);
+    U0 end(UgCommandBuffer.It& cmd);
+    U0 destroy(UgContext.It& ctx, UgCommandBuffer.It& cmd);
+  }
+
+  namespace UgCommandPool {
+    VkCommandPool create(UgContext.It& ctx);
+    U0 destroy(UgContext.It& ctx, VkCommandPool cmdPool);
+  }
+
+  namespace UgContext {
+    struct It { 
+      UgWindow.It window;
+      VkInstance instance;
+      VkDebugUtilsMessengerEXT logger;
+      VkSurfaceKHR surface;
+      VkPhysicalDevice physicalDevice;
+      UgDevice.It device;
+      VkDescriptorPool descriptorPool;
+      VkCommandPool cmdPool; 
+    };
+    
+    UgContext.It create(UgWindow.It& window, U8 debug);
+    U0 destroy(UgContext.It& ctx);
+  }
+
+  namespace UgDescriptorPool {
+    VkDescriptorPool create(UgContext.It& ctx);
+    U0 destroy(UgContext.It& ctx, VkDescriptorPool descriptorPool);
+  }
+
+  namespace UgPhysicalDevice {
+    VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);
+    const I8* typeName(VkPhysicalDeviceType type);
+    U8 hasExtensions(VkPhysicalDevice device);
+    U32 count(VkInstance instance);
+    U0 list(VkInstance instance);
+    VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, U8 desiredType);
+    VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);
+  }
+
+  namespace UgQueueFamilies {
+    U32 count(VkPhysicalDevice device);
+    U8 hasType(VkPhysicalDevice device, VkQueueFlagBits type);
+    U32 getType(VkPhysicalDevice device, VkQueueFlagBits type);
+  }
+
+  namespace UgDevice {
+    struct It { 
+      VkDevice handle;
+      VkPhysicalDeviceProperties properties;
+      VkQueue graphicQueue;
+      VkQueue presentQueue; 
+    };
+    
+    UgDevice.It create(VkPhysicalDevice device, VkSurfaceKHR surface);
+    VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);
+    VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);
+    VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);
+    U32 getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
+    U0 destroy(UgDevice.It& device);
+  }
+
+  namespace UgFence {
+    struct It { 
+      VkFence handle; 
+    };
+
+    UgFence.It create(UgContext.It& ctx);
+    U0 wait(UgContext.It& ctx, UgFence.It& fence);
+    U0 reset(UgContext.It& ctx, UgFence.It& fence);
+    U0 destroy(UgContext.It& ctx, UgFence.It& fence);
+  }
+
+  namespace UgImageView {
+    struct It { 
+      VkImage image; 
+      VkImageView view; 
+    };
+    
+    UgImageView.It create(UgContext.It& ctx, VkImage image, VkFormat format);
+    VkImageView makeView(UgContext.It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);
+    U0 destroy(UgContext.It& ctx, UgImageView.It& imageView);
+  }
+
+  namespace UgImageLayout {
+    U0 transition(VkCommandBuffer cmdBuffer, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
+  }
+
+  namespace UgInstance {
+    VkInstance create(U8 debug);
+    U0 destroy(UgContext.It& ctx);
+  }
+
+  namespace UgPipeline {
+    VkPipeline create(UgContext.It& ctx, VkPipelineLayout layout, UgSwapchain.It& swapchain, UgShaderProgram.It& shaderProgram, VkRenderPass renderPass, VkPipelineVertexInputStateCreateInfo* vertexInput, const UgVertexSettings.It& settings);
+    U0 destroy(UgContext.It& ctx, VkPipeline graphicsPipeline);
+    VkPipelineDynamicStateCreateInfo createDynamicState();
+    VkPipelineInputAssemblyStateCreateInfo createInputAssembly();
+    VkViewport createViewport(UgContext.It& ctx, UgSwapchain.It& swapchain);
+    VkRect2D createScissor(UgContext.It& ctx, UgSwapchain.It& swapchain);
+    VkPipelineViewportStateCreateInfo createViewportState(VkViewport* viewport, VkRect2D* scissor);
+    VkPipelineRasterizationStateCreateInfo createRasterizerState(const UgVertexSettings.It& settings);
+    VkPipelineMultisampleStateCreateInfo createMultisamplingState();
+    VkPipelineColorBlendAttachmentState createColorBlendAttachmentState(const UgVertexSettings.It& settings);
+    VkPipelineColorBlendStateCreateInfo createColorBlendState(VkPipelineColorBlendAttachmentState* colorBlendAttachment);
+    VkPipelineDepthStencilStateCreateInfo createDepthStencil();
+  }
+
+  namespace UgPipelineLayout {
+    VkPipelineLayout create(UgContext.It& ctx, U32 count, VkDescriptorSetLayout* setLayouts);
+    U0 destroy(UgContext.It& ctx, VkPipelineLayout pipelineLayout);
+    U0 remove(UgContext.It& ctx, VkPipelineLayout layout);
+  }
+
+  namespace UgRenderer {
+    struct It { 
+      UgSwapchain.It swapchain;
+      UgFrameBuffer.It framebuffers;
+      VkRenderPass renderPass; 
+    };
+    
+    UgRenderer.It create(UgContext.It& ctx);
+    U0 update(UgContext.It& ctx, UgRenderer.It& renderer);
+    U0 begin(UgRenderer.It& renderer, UgCommandBuffer.It& cmd);
+    U0 end(UgCommandBuffer.It& cmd);
+    U0 setViewport(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd);
+    U0 submit(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd, UgFence.It& fence);
+    VkResult present(UgContext.It& ctx, UgRenderer.It& renderer);
+    VkResult aquire(UgContext.It& ctx, UgRenderer.It& renderer);
+    U0 destroy(UgContext.It& ctx, UgRenderer.It& renderer);
+  }
+
+  namespace UgRenderPass {
+    VkRenderPass create(UgContext.It& ctx, UgSwapchain.It& swapchain);
+    U0 begin(VkRenderPass renderPass, UgFrameBuffer.It& framebuffers, VkCommandBuffer cmdBuffer, U32 imageIndex);
+    U0 end(VkCommandBuffer cmdBuffer);
+    U0 destroy(UgContext.It& ctx, VkRenderPass renderPass);
+  }
+
+  namespace UgRenderTarget {
+    struct It { 
+      VkRenderPass renderPass;
+      VkFramebuffer framebuffer;
+      UgTexture.It texture;
+      U32 width;
+      U32 height; 
+    };
+    
+    UgRenderTarget.It create(UgContext.It& ctx, U32 width, U32 height);
+    U0 begin(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);
+    U0 end(UgCommandBuffer.It& cmd);
+    U0 setViewport(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);
+    U0 destroy(UgContext.It& ctx, UgRenderTarget.It& rt);
+  }
+
+  namespace UgSemaphore {
+    struct It { 
+      VkSemaphore handle; 
+    };
+    
+    UgSemaphore.It create(UgContext.It& ctx);
+    U0 destroy(UgContext.It& ctx, UgSemaphore.It& semaphore);
+  }
+
+  namespace UgShader {
+    VkShaderModule create(UgContext.It& ctx, const I8* filePath);
+    U0 destroy(UgContext.It& ctx, VkShaderModule shader);
+  }
+
+  namespace UgShaderProgram {
+    struct It { 
+      VkPipelineShaderStageCreateInfo handle[2];
+      VkShaderModule vertexShader;
+      VkShaderModule fragmentShader;
+    };
+    
+    UgShaderProgram.It create(UgContext.It& ctx, const I8* vertexSource, const I8* fragmentSource);
+    VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);
+    U0 destroy(UgContext.It& ctx, UgShaderProgram.It& shaderProgram);
+  }
+
+  namespace UgWindowSurface {
+    VkSurfaceKHR create(VkInstance instance, UgWindow.It& window);
+    U0 destroy(VkInstance instance, VkSurfaceKHR surface);
+  }
+
+  namespace UgSwapchain {
+    struct It { 
+      VkSwapchainKHR handle;
+      UgImageView.It* imageViews;
+      U32 imageCount;
+      U32 currentFrame;
+      U32 imageIndex;
+      UgSemaphore.It* pSemaphore;
+      UgSemaphore.It* rSemaphore;
+      VkSurfaceFormatKHR surfaceFormat;
+      VkPresentModeKHR presentMode;
+      VkSurfaceCapabilitiesKHR capabilities;
+      VkImage depthImage;
+      VkDeviceMemory depthImageMemory;
+      VkImageView depthImageView;
+    };
+    
+    UgSwapchain.It create(UgContext.It& ctx);
+    VkExtent2D extend(UgContext.It& ctx, UgSwapchain.It& swapchain);
+    U0 update(UgContext.It& ctx, UgSwapchain.It& swapchain, VkCommandBuffer cmdBuffer);
+    U0 destroy(UgContext.It& ctx, UgSwapchain.It& swapchain);
+  }
+
+  namespace UgTexture {
+    struct It { 
+      VkImage image;
+      VkDeviceMemory memory;
+      VkImageView view;
+      VkSampler sampler;
+      VkDescriptorSetLayout setLayout;
+      VkDescriptorSet descriptorSet;
+    };
+    
+    UgTexture.It create(UgContext.It& ctx, const I8* path);
+    U0 bind(UgTexture.It& texture, UgCommandBuffer.It& cmd, VkPipelineLayout pipelineLayout);
+    U0 destroy(UgContext.It& ctx, UgTexture.It& texture);
+  }
+
+  namespace UgSampler {
+    VkSampler create(UgContext.It& ctx);
+    U0 destroy(UgContext.It& ctx, VkSampler sampler);
+  }
+
+  namespace UgVertexAttrib {
+    struct It { 
+      U32 location; 
+      VkFormat format; 
+      U32 offset; 
+    };
+  }
+
+  namespace UgVertexDesc {
+    struct It { 
+      U32 stride; 
+      UgVertexAttrib.It* attributes; 
+      U32 attributeCount; 
+    };
+  }
+
+  namespace UgVertexSettings {
+    struct It {
+      U8 depthVao;
+      I32 colorWriteMask;
+      VkBool32 blendEnable;
+      VkBlendFactor srcColorBlendFactor;
+      VkBlendFactor dstColorBlendFactor;
+      VkBlendOp colorBlendOp;
+      VkBlendFactor srcAlphaBlendFactor;
+      VkBlendFactor dstAlphaBlendFactor;
+      VkBlendOp alphaBlendOp;
+      VkBool32 depthClampEnable;
+      VkBool32 rasterizerDiscardEnable;
+      VkPolygonMode polygonMode;
+      VkCullModeFlagBits cullMode;
+      VkFrontFace frontFace;
+      VkBool32 depthBiasEnable;
+      F32 depthBiasConstantFactor;
+      F32 depthBiasClamp;
+      F32 depthBiasSlopeFactor;
+      F32 lineWidth;
+    };
+  }
+
+  namespace UgVertexArray {
+    struct It { 
+      VkPipelineLayout layout; 
+      VkPipeline pipeline; 
+      UgUniformBuffer.It uniformBuffer; 
+    };
+    
+    UgVertexArray.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass, UgVertexDesc.It& desc, UgUniformBuffer.It& uniformBuffer, UgTexture.It* texture, UgShaderProgram.It& shaderProgram, const UgVertexSettings.It& settings);
+    U0 bind(UgVertexArray.It& vao, UgCommandBuffer.It& cmd);
+    U0 destroy(UgContext.It& ctx, UgVertexArray.It& vao);
+  }`}
+  cpp={`namespace UgBuffer {
+    struct It { 
+      VkBuffer handle;
+      VkDeviceMemory memory;
+    };
+    
+    UgBuffer::It create(UgContext::It& ctx, uint32_t size, VkBufferUsageFlagBits usage);
+    void upload(UgContext::It& ctx, UgBuffer::It& buffer, void* data, uint32_t size);
+    void destroy(UgContext::It& ctx, UgBuffer::It& buffer);
+  }
+
+  namespace UgFrameBuffer {
+    struct It {
+      VkFramebuffer* handles;
+      VkExtent2D extends;
+      uint32_t bufferCount;
+    };
+    
+    UgFrameBuffer::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass);
+    void destroy(UgContext::It& ctx, UgFrameBuffer::It& framebuffers);
+  }
+
+  namespace UgUniformBuffer {
+    struct It { 
+      UgBuffer::It buffer;
+      VkDescriptorSetLayout setLayout;
+      void* mappedData;
+      uint32_t binding;
+      uint32_t size;
+      VkDescriptorSet descriptorSet;
+      uint32_t cursor;
+    };
+    
+    UgUniformBuffer::It create(UgContext::It& ctx, uint32_t binding, uint32_t size);
+    void bind(UgUniformBuffer::It& uniformBuffer, VkCommandBuffer cmdBuffer, VkPipelineLayout pipelineLayout);
+    void destroy(UgContext::It& ctx, UgUniformBuffer::It& uniformBuffer);
+    void reset(UgUniformBuffer::It& uniformBuffer);
+    void setFloat(UgUniformBuffer::It& buffer, float value);
+    void setVec2f(UgUniformBuffer::It& buffer, VectorF::It vec);
+    void setVec3f(UgUniformBuffer::It& buffer, VectorF::It vec);
+    void setVec4f(UgUniformBuffer::It& buffer, VectorF::It vec);
+    void setMat(UgUniformBuffer::It& buffer, Matrix::It mat);
+  }
+
+  namespace UgCommandBuffer {
+    struct It { 
+      VkCommandBuffer handle;
+    };
+    
+    UgCommandBuffer::It create(UgContext::It& ctx);
+    void begin(UgCommandBuffer::It& cmd);
+    void end(UgCommandBuffer::It& cmd);
+    void destroy(UgContext::It& ctx, UgCommandBuffer::It& cmd);
+  }
+
+  namespace UgCommandPool {
+    VkCommandPool create(UgContext::It& ctx);
+    void destroy(UgContext::It& ctx, VkCommandPool cmdPool);
+  }
+
+  namespace UgContext {
+    struct It { 
+      UgWindow::It window;
+      VkInstance instance;
+      VkDebugUtilsMessengerEXT logger;
+      VkSurfaceKHR surface;
+      VkPhysicalDevice physicalDevice;
+      UgDevice::It device;
+      VkDescriptorPool descriptorPool;
+      VkCommandPool cmdPool;
+    };
+    
+    UgContext::It create(UgWindow::It& window, unsigned char debug);
+    void destroy(UgContext::It& ctx);
+  }
+
+  namespace UgDescriptorPool {
+    VkDescriptorPool create(UgContext::It& ctx);
+    void destroy(UgContext::It& ctx, VkDescriptorPool descriptorPool);
+  }
+
+  namespace UgPhysicalDevice {
+    VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);
+    const char* typeName(VkPhysicalDeviceType type);
+    unsigned char hasExtensions(VkPhysicalDevice device);
+    uint32_t count(VkInstance instance);
+    void list(VkInstance instance);
+    VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, unsigned char desiredType);
+    VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);
+  }
+
+  namespace UgQueueFamilies {
+    uint32_t count(VkPhysicalDevice device);
+    unsigned char hasType(VkPhysicalDevice device, VkQueueFlagBits type);
+    uint32_t getType(VkPhysicalDevice device, VkQueueFlagBits type);
+  }
+
+  namespace UgDevice {
+    struct It { 
+      VkDevice handle;
+      VkPhysicalDeviceProperties properties;
+      VkQueue graphicQueue;
+      VkQueue presentQueue;
+    };
+    
+    UgDevice::It create(VkPhysicalDevice device, VkSurfaceKHR surface);
+    VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);
+    VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);
+    VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);
+    uint32_t getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
+    void destroy(UgDevice::It& device);
+  }
+
+  namespace UgFence {
+    struct It { 
+      VkFence handle;
+    };
+    
+    UgFence::It create(UgContext::It& ctx);
+    void wait(UgContext::It& ctx, UgFence::It& fence);
+    void reset(UgContext::It& ctx, UgFence::It& fence);
+    void destroy(UgContext::It& ctx, UgFence::It& fence);
+  }
+
+  namespace UgImageView {
+    struct It { 
+      VkImage image; 
+      VkImageView view;
+    };
+    
+    UgImageView::It create(UgContext::It& ctx, VkImage image, VkFormat format);
+    VkImageView makeView(UgContext::It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);
+    void destroy(UgContext::It& ctx, UgImageView::It& imageView);
+  }
+
+  namespace UgImageLayout {
+    void transition(VkCommandBuffer cmdBuffer, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
+  }
+
+  namespace UgInstance {
+    VkInstance create(unsigned char debug);
+    void destroy(UgContext::It& ctx);
+  }
+
+  namespace UgPipeline {
+    VkPipeline create(UgContext::It& ctx, VkPipelineLayout layout, UgSwapchain::It& swapchain, UgShaderProgram::It& shaderProgram, VkRenderPass renderPass, VkPipelineVertexInputStateCreateInfo* vertexInput, const UgVertexSettings::It& settings);
+    void destroy(UgContext::It& ctx, VkPipeline graphicsPipeline);
+    VkPipelineDynamicStateCreateInfo createDynamicState();
+    VkPipelineInputAssemblyStateCreateInfo createInputAssembly();
+    VkViewport createViewport(UgContext::It& ctx, UgSwapchain::It& swapchain);
+    VkRect2D createScissor(UgContext::It& ctx, UgSwapchain::It& swapchain);
+    VkPipelineViewportStateCreateInfo createViewportState(VkViewport* viewport, VkRect2D* scissor);
+    VkPipelineRasterizationStateCreateInfo createRasterizerState(const UgVertexSettings::It& settings);
+    VkPipelineMultisampleStateCreateInfo createMultisamplingState();
+    VkPipelineColorBlendAttachmentState createColorBlendAttachmentState(const UgVertexSettings::It& settings);
+    VkPipelineColorBlendStateCreateInfo createColorBlendState(VkPipelineColorBlendAttachmentState* colorBlendAttachment);
+    VkPipelineDepthStencilStateCreateInfo createDepthStencil();
+  }
+
+  namespace UgPipelineLayout {
+    VkPipelineLayout create(UgContext::It& ctx, uint32_t count, VkDescriptorSetLayout* setLayouts);
+    void destroy(UgContext::It& ctx, VkPipelineLayout pipelineLayout);
+    void remove(UgContext::It& ctx, VkPipelineLayout layout);
+  }
+
+  namespace UgRenderer {
+    struct It { 
+      UgSwapchain::It swapchain;
+      UgFrameBuffer::It framebuffers;
+      VkRenderPass renderPass;
+    };
+    
+    UgRenderer::It create(UgContext::It& ctx);
+    void update(UgContext::It& ctx, UgRenderer::It& renderer);
+    void begin(UgRenderer::It& renderer, UgCommandBuffer::It& cmd);
+    void end(UgCommandBuffer::It& cmd);
+    void setViewport(UgContext::It& ctx, UgRenderer::It& renderer, UgCommandBuffer::It& cmd);
+    void submit(UgContext::It& ctx, UgRenderer::It& renderer, UgCommandBuffer::It& cmd, UgFence::It& fence);
+    VkResult present(UgContext::It& ctx, UgRenderer::It& renderer);
+    VkResult aquire(UgContext::It& ctx, UgRenderer::It& renderer);
+    void destroy(UgContext::It& ctx, UgRenderer::It& renderer);
+  }
+
+  namespace UgRenderPass {
+    VkRenderPass create(UgContext::It& ctx, UgSwapchain::It& swapchain);
+    void begin(VkRenderPass renderPass, UgFrameBuffer::It& framebuffers, VkCommandBuffer cmdBuffer, uint32_t imageIndex);
+    void end(VkCommandBuffer cmdBuffer);
+    void destroy(UgContext::It& ctx, VkRenderPass renderPass);
+  }
+
+  namespace UgRenderTarget {
+    struct It { 
+      VkRenderPass renderPass;
+      VkFramebuffer framebuffer;
+      UgTexture::It texture;
+      uint32_t width;
+      uint32_t height;
+    };
+    
+    UgRenderTarget::It create(UgContext::It& ctx, uint32_t width, uint32_t height);
+    void begin(UgRenderTarget::It& rt, UgCommandBuffer::It& cmd);
+    void end(UgCommandBuffer::It& cmd);
+    void setViewport(UgRenderTarget::It& rt, UgCommandBuffer::It& cmd);
+    void destroy(UgContext::It& ctx, UgRenderTarget::It& rt);
+  }
+
+  namespace UgSemaphore {
+    struct It { 
+      VkSemaphore handle; 
+    };
+    
+    UgSemaphore::It create(UgContext::It& ctx);
+    void destroy(UgContext::It& ctx, UgSemaphore::It& semaphore);
+  }
+
+  namespace UgShader {
+    VkShaderModule create(UgContext::It& ctx, const char* filePath);
+    void destroy(UgContext::It& ctx, VkShaderModule shader);
+  }
+
+  namespace UgShaderProgram {
+    struct It { 
+      VkPipelineShaderStageCreateInfo handle[2];
+      VkShaderModule vertexShader;
+      VkShaderModule fragmentShader;
+    };
+    
+    UgShaderProgram::It create(UgContext::It& ctx, const char* vertexSource, const char* fragmentSource);
+    VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);
+    void destroy(UgContext::It& ctx, UgShaderProgram::It& shaderProgram);
+  }
+
+  namespace UgWindowSurface {
+    VkSurfaceKHR create(VkInstance instance, UgWindow::It& window);
+    void destroy(VkInstance instance, VkSurfaceKHR surface);
+  }
+
+  namespace UgSwapchain {
+    struct It { 
+      VkSwapchainKHR handle;
+      UgImageView::It* imageViews;
+      uint32_t imageCount;
+      uint32_t currentFrame;
+      uint32_t imageIndex;
+      UgSemaphore::It* pSemaphore;
+      UgSemaphore::It* rSemaphore;
+      VkSurfaceFormatKHR surfaceFormat;
+      VkPresentModeKHR presentMode;
+      VkSurfaceCapabilitiesKHR capabilities;
+      VkImage depthImage;
+      VkDeviceMemory depthImageMemory;
+      VkImageView depthImageView;
+    };
+    
+    UgSwapchain::It create(UgContext::It& ctx);
+    VkExtent2D extend(UgContext::It& ctx, UgSwapchain::It& swapchain);
+    void update(UgContext::It& ctx, UgSwapchain::It& swapchain, VkCommandBuffer cmdBuffer);
+    void destroy(UgContext::It& ctx, UgSwapchain::It& swapchain);
+  }
+
+  namespace UgTexture {
+    struct It { 
+      VkImage image;
+      VkDeviceMemory memory;
+      VkImageView view;
+      VkSampler sampler;
+      VkDescriptorSetLayout setLayout;
+      VkDescriptorSet descriptorSet;
+    };
+    
+    UgTexture::It create(UgContext::It& ctx, const char* path);
+    void bind(UgTexture::It& texture, UgCommandBuffer::It& cmd, VkPipelineLayout pipelineLayout);
+    void destroy(UgContext::It& ctx, UgTexture::It& texture);
+  }
+
+  namespace UgSampler {
+    VkSampler create(UgContext::It& ctx);
+    void destroy(UgContext::It& ctx, VkSampler sampler);
+  }
+
+  namespace UgVertexAttrib {
+    struct It { 
+      uint32_t location;
+      VkFormat format;
+      uint32_t offset;
+    };
+  }
+
+  namespace UgVertexDesc {
+    struct It { 
+      uint32_t stride;
+      UgVertexAttrib::It* attributes;
+      uint32_t attributeCount;
+    };
+  }
+
+  namespace UgVertexSettings {
+    struct It {
+      unsigned char depthVao = 0;
+      int32_t colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+      VkBool32 blendEnable = VK_TRUE;
+      VkBlendFactor srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+      VkBlendFactor dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+      VkBlendOp colorBlendOp = VK_BLEND_OP_ADD;
+      VkBlendFactor srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+      VkBlendFactor dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+      VkBlendOp alphaBlendOp = VK_BLEND_OP_ADD;
+      VkBool32 depthClampEnable = VK_FALSE;
+      VkBool32 rasterizerDiscardEnable = VK_FALSE;
+      VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL;
+      VkCullModeFlagBits cullMode = VK_CULL_MODE_BACK_BIT;
+      VkFrontFace frontFace = VK_FRONT_FACE_CLOCKWISE;
+      VkBool32 depthBiasEnable = VK_FALSE;
+      float depthBiasConstantFactor = 0.0f;
+      float depthBiasClamp = 0.0f;
+      float depthBiasSlopeFactor = 0.0f;
+      float lineWidth = 1.0f;
+    };
+  }
+
+  namespace UgVertexArray {
+    struct It { 
+      VkPipelineLayout layout; 
+      VkPipeline pipeline; 
+      UgUniformBuffer::It uniformBuffer; 
+    };
+    
+    UgVertexArray::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass, UgVertexDesc::It& desc, UgUniformBuffer::It& uniformBuffer, UgTexture::It* texture, UgShaderProgram::It& shaderProgram, const UgVertexSettings::It& settings);
+    void bind(UgVertexArray::It& vao, UgCommandBuffer::It& cmd);
+    void destroy(UgContext::It& ctx, UgVertexArray::It& vao);
+  }`}
+/>

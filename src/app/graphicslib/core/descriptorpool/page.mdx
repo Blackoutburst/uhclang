@@ -1,0 +1,32 @@
+# DescriptorPool
+
+Vulkan descriptor pool creation and destruction.
+
+<H2 id="create">create</H2>
+
+Create a descriptor pool large enough for textures and uniform buffers.
+
+<CodeTabs
+  uhc={`VkDescriptorPool create(UgContext.It& ctx);`}
+  cpp={`VkDescriptorPool create(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+
+**Returns** — A new `VkDescriptorPool`
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a descriptor pool and all descriptor sets allocated from it.
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, VkDescriptorPool descriptorPool);`}
+  cpp={`void destroy(UgContext::It& ctx, VkDescriptorPool descriptorPool);`}
+/>
+
+**Parameters**
+- `ctx` — The Vulkan context
+- `descriptorPool` — The descriptor pool to destroy
