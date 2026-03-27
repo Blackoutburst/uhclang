@@ -18,8 +18,7 @@ export default function Home() {
             </h1>
           </div>
           <p className="text-zinc-400 text-lg max-w-md">
-            UnholyC is a custom dialect transpiled to C++ which mean it has
-            perfect interop with C and C++
+            UnholyC is a custom dialect transpiled to C++
           </p>
            <Link target="_blank" rel="noopener noreferrer" href="https://github.com/Blackoutburst/unholyc" className="cursor-pointer text-2xl font-bold tracking-tight text-white">
               <img
