@@ -193,7 +193,7 @@ Multiply 2 matrices together
 
 <CodeTabs
   uhc={`U0 multiply(Matrix.It& result, Matrix.It& left, Matrix.It& right);`}
-  cpp={`void multiply(Matrix.It& result, Matrix.It& left, Matrix.It& right);`}
+  cpp={`void multiply(Matrix::It& result, Matrix::It& left, Matrix::It& right);`}
 />
 
 **Parameters**
@@ -209,7 +209,7 @@ Copy a matrix
 
 <CodeTabs
   uhc={`U0 copy(Matrix.It& src, Matrix.It& dest);`}
-  cpp={`void copy(Matrix.It& src, Matrix.It& dest);`}
+  cpp={`void copy(Matrix::It& src, Matrix::It& dest);`}
 />
 
 **Parameters**
@@ -224,7 +224,7 @@ Create a 2D projection matrix
 
 <CodeTabs
   uhc={`U0 ortho2D(Matrix.It& mat, F32 left, F32 right, F32 bottom, F32 top, F32 near, F32 far);`}
-  cpp={`void ortho2D(Matrix.It& mat, float left, float right, float bottom, float top, float near, float far);`}
+  cpp={`void ortho2D(Matrix::It& mat, float left, float right, float bottom, float top, float near, float far);`}
 />
 
 **Parameters**
@@ -244,7 +244,7 @@ Create a 2D projection matrix for special Vulkan usage
 
 <CodeTabs
   uhc={`U0 ortho2DVk(Matrix.It& mat, F32 left, F32 right, F32 bottom, F32 top, F32 near, F32 far);`}
-  cpp={`void ortho2DVk(Matrix.It& mat, float left, float right, float bottom, float top, float near, float far);`}
+  cpp={`void ortho2DVk(Matrix::It& mat, float left, float right, float bottom, float top, float near, float far);`}
 />
 
 **Parameters**
@@ -264,7 +264,7 @@ Create a 3D projection matrix
 
 <CodeTabs
   uhc={`U0 projection(Matrix.It& mat, F32 width, F32 height, F32 fov, F32 near, F32 far);`}
-  cpp={`void projection(Matrix.It& mat, float width, float height, float fov, float near, float far);`}
+  cpp={`void projection(Matrix::It& mat, float width, float height, float fov, float near, float far);`}
 />
 
 **Parameters**
@@ -283,7 +283,7 @@ Scale a matrix
 
 <CodeTabs
   uhc={`U0 scale(Matrix.It& mat, F32 x, F32 y, F32 z, F32 w);`}
-  cpp={`void scale(Matrix.It& mat, float x, float y, float z, float w);`}
+  cpp={`void scale(Matrix::It& mat, float x, float y, float z, float w);`}
 />
 
 **Parameters**
@@ -301,7 +301,7 @@ Translate a matrix
 
 <CodeTabs
   uhc={`U0 translate(Matrix.It& mat, F32 x, F32 y, F32 z, F32 w);`}
-  cpp={`void translate(Matrix.It& mat, float x, float y, float z, float w);`}
+  cpp={`void translate(Matrix::It& mat, float x, float y, float z, float w);`}
 />
 
 **Parameters**
@@ -319,7 +319,7 @@ Rotate a matrix
 
 <CodeTabs
   uhc={`U0 rotate(Matrix.It& mat, F32 angle, F32 x, F32 y, F32 z);`}
-  cpp={`void rotate(Matrix.It& mat, float angle, float x, float y, float z);`}
+  cpp={`void rotate(Matrix::It& mat, float angle, float x, float y, float z);`}
 />
 
 **Parameters**
@@ -337,7 +337,7 @@ Rotate a matrix
 
 <CodeTabs
   uhc={`U0 lookAt(Matrix.It& mat, VectorF.It& eye, VectorF.It& center, VectorF.It& up);`}
-  cpp={`void lookAt(Matrix.It& mat, VectorF.It& eye, VectorF.It& center, VectorF.It& up);`}
+  cpp={`void lookAt(Matrix::It& mat, VectorF::It& eye, VectorF::It& center, VectorF::It& up);`}
 />
 
 **Parameters**
