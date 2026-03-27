@@ -1,0 +1,124 @@
+# Math
+
+Helpers function
+
+---
+
+<H2 id="UHC_PI">UHC_PI</H2>
+
+π value
+
+<CodeTabs
+  uhc={`#define UHC_PI 3.141592653589793`}
+  cpp={`#define UHC_PI 3.141592653589793`}
+/>
+
+---
+
+<H2 id="rad">rad</H2>
+
+Convert deg to rad
+
+<CodeTabs
+  uhc={`F32 rad(F32 angle);`}
+  cpp={`float rad(float angle);`}
+/>
+
+**Parameters**
+- `angle` — The angle in deg
+
+---
+
+<H2 id="sign">sign</H2>
+
+Return 0 if the value is 0
+Return -1 if the value is negative
+Return 1 if the value is positive
+
+<CodeTabs
+  uhc={`I8 sign(I32 value);`}
+  cpp={`char sign(int32_t value);`}
+/>
+
+**Parameters**
+- `value` — The value you need to check the sign
+
+---
+
+<H2 id="fsign">fsign</H2>
+
+Return 0 if the value is 0
+Return -1 if the value is negative
+Return 1 if the value is positive
+
+<CodeTabs
+  uhc={`I8 fsign(F32 value);`}
+  cpp={`char fsign(float value);`}
+/>
+
+**Parameters**
+- `value` — The value you need to check the sign
+
+---
+
+<H2 id="fsignf">fsignf</H2>
+
+Return 0 if the value is 0
+Return -1 if the value is negative
+Return 1 if the value is positive
+
+<CodeTabs
+  uhc={`F32 fsignf(F32 value);`}
+  cpp={`float fsignf(float value);`}
+/>
+
+**Parameters**
+- `value` — The value you need to check the sign
+
+---
+
+<H2 id="clamp">clamp</H2>
+
+Clamp a value between boundaries
+
+<CodeTabs
+  uhc={`I32 clamp(I32 v, I32 min, I32 max);`}
+  cpp={`int32_t clamp(int32_t v, int32_t min, int32_t max);`}
+/>
+
+**Parameters**
+- `v` — The value that will be clamped
+- `min` — The minimum range
+- `max` — The maximum range
+
+---
+
+<H2 id="fclamp">fclamp</H2>
+
+Clamp a value between boundaries
+
+<CodeTabs
+  uhc={`I32 fclamp(F32 v, F32 min, F32 max);`}
+  cpp={`int32_t fclamp(float v, float min, float max);`}
+/>
+
+**Parameters**
+- `v` — The value that will be clamped
+- `min` — The minimum range
+- `max` — The maximum range
+
+---
+
+<H2 id="fclampf">fclampf</H2>
+
+Clamp a value between boundaries
+
+<CodeTabs
+  uhc={`F32 fclampf(F32 v, F32 min, F32 max);`}
+  cpp={`float fclampf(float v, float min, float max);`}
+/>
+
+**Parameters**
+- `v` — The value that will be clamped
+- `min` — The minimum range
+- `max` — The maximum range

@@ -1,0 +1,149 @@
+# VectorI
+
+Int based vector 4
+
+<H2 id="It">It</H2>
+
+The int vector object
+
+<CodeTabs
+  uhc={`
+    struct It {
+      I32 x;
+      I32 y;
+      I32 z;
+      I32 w;
+    };
+  `}
+  cpp={`
+    struct It {
+      int32_t x;
+      int32_t y;
+      int32_t z;
+      int32_t w;
+    };
+  `}
+/>
+
+---
+
+<H2 id="equals">equals</H2>
+
+Check if 2 vector a equals
+
+<CodeTabs
+  uhc={`U8 equals(VectorI.It& a, VectorI.It& b);`}
+  cpp={`unsigned char equals(VectorI.It& a, VectorI.It& b);`}
+/>
+
+**Parameters**
+- `a` — First vector
+- `b` — Second vector
+
+---
+
+<H2 id="set">set</H2>
+
+Set a vector values
+
+<CodeTabs
+  uhc={`U0 set(VectorI.It& vec, I32 x, I32 y, I32 z, I32 w);`}
+  cpp={`void set(VectorI.It& vec, int32_t x, int32_t y, int32_t z, int32_t w);`}
+/>
+
+**Parameters**
+- `vec` — The vector
+- `x` — X component
+- `y` — Y component
+- `z` — Z component
+- `w` — W component
+
+---
+
+<H2 id="normalize">normalize</H2>
+
+Normalize a vector values
+
+<CodeTabs
+  uhc={`U0 normalize(VectorI.It& vec);`}
+  cpp={`void normalize(VectorI.It& vec;`}
+/>
+
+**Parameters**
+- `vec` — The vector
+
+---
+
+<H2 id="length">length</H2>
+
+Return vector length
+
+<CodeTabs
+  uhc={`F32 length(VectorI.It& vec);`}
+  cpp={`int32_t length(VectorI.It& vec);`}
+/>
+
+**Parameters**
+- `vec` — The vector
+
+---
+
+<H2 id="zero">zero</H2>
+
+Set a vector to 0
+
+<CodeTabs
+  uhc={`U0 zero(VectorI.It& vec);`}
+  cpp={`void zero(VectorI.It& vec);`}
+/>
+
+**Parameters**
+- `vec` — The vector
+
+---
+
+<H2 id="dot">dot</H2>
+
+Dot product between 2 vector
+
+<CodeTabs
+  uhc={`I32 dot(VectorI.It& a, VectorI.It& b);`}
+  cpp={`int32_t dot(VectorI.It& a, VectorI.It& b);`}
+/>
+
+**Parameters**
+- `a` — First vector
+- `b` — Second vector
+
+---
+
+<H2 id="cross">cross</H2>
+
+Cross product between 2 vector
+
+<CodeTabs
+  uhc={`U0 cross(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
+  cpp={`void cross(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
+/>
+
+**Parameters**
+- `result` — Result vector
+- `a` — First vector
+- `b` — Second vector
+
+---
+
+
+<H2 id="sub">sub</H2>
+
+Substract 2 vector
+
+<CodeTabs
+  uhc={`U0 sub(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
+  cpp={`void sub(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
+/>
+
+**Parameters**
+- `result` — Result vector
+- `a` — First vector
+- `b` — Second vector

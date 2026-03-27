@@ -1,0 +1,348 @@
+# Matrix
+
+4x4 matrices
+
+---
+
+<H2 id="M00">M00</H2>
+
+<CodeTabs
+  uhc={`#define M00 0x00`}
+  cpp={`#define M00 0x00`}
+/>
+
+---
+
+<H2 id="M01">M01</H2>
+
+<CodeTabs
+  uhc={`#define M01 0x01`}
+  cpp={`#define M01 0x01`}
+/>
+
+---
+
+<H2 id="M02">M02</H2>
+
+<CodeTabs
+  uhc={`#define M02 0x02`}
+  cpp={`#define M02 0x02`}
+/>
+
+---
+
+<H2 id="M03">M03</H2>
+
+<CodeTabs
+  uhc={`#define M03 0x03`}
+  cpp={`#define M03 0x03`}
+/>
+
+---
+
+<H2 id="M10">M10</H2>
+
+<CodeTabs
+  uhc={`#define M10 0x04`}
+  cpp={`#define M10 0x04`}
+/>
+
+---
+
+<H2 id="M11">M11</H2>
+
+<CodeTabs
+  uhc={`#define M11 0x05`}
+  cpp={`#define M11 0x05`}
+/>
+
+---
+
+<H2 id="M12">M12</H2>
+
+<CodeTabs
+  uhc={`#define M12 0x06`}
+  cpp={`#define M12 0x06`}
+/>
+
+---
+
+<H2 id="M13">M13</H2>
+
+<CodeTabs
+  uhc={`#define M13 0x07`}
+  cpp={`#define M13 0x07`}
+/>
+
+---
+
+<H2 id="M20">M20</H2>
+
+<CodeTabs
+  uhc={`#define M20 0x08`}
+  cpp={`#define M20 0x08`}
+/>
+
+---
+
+<H2 id="M21">M21</H2>
+
+<CodeTabs
+  uhc={`#define M21 0x09`}
+  cpp={`#define M21 0x09`}
+/>
+
+---
+
+<H2 id="M22">M22</H2>
+
+<CodeTabs
+  uhc={`#define M22 0x0A`}
+  cpp={`#define M22 0x0A`}
+/>
+
+---
+
+<H2 id="M23">M23</H2>
+
+<CodeTabs
+  uhc={`#define M23 0x0B`}
+  cpp={`#define M23 0x0B`}
+/>
+
+---
+
+<H2 id="M30">M30</H2>
+
+<CodeTabs
+  uhc={`#define M30 0x0C`}
+  cpp={`#define M30 0x0C`}
+/>
+
+---
+
+<H2 id="M31">M31</H2>
+
+<CodeTabs
+  uhc={`#define M31 0x0D`}
+  cpp={`#define M31 0x0D`}
+/>
+
+---
+
+<H2 id="M32">M32</H2>
+
+<CodeTabs
+  uhc={`#define M32 0x0E`}
+  cpp={`#define M32 0x0E`}
+/>
+
+---
+
+<H2 id="M33">M33</H2>
+
+<CodeTabs
+  uhc={`#define M33 0x0F`}
+  cpp={`#define M33 0x0F`}
+/>
+
+---
+
+<H2 id="It">It</H2>
+
+The matrix object
+
+<CodeTabs
+  uhc={`
+    struct It {
+      F32 values[16];
+    };
+  `}
+  cpp={`
+    struct It {
+      float values[16];
+    };
+  `}
+/>
+
+---
+
+<H2 id="setIdentity">setIdentity</H2>
+
+Put a matrix back to identity values
+```c
+1 0 0 0
+0 1 0 0
+0 0 1 0
+0 0 0 1
+```
+
+<CodeTabs
+  uhc={`U0 setIdentity(Matrix.It& mat);`}
+  cpp={`void setIdentity(Matrix::It& mat);`}
+/>
+
+**Parameters**
+- `mat` — Matrix that vill be reset to identity
+
+---
+
+<H2 id="multiply">multiply</H2>
+
+Multiply 2 matrices together
+
+<CodeTabs
+  uhc={`U0 multiply(Matrix.It& result, Matrix.It& left, Matrix.It& right);`}
+  cpp={`void multiply(Matrix.It& result, Matrix.It& left, Matrix.It& right);`}
+/>
+
+**Parameters**
+- `result` — Matrix that will hold the result
+- `left` — First matrix for operation
+- `right` — Second matrix for operation
+
+---
+
+<H2 id="copy">copy</H2>
+
+Copy a matrix
+
+<CodeTabs
+  uhc={`U0 copy(Matrix.It& src, Matrix.It& dest);`}
+  cpp={`void copy(Matrix.It& src, Matrix.It& dest);`}
+/>
+
+**Parameters**
+- `src` — Source matrix
+- `dest` — New matrix with src values
+
+---
+
+<H2 id="ortho2D">ortho2D</H2>
+
+Create a 2D projection matrix
+
+<CodeTabs
+  uhc={`U0 ortho2D(Matrix.It& mat, F32 left, F32 right, F32 bottom, F32 top, F32 near, F32 far);`}
+  cpp={`void ortho2D(Matrix.It& mat, float left, float right, float bottom, float top, float near, float far);`}
+/>
+
+**Parameters**
+- `mat` — Matrix that will hold the result
+- `left` — Left boundary
+- `right` — Right boundary
+- `bottom` — Bottom boundary
+- `top` — Top boundary
+- `near` — Near plane
+- `far` — Far plane
+
+---
+
+<H2 id="ortho2DVk">ortho2DVk</H2>
+
+Create a 2D projection matrix for special Vulkan usage
+
+<CodeTabs
+  uhc={`U0 ortho2DVk(Matrix.It& mat, F32 left, F32 right, F32 bottom, F32 top, F32 near, F32 far);`}
+  cpp={`void ortho2DVk(Matrix.It& mat, float left, float right, float bottom, float top, float near, float far);`}
+/>
+
+**Parameters**
+- `mat` — Matrix that will hold the result
+- `left` — Left boundary
+- `right` — Right boundary
+- `bottom` — Bottom boundary
+- `top` — Top boundary
+- `near` — Near plane
+- `far` — Far plane
+
+---
+
+<H2 id="projection">projection</H2>
+
+Create a 3D projection matrix
+
+<CodeTabs
+  uhc={`U0 projection(Matrix.It& mat, F32 width, F32 height, F32 fov, F32 near, F32 far);`}
+  cpp={`void projection(Matrix.It& mat, float width, float height, float fov, float near, float far);`}
+/>
+
+**Parameters**
+- `mat` — Matrix that will hold the result
+- `width` — Frustum width
+- `height` — Frustum height
+- `fov` — Field of view
+- `near` — Near plane
+- `far` — Far plane
+
+---
+
+<H2 id="scale">scale</H2>
+
+Scale a matrix
+
+<CodeTabs
+  uhc={`U0 scale(Matrix.It& mat, F32 x, F32 y, F32 z, F32 w);`}
+  cpp={`void scale(Matrix.It& mat, float x, float y, float z, float w);`}
+/>
+
+**Parameters**
+- `mat` — Matrix that will hold the result
+- `x` — X axys scale factor
+- `y` — Y axys scale factor
+- `z` — Z axys scale factor
+- `w` — W axys scale factor
+
+---
+
+<H2 id="translate">translate</H2>
+
+Translate a matrix
+
+<CodeTabs
+  uhc={`U0 translate(Matrix.It& mat, F32 x, F32 y, F32 z, F32 w);`}
+  cpp={`void translate(Matrix.It& mat, float x, float y, float z, float w);`}
+/>
+
+**Parameters**
+- `mat` — Matrix that will hold the result
+- `x` — X axys translate factor
+- `y` — Y axys translate factor
+- `z` — Z axys translate factor
+- `w` — W axys translate factor
+
+---
+
+<H2 id="rotate">rotate</H2>
+
+Rotate a matrix
+
+<CodeTabs
+  uhc={`U0 rotate(Matrix.It& mat, F32 angle, F32 x, F32 y, F32 z);`}
+  cpp={`void rotate(Matrix.It& mat, float angle, float x, float y, float z);`}
+/>
+
+**Parameters**
+- `mat` — Matrix that will hold the result
+- `angle` — The rotation angle in rad
+- `x` — Allow rotation on X axys [0 - 1]
+- `y` — Allow rotation on Y axys [0 - 1]
+- `z` — Allow rotation on Z axys [0 - 1]
+
+---
+
+<H2 id="lookAt">lookAt</H2>
+
+Rotate a matrix
+
+<CodeTabs
+  uhc={`U0 lookAt(Matrix.It& mat, VectorF.It& eye, VectorF.It& center, VectorF.It& up);`}
+  cpp={`void lookAt(Matrix.It& mat, VectorF.It& eye, VectorF.It& center, VectorF.It& up);`}
+/>
+
+**Parameters**
+- `mat` — Matrix that will hold the result
+- `eye` — The camera position
+- `center` — The camera focus point
+- `up` — World up direction
+
