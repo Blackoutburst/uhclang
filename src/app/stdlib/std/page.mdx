@@ -1,0 +1,231 @@
+# STD
+
+Various utilities such as mutex, thread, ...
+
+- [Buffer](/stdlib/network/tcpclient) — Buffer utilities
+- [DynamicLibrary](/stdlib/network/tcpserver) — Dynamic Library utilities (.so/.dll) 
+- [List](/stdlib/network/tcpserver) — Simple list
+- [Mutex](/stdlib/network/tcpserver) — Mutex helper
+- [Thread](/stdlib/network/tcpserver) — Thread helper
+
+<H2 id="Header">Header</H2>
+
+<CodeTabs
+  uhc={`#include <uhcstd.uhh>`}
+  cpp={`#include <uhcstd.hh>`}
+/>
+
+<H2 id="Header">Cheat sheet</H2>
+
+<CodeTabs
+  uhc={`#define UHC_LITTLE_ENDIAN 0
+  #define UHC_BIG_ENDIAN 1
+  
+  namespace Buffer {
+    struct It {
+      U0* handle;
+      U8 order;
+      U32 cursor;
+    };
+      
+    U0 setOrder(Buffer.It& buffer, U8 order);
+    U0 reset(Buffer.It& buffer);
+    I8 getI8(Buffer.It& buffer);
+    U8 getU8(Buffer.It& buffer);
+    I16 getI16(Buffer.It& buffer);
+    U16 getU16(Buffer.It& buffer);
+    I32 getI32(Buffer.It& buffer);
+    U32 getU32(Buffer.It& buffer);
+    I64 getI64(Buffer.It& buffer);
+    U64 getU64(Buffer.It& buffer);
+    F32 getF32(Buffer.It& buffer);
+    F64 getF64(Buffer.It& buffer);
+    U0 putI8(Buffer.It& buffer, I8 value);
+    U0 putU8(Buffer.It& buffer, U8 value);
+    U0 putI16(Buffer.It& buffer, I16 value);
+    U0 putU16(Buffer.It& buffer, U16 value);
+    U0 putI32(Buffer.It& buffer, I32 value);
+    U0 putU32(Buffer.It& buffer, U32 value);
+    U0 putI64(Buffer.It& buffer, I64 value);
+    U0 putU64(Buffer.It& buffer, U64 value);
+    U0 putF32(Buffer.It& buffer, F32 value);
+    U0 putF64(Buffer.It& buffer, F64 value);
+  }
+
+  namespace DynamicLibrary {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        HINSTANCE handle;
+        I8* name;
+        U8 isValid;
+      };
+    #else
+      struct It {
+        U0* handle;
+        I8* name;
+        U8 isValid;
+      };
+    #endif
+
+    DynamicLibrary.It load(const I8* name);
+    U0* get(DynamicLibrary.It& dll, const I8* functionName);
+    U0 unload(DynamicLibrary.It& dll);
+  }
+
+  namespace List {
+    struct It {
+      std::list<T> handle;
+    };
+
+    U0 add(List.It<T>& list, T value);
+    U0 addAt(List.It<T>& list, T value, I32 index);
+    U8 remove(List.It<T>& list, T value);
+    U0 removeAt(List.It<T>& list, I32 index);
+    T* get(List.It<T>& list, I32 index);
+    U0 set(List.It<T>& list, I32 index, T value);
+    T* first(List.It<T>& list);
+    T* last(List.It<T>& list);
+    U64 size(List.It<T>& list);
+    U0 clear(List.It<T>& list);
+  }
+  
+  namespace Mutex {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        CRITICAL_SECTION handle;
+      };
+    #else
+      struct It {
+        pthread_mutex_t handle;
+      };
+    #endif
+
+    Mutex.It create();
+    U0 destroy(Mutex.It& mutex);
+    U0 lock(Mutex.It& mutex);
+    U0 unlock(Mutex.It& mutex);
+  }
+
+  namespace Thread {
+    typedef void* (*Fn)(void*);
+
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        HANDLE handle;
+      };
+    #else
+      struct It {
+        pthread_t handle;
+      };
+    #endif
+
+    Thread.It start(Thread.Fn method, void* arg);
+    U0 join(Thread.It& thread);
+  }
+  `}
+  cpp={`#define UHC_LITTLE_ENDIAN 0
+  #define UHC_BIG_ENDIAN 1
+  
+  namespace Buffer {
+    struct It {
+      void* handle;
+      unsigned char order;
+      uint32_t cursor;
+    };
+      
+    void setOrder(Buffer::It& buffer, unsigned char order);
+    void reset(Buffer::It& buffer);
+    char getI8(Buffer::It& buffer);
+    unsigned char getU8(Buffer::It& buffer);
+    int16_t getI16(Buffer::It& buffer);
+    uint16_t getU16(Buffer::It& buffer);
+    int32_t getI32(Buffer::It& buffer);
+    uint32_t getU32(Buffer::It& buffer);
+    int64_t getI64(Buffer::It& buffer);
+    uint64_t getU64(Buffer::It& buffer);
+    float getF32(Buffer::It& buffer);
+    double getF64(Buffer::It& buffer);
+    void putI8(Buffer::It& buffer, char value);
+    void putU8(Buffer::It& buffer, unsigned char value);
+    void putI16(Buffer::It& buffer, int16_t value);
+    void putU16(Buffer::It& buffer, uint16_t value);
+    void putI32(Buffer::It& buffer, int32_t value);
+    void putU32(Buffer::It& buffer, uint32_t value);
+    void putI64(Buffer::It& buffer, int64_t value);
+    void putU64(Buffer::It& buffer, uint64_t value);
+    void putF32(Buffer::It& buffer, float value);
+    void putF64(Buffer::It& buffer, double value);
+  }
+
+  namespace DynamicLibrary {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        HINSTANCE handle;
+        char* name;
+        unsigned char isValid;
+      };
+    #else
+      struct It {
+        void* handle;
+        char* name;
+        unsigned char isValid;
+      };
+    #endif
+
+    DynamicLibrary.It load(const char* name);
+    void* get(DynamicLibrary::It& dll, const char* functionName);
+    void unload(DynamicLibrary::It& dll);
+  }
+
+  namespace List {
+    struct It {
+      std::list<T> handle;
+    };
+
+    void add(List.It<T>& list, T value);
+    void addAt(List.It<T>& list, T value, int32_t index);
+    unsigned char remove(List.It<T>& list, T value);
+    void removeAt(List.It<T>& list, int32_t index);
+    T* get(List.It<T>& list, int32_t index);
+    void set(List.It<T>& list, int32_t index, T value);
+    T* first(List.It<T>& list);
+    T* last(List.It<T>& list);
+    uint64_t size(List.It<T>& list);
+    void clear(List.It<T>& list);
+  }
+  
+  namespace Mutex {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        CRITICAL_SECTION handle;
+      };
+    #else
+      struct It {
+        pthread_mutex_t handle;
+      };
+    #endif
+
+    Mutex.It create();
+    void destroy(Mutex::It& mutex);
+    void lock(Mutex::It& mutex);
+    void unlock(Mutex::It& mutex);
+  }
+
+  namespace Thread {
+    typedef void* (*Fn)(void*);
+
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        HANDLE handle;
+      };
+    #else
+      struct It {
+        pthread_t handle;
+      };
+    #endif
+
+    Thread.It start(Thread.Fn method, void* arg);
+    void join(Thread::It& thread);
+  }
+  `}
+/>
