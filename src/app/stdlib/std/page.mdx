@@ -182,16 +182,16 @@ Various utilities such as mutex, thread, ...
       std::list<T> handle;
     };
 
-    void add(List.It<T>& list, T value);
-    void addAt(List.It<T>& list, T value, int32_t index);
-    unsigned char remove(List.It<T>& list, T value);
-    void removeAt(List.It<T>& list, int32_t index);
-    T* get(List.It<T>& list, int32_t index);
-    void set(List.It<T>& list, int32_t index, T value);
-    T* first(List.It<T>& list);
-    T* last(List.It<T>& list);
-    uint64_t size(List.It<T>& list);
-    void clear(List.It<T>& list);
+    void add(List::It<T>& list, T value);
+    void addAt(List::It<T>& list, T value, int32_t index);
+    unsigned char remove(List::It<T>& list, T value);
+    void removeAt(List::It<T>& list, int32_t index);
+    T* get(List::It<T>& list, int32_t index);
+    void set(List::It<T>& list, int32_t index, T value);
+    T* first(List::It<T>& list);
+    T* last(List::It<T>& list);
+    uint64_t size(List::It<T>& list);
+    void clear(List::It<T>& list);
   }
   
   namespace Mutex {
