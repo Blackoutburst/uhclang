@@ -1,31 +1,31 @@
 # Mutex
 
-Mutex helper
+Mutual exclusion primitive for thread synchronization
 
 <H2 id="It">It</H2>
 
-Mutex object
+Platform-specific mutex handle
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      CRITICAL_SECTION handle;
-    };
-  #else
-    struct It {
-      pthread_mutex_t handle;
-    };
-  #endif
+  struct It {
+    CRITICAL_SECTION handle;
+  };
+#else
+  struct It {
+    pthread_mutex_t handle;
+  };
+#endif
   `}
   cpp={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      CRITICAL_SECTION handle;
-    };
-  #else
-    struct It {
-      pthread_mutex_t handle;
-    };
-  #endif
+  struct It {
+    CRITICAL_SECTION handle;
+  };
+#else
+  struct It {
+    pthread_mutex_t handle;
+  };
+#endif
   `}
 />
 
@@ -33,7 +33,7 @@ Mutex object
 
 <H2 id="create">create</H2>
 
-Create a new mutex.
+Create and initialize a new mutex
 
 <CodeTabs
   uhc={`Mutex.It create();`}
@@ -46,7 +46,7 @@ Create a new mutex.
 
 <H2 id="destroy">destroy</H2>
 
-Destroy a mutex
+Destroy a mutex and release its resources
 
 <CodeTabs
   uhc={`U0 destroy(Mutex.It& mutex);`}
@@ -54,13 +54,13 @@ Destroy a mutex
 />
 
 **Parameters**
-- `mutex` — The mutex
+- `mutex` — The mutex to destroy
 
 ---
 
 <H2 id="lock">lock</H2>
 
-Lock a mutex
+Acquire a mutex, blocking until it is available
 
 <CodeTabs
   uhc={`U0 lock(Mutex.It& mutex);`}
@@ -68,13 +68,13 @@ Lock a mutex
 />
 
 **Parameters**
-- `mutex` — The mutex
+- `mutex` — The mutex to lock
 
 ---
 
 <H2 id="unlock">unlock</H2>
 
-Unlock a mutex
+Release a previously acquired mutex
 
 <CodeTabs
   uhc={`U0 unlock(Mutex.It& mutex);`}
@@ -82,6 +82,4 @@ Unlock a mutex
 />
 
 **Parameters**
-- `mutex` — The mutex
-
----
+- `mutex` — The mutex to unlock

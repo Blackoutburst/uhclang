@@ -1,27 +1,27 @@
-# ValidationLayers
+# UgValidationLayer
 
-Enumerate the validation layers enabled by the graphics library.
+Khronos validation layer list
 
 <H2 id="count">count</H2>
 
-Return the number of required validation layers.
+Get the number of required validation layers
 
 <CodeTabs
   uhc={`I32 count();`}
-  cpp={`int32_t count();`}
+  cpp={`int count();`}
 />
 
-**Returns** — Number of validation layer names
+**Returns** — Validation layer count
 
 ---
 
 <H2 id="get">get</H2>
 
-Return the array of required validation layer names.
+Get the array of required validation layer name strings
 
 <CodeTabs
   uhc={`const I8** get();`}
   cpp={`const char** get();`}
 />
 
-**Returns** — Null-terminated array of layer name strings (e.g. `"VK_LAYER_KHRONOS_validation"`)
+**Returns** — Pointer to the array of layer name strings

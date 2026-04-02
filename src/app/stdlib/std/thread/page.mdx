@@ -1,41 +1,42 @@
 # Thread
 
-Thread helper
+Lightweight thread creation and joining
 
 <H2 id="Fn">Fn</H2>
 
-Thread function
+Thread entry point function type
 
 <CodeTabs
   uhc={`typedef U0* (*Fn)(U0*);`}
   cpp={`typedef void* (*Fn)(void*);`}
 />
 
+---
 
 <H2 id="It">It</H2>
 
-Thread object
+Platform-specific thread handle
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      HANDLE handle;
-    };
-  #else
-    struct It {
-      pthread_t handle;
-    };
-  #endif
+  struct It {
+    HANDLE handle;
+  };
+#else
+  struct It {
+    pthread_t handle;
+  };
+#endif
   `}
   cpp={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      HANDLE handle;
-    };
-  #else
-    struct It {
-      pthread_t handle;
-    };
-  #endif
+  struct It {
+    HANDLE handle;
+  };
+#else
+  struct It {
+    pthread_t handle;
+  };
+#endif
   `}
 />
 
@@ -43,7 +44,7 @@ Thread object
 
 <H2 id="start">start</H2>
 
-Start a new thread
+Start a new thread running the given function
 
 <CodeTabs
   uhc={`Thread.It start(Thread.Fn method, U0* arg);`}
@@ -51,16 +52,16 @@ Start a new thread
 />
 
 **Parameters**
-- `method` — The thread function to run
+- `method` — The thread entry function
 - `arg` — Argument passed to the thread function
 
-**Returns** — Thread object (use with `join`)
+**Returns** — Thread handle — use with join
 
 ---
 
 <H2 id="join">join</H2>
 
-Join a thread
+Wait for a thread to finish
 
 <CodeTabs
   uhc={`U0 join(Thread.It& thread);`}
@@ -68,4 +69,4 @@ Join a thread
 />
 
 **Parameters**
-- `thread` — The thread
+- `thread` — The thread to wait on

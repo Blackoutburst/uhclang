@@ -1,10 +1,10 @@
-# Instance
+# UgInstance
 
-Vulkan instance creation and destruction.
+Vulkan instance creation and destruction
 
 <H2 id="create">create</H2>
 
-Create a Vulkan instance, optionally with validation layers.
+Create a Vulkan instance
 
 <CodeTabs
   uhc={`VkInstance create(U8 debug);`}
@@ -12,15 +12,15 @@ Create a Vulkan instance, optionally with validation layers.
 />
 
 **Parameters**
-- `debug` — Non-zero to enable validation layers
+- `debug` — Non-zero to enable validation layer support
 
-**Returns** — A new `VkInstance`
+**Returns** — Newly created VkInstance handle
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy the Vulkan instance.
+Destroy the Vulkan instance stored in the context
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx);`}
@@ -28,4 +28,4 @@ Destroy the Vulkan instance.
 />
 
 **Parameters**
-- `ctx` — The context whose instance will be destroyed
+- `ctx` — Vulkan context whose instance will be destroyed

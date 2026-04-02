@@ -1,6 +1,6 @@
 # UgWindow
 
-Window handle wrapping a GLFW window.
+GLFW window creation and management
 
 <H2 id="It">It</H2>
 
@@ -10,18 +10,20 @@ Window object
   uhc={`struct It {
     GLFWwindow* handle;
     const I8* name;
-  };`}
+};
+  `}
   cpp={`struct It {
     GLFWwindow* handle;
     const char* name;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="update">update</H2>
 
-Poll GLFW events. Call once per frame.
+Poll GLFW events — call once per frame
 
 <CodeTabs
   uhc={`U0 update();`}
@@ -32,7 +34,7 @@ Poll GLFW events. Call once per frame.
 
 <H2 id="destroy">destroy</H2>
 
-Destroy the window and free GLFW resources.
+Destroy the window and free GLFW resources
 
 <CodeTabs
   uhc={`U0 destroy(UgWindow.It& window);`}
@@ -46,7 +48,7 @@ Destroy the window and free GLFW resources.
 
 <H2 id="isMinimized">isMinimized</H2>
 
-Returns whether the window is currently minimized (iconified).
+Check if the window is currently minimized
 
 <CodeTabs
   uhc={`U8 isMinimized(UgWindow.It& window);`}
@@ -56,13 +58,13 @@ Returns whether the window is currently minimized (iconified).
 **Parameters**
 - `window` — The window to check
 
-**Returns** — Non-zero if minimized
+**Returns** — Non-zero if the window is minimized
 
 ---
 
 <H2 id="isOpen">isOpen</H2>
 
-Returns whether the window has not been closed.
+Check if the window is still open
 
 <CodeTabs
   uhc={`U8 isOpen(UgWindow.It& window);`}
@@ -72,13 +74,13 @@ Returns whether the window has not been closed.
 **Parameters**
 - `window` — The window to check
 
-**Returns** — Non-zero if the window is still open
+**Returns** — Non-zero if the window has not been closed
 
 ---
 
 <H2 id="create">create</H2>
 
-Create and open a new window.
+Create and open a new window
 
 <CodeTabs
   uhc={`UgWindow.It create(const I8* name);`}
@@ -86,6 +88,6 @@ Create and open a new window.
 />
 
 **Parameters**
-- `name` — The window title
+- `name` — Window title
 
 **Returns** — Initialized window object

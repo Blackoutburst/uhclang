@@ -1,39 +1,39 @@
-# TCP server
+# TcpServer
 
-TCP server
+TCP server for accepting and managing client connections
 
 <H2 id="It">It</H2>
 
-TCP server object
+Platform-specific TCP server handle
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      SOCKET sockfd;
-      U8 running;
-      U16 slots;
-    };
-  #else
-    struct It {
-      I32 sockfd;
-      U8 running;
-      U16 slots;
-    };
-  #endif
+  struct It {
+    SOCKET sockfd;
+    U8 running;
+    U16 slots;
+  };
+#else
+  struct It {
+    I32 sockfd;
+    U8 running;
+    U16 slots;
+  };
+#endif
   `}
   cpp={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      SOCKET sockfd;
-      unsigned char running;
-      uint16_t slots;
-    };
-  #else
-    struct It {
-      int32_t sockfd;
-      unsigned char running;
-      uint16_t slots;
-    };
-  #endif
+  struct It {
+    SOCKET sockfd;
+    unsigned char running;
+    unsigned short slots;
+  };
+#else
+  struct It {
+    int sockfd;
+    unsigned char running;
+    unsigned short slots;
+  };
+#endif
   `}
 />
 
@@ -41,16 +41,16 @@ TCP server object
 
 <H2 id="create">create</H2>
 
-Create a TCP server bound to a port.
+Create a TCP server bound to a port
 
 <CodeTabs
   uhc={`TcpServer.It create(I16 port, U16 slots);`}
-  cpp={`TcpServer::It create(int16_t port, uint16_t slots);`}
+  cpp={`TcpServer::It create(short port, unsigned short slots);`}
 />
 
 **Parameters**
 - `port` — Port to listen on
-- `slots` — Maximum number of simultaneous connections
+- `slots` — Maximum simultaneous connections
 
 **Returns** — Initialized server object
 
@@ -58,7 +58,7 @@ Create a TCP server bound to a port.
 
 <H2 id="destroy">destroy</H2>
 
-Destroy a TCP server
+Destroy a TCP server and close all connections
 
 <CodeTabs
   uhc={`U0 destroy(TcpServer.It& server);`}
@@ -70,11 +70,9 @@ Destroy a TCP server
 
 ---
 
-
 <H2 id="listen">listen</H2>
 
-Listen for connection and accept them.
-This method start a new thread and return new client in a callback
+Start accepting connections, calling a callback for each new client
 
 <CodeTabs
   uhc={`U0 listen(TcpServer.It& server, U0 (*callback)(TcpClient.It*));`}
@@ -83,22 +81,22 @@ This method start a new thread and return new client in a callback
 
 **Parameters**
 - `server` — The TCP server
-- `callback` — The callback returning new client connection
+- `callback` — Function called with each new client
 
 ---
 
 <H2 id="write">write</H2>
 
-Write a message to a specific client.
+Send data to a specific client
 
 <CodeTabs
   uhc={`U8 write(TcpClient.It& client, I8* buffer, U32 size);`}
-  cpp={`unsigned char write(TcpClient::It& client, char* buffer, uint32_t size);`}
+  cpp={`unsigned char write(TcpClient::It& client, char* buffer, unsigned int size);`}
 />
 
 **Parameters**
-- `client` — The target client
-- `buffer` — The data to send
+- `client` — Target client
+- `buffer` — Data to send
 - `size` — Number of bytes to send
 
 **Returns** — Non-zero on success
@@ -107,21 +105,17 @@ Write a message to a specific client.
 
 <H2 id="read">read</H2>
 
-Read a message from a client.
-
-> [!IMPORTANT]
-> This method is non-blocking and may not read all bytes.
-> Use `readAll` to guarantee the full payload is received.
+Read data from a client (non-blocking, may be partial)
 
 <CodeTabs
   uhc={`U8 read(TcpClient.It& client, I8* buffer, U32 size);`}
-  cpp={`unsigned char read(TcpClient::It& client, char* buffer, uint32_t size);`}
+  cpp={`unsigned char read(TcpClient::It& client, char* buffer, unsigned int size);`}
 />
 
 **Parameters**
-- `client` — The source client
-- `buffer` — Buffer to receive data into
-- `size` — Maximum number of bytes to read
+- `client` — Source client
+- `buffer` — Receive buffer
+- `size` — Maximum bytes to read
 
 **Returns** — Non-zero on success
 
@@ -129,16 +123,16 @@ Read a message from a client.
 
 <H2 id="readAll">readAll</H2>
 
-Read from a client, blocking until all bytes are received.
+Read data from a client, blocking until all bytes arrive
 
 <CodeTabs
   uhc={`U8 readAll(TcpClient.It& client, I8* buffer, U32 size);`}
-  cpp={`unsigned char readAll(TcpClient::It& client, char* buffer, uint32_t size);`}
+  cpp={`unsigned char readAll(TcpClient::It& client, char* buffer, unsigned int size);`}
 />
 
 **Parameters**
-- `client` — The source client
-- `buffer` — Buffer to receive data into
+- `client` — Source client
+- `buffer` — Receive buffer
 - `size` — Exact number of bytes to read
 
 **Returns** — Non-zero on success
@@ -147,15 +141,14 @@ Read from a client, blocking until all bytes are received.
 
 <H2 id="broadcast">broadcast</H2>
 
-Broadcast a message to multiples clients
+Broadcast data to all clients in a list
 
 <CodeTabs
   uhc={`U0 broadcast(List.It<TcpClient.It> clients, I8* buffer, U32 size);`}
-  cpp={`void broadcast(List::It<TcpClient::It> clients, char* buffer, uint32_t size);`}
+  cpp={`void broadcast(List::It<TcpClient::It> clients, char* buffer, unsigned int size);`}
 />
 
 **Parameters**
-- `clients` — The TCP client list
-- `buffer` — The data
-- `size` — The data length
-
+- `clients` — List of clients to send to
+- `buffer` — Data to broadcast
+- `size` — Number of bytes to send

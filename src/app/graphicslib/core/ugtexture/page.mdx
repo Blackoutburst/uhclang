@@ -1,10 +1,10 @@
 # UgTexture
 
-GPU texture loading and binding.
+2D texture loading and descriptor management
 
 <H2 id="It">It</H2>
 
-Texture object with image, memory, view, sampler, and descriptor set.
+GPU texture with its image, memory, view, sampler, and descriptor set
 
 <CodeTabs
   uhc={`struct It {
@@ -14,7 +14,8 @@ Texture object with image, memory, view, sampler, and descriptor set.
     VkSampler sampler;
     VkDescriptorSetLayout setLayout;
     VkDescriptorSet descriptorSet;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkImage image;
     VkDeviceMemory memory;
@@ -22,14 +23,15 @@ Texture object with image, memory, view, sampler, and descriptor set.
     VkSampler sampler;
     VkDescriptorSetLayout setLayout;
     VkDescriptorSet descriptorSet;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="create">create</H2>
 
-Load a texture from a file (PNG, JPEG, BMP, etc.) and upload it to the GPU.
+Load a texture from a file and upload it to the GPU
 
 <CodeTabs
   uhc={`UgTexture.It create(UgContext.It& ctx, const I8* path);`}
@@ -37,32 +39,49 @@ Load a texture from a file (PNG, JPEG, BMP, etc.) and upload it to the GPU.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
+- `ctx` — Vulkan context
 - `path` — Path to the image file
 
-**Returns** — Initialized texture ready for binding
+**Returns** — Initialized texture object
+
+---
+
+<H2 id="createSetLayout">createSetLayout</H2>
+
+Create the descriptor set layout for a single combined image sampler
+
+<CodeTabs
+  uhc={`VkDescriptorSetLayout createSetLayout(UgContext.It& ctx);`}
+  cpp={`VkDescriptorSetLayout createSetLayout(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+
+**Returns** — Descriptor set layout handle
 
 ---
 
 <H2 id="bind">bind</H2>
 
-Bind the texture descriptor set to the pipeline.
+Bind the texture's descriptor set to a pipeline slot
 
 <CodeTabs
-  uhc={`U0 bind(UgTexture.It& texture, UgCommandBuffer.It& cmd, VkPipelineLayout pipelineLayout);`}
-  cpp={`void bind(UgTexture::It& texture, UgCommandBuffer::It& cmd, VkPipelineLayout pipelineLayout);`}
+  uhc={`U0 bind(UgTexture.It& texture, UgCommandBuffer.It& cmd, VkPipelineLayout pipelineLayout, U32 slot);`}
+  cpp={`void bind(UgTexture::It& texture, UgCommandBuffer::It& cmd, VkPipelineLayout pipelineLayout, unsigned int slot);`}
 />
 
 **Parameters**
-- `texture` — The texture to bind
-- `cmd` — The active command buffer
-- `pipelineLayout` — The pipeline layout
+- `texture` — Texture to bind
+- `cmd` — Active command buffer
+- `pipelineLayout` — Pipeline layout the descriptor set is compatible with
+- `slot` — Descriptor set index (texture slot)
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy the texture and free all its GPU resources.
+Destroy the texture and free all GPU resources
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgTexture.It& texture);`}
@@ -70,5 +89,5 @@ Destroy the texture and free all its GPU resources.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `texture` — The texture to destroy
+- `ctx` — Vulkan context
+- `texture` — Texture to destroy

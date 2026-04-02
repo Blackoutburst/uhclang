@@ -1,10 +1,10 @@
 # VectorF
 
-Float based vector 4
+Four-component float vector (x, y, z, w)
 
 <H2 id="It">It</H2>
 
-The float vector object
+Float vector object
 
 <CodeTabs
   uhc={`struct It {
@@ -12,14 +12,14 @@ The float vector object
     F32 y;
     F32 z;
     F32 w;
-  };
+};
   `}
   cpp={`struct It {
     float x;
     float y;
     float z;
     float w;
-  };
+};
   `}
 />
 
@@ -27,7 +27,7 @@ The float vector object
 
 <H2 id="equals">equals</H2>
 
-Check if 2 vectors are equal
+Test whether two float vectors are component-wise equal
 
 <CodeTabs
   uhc={`U8 equals(VectorF.It& a, VectorF.It& b);`}
@@ -38,13 +38,13 @@ Check if 2 vectors are equal
 - `a` — First vector
 - `b` — Second vector
 
-**Returns** — Non-zero if all components are equal
+**Returns** — Non-zero if equal
 
 ---
 
 <H2 id="set">set</H2>
 
-Set a vector values
+Set all four components of a float vector
 
 <CodeTabs
   uhc={`U0 set(VectorF.It& vec, F32 x, F32 y, F32 z, F32 w);`}
@@ -52,7 +52,7 @@ Set a vector values
 />
 
 **Parameters**
-- `vec` — The vector
+- `vec` — Target vector
 - `x` — X component
 - `y` — Y component
 - `z` — Z component
@@ -62,7 +62,7 @@ Set a vector values
 
 <H2 id="normalize">normalize</H2>
 
-Normalize a vector values
+Normalize a float vector to unit length in-place
 
 <CodeTabs
   uhc={`U0 normalize(VectorF.It& vec);`}
@@ -70,13 +70,13 @@ Normalize a vector values
 />
 
 **Parameters**
-- `vec` — The vector
+- `vec` — Vector to normalize
 
 ---
 
 <H2 id="length">length</H2>
 
-Return the magnitude of the vector.
+Compute the length (magnitude) of a float vector
 
 <CodeTabs
   uhc={`F32 length(VectorF.It& vec);`}
@@ -86,13 +86,13 @@ Return the magnitude of the vector.
 **Parameters**
 - `vec` — The vector
 
-**Returns** — Euclidean length as a float
+**Returns** — Euclidean length
 
 ---
 
 <H2 id="zero">zero</H2>
 
-Set all vector components to 0
+Set all components of a float vector to zero
 
 <CodeTabs
   uhc={`U0 zero(VectorF.It& vec);`}
@@ -100,13 +100,13 @@ Set all vector components to 0
 />
 
 **Parameters**
-- `vec` — The vector
+- `vec` — Vector to zero
 
 ---
 
 <H2 id="dot">dot</H2>
 
-Dot product between 2 vectors.
+Compute the dot product of two float vectors
 
 <CodeTabs
   uhc={`F32 dot(VectorF.It& a, VectorF.It& b);`}
@@ -117,13 +117,13 @@ Dot product between 2 vectors.
 - `a` — First vector
 - `b` — Second vector
 
-**Returns** — Scalar dot product
+**Returns** — Dot product
 
 ---
 
 <H2 id="cross">cross</H2>
 
-Cross product between 2 vectors
+Compute the cross product of two float vectors
 
 <CodeTabs
   uhc={`U0 cross(VectorF.It& result, VectorF.It& a, VectorF.It& b);`}
@@ -131,16 +131,15 @@ Cross product between 2 vectors
 />
 
 **Parameters**
-- `result` — Result vector
+- `result` — Vector to store the result
 - `a` — First vector
 - `b` — Second vector
 
 ---
 
-
 <H2 id="sub">sub</H2>
 
-Subtract vector `b` from vector `a`
+Subtract one float vector from another
 
 <CodeTabs
   uhc={`U0 sub(VectorF.It& result, VectorF.It& a, VectorF.It& b);`}
@@ -148,6 +147,6 @@ Subtract vector `b` from vector `a`
 />
 
 **Parameters**
-- `result` — Result vector
-- `a` — First vector
-- `b` — Second vector
+- `result` — Vector to store the result
+- `a` — Minuend vector
+- `b` — Subtrahend vector

@@ -1,29 +1,31 @@
 # UgShaderProgram
 
-Paired vertex and fragment shader program.
+Linked vertex and fragment shader program
 
 <H2 id="It">It</H2>
 
-Shader program object holding a vertex and fragment shader.
+Vertex and fragment shader pair with their pipeline stage info
 
 <CodeTabs
   uhc={`struct It {
     VkPipelineShaderStageCreateInfo handle[2];
     VkShaderModule vertexShader;
     VkShaderModule fragmentShader;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkPipelineShaderStageCreateInfo handle[2];
     VkShaderModule vertexShader;
     VkShaderModule fragmentShader;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="createShaderInfo">createShaderInfo</H2>
 
-Build a pipeline shader stage create-info for a given stage and module.
+Build the pipeline shader stage create info for a single stage
 
 <CodeTabs
   uhc={`VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);`}
@@ -31,16 +33,16 @@ Build a pipeline shader stage create-info for a given stage and module.
 />
 
 **Parameters**
-- `stage` — The shader stage (e.g. `VK_SHADER_STAGE_VERTEX_BIT`)
-- `shader` — The shader module
+- `stage` — Shader stage flag (vertex or fragment)
+- `shader` — Shader module to attach
 
-**Returns** — Stage create-info struct
+**Returns** — Populated pipeline shader stage create info
 
 ---
 
 <H2 id="create">create</H2>
 
-Create a shader program from vertex and fragment SPIR-V files.
+Create a shader program from vertex and fragment SPIR-V files
 
 <CodeTabs
   uhc={`UgShaderProgram.It create(UgContext.It& ctx, const I8* vertexSource, const I8* fragmentSource);`}
@@ -48,17 +50,17 @@ Create a shader program from vertex and fragment SPIR-V files.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `vertexSource` — Path to the compiled vertex `.spv` file
-- `fragmentSource` — Path to the compiled fragment `.spv` file
+- `ctx` — Vulkan context
+- `vertexSource` — Path to the compiled vertex SPIR-V binary
+- `fragmentSource` — Path to the compiled fragment SPIR-V binary
 
-**Returns** — Initialized shader program
+**Returns** — Initialized shader program object
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy both shader modules in the program.
+Destroy a shader program and both its shader modules
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgShaderProgram.It& shaderProgram);`}
@@ -66,5 +68,5 @@ Destroy both shader modules in the program.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `shaderProgram` — The shader program to destroy
+- `ctx` — Vulkan context
+- `shaderProgram` — Shader program to destroy

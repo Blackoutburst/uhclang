@@ -2,11 +2,11 @@
 
 Various utilities such as mutex, thread, ...
 
-- [Buffer](/stdlib/std/buffer) — Buffer utilities
-- [DynamicLibrary](/stdlib/std/dynamiclibrary) — Dynamic Library utilities (.so/.dll) 
-- [List](/stdlib/std/list) — Simple list
-- [Mutex](/stdlib/std/mutex) — Mutex helper
-- [Thread](/stdlib/std/thread) — Thread helper
+- [Buffer](/stdlib/std/buffer) — Binary buffer with cursor-based reading and writing
+- [DynamicLibrary](/stdlib/std/dynamiclibrary) — Cross-platform shared library loader
+- [List](/stdlib/std/list) — Generic doubly-linked list
+- [Mutex](/stdlib/std/mutex) — Mutual exclusion primitive for thread synchronization
+- [Thread](/stdlib/std/thread) — Lightweight thread creation and joining
 
 <H2 id="Header">Header</H2>
 
@@ -19,15 +19,30 @@ Various utilities such as mutex, thread, ...
 
 <CodeTabs
   uhc={`#define UHC_LITTLE_ENDIAN 0
-  #define UHC_BIG_ENDIAN 1
-  
-  namespace Buffer {
+#define UHC_BIG_ENDIAN 1
+
+namespace Mutex {
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        CRITICAL_SECTION handle;
+      };
+    #else
+      struct It {
+        pthread_mutex_t handle;
+      };
+    #endif
+    Mutex.It create();
+    U0 destroy(Mutex.It& mutex);
+    U0 lock(Mutex.It& mutex);
+    U0 unlock(Mutex.It& mutex);
+}
+
+namespace Buffer {
     struct It {
-      U0* handle;
-      U8 order;
-      U32 cursor;
+        U0* handle;
+        U8 order;
+        U32 cursor;
     };
-      
     U0 setOrder(Buffer.It& buffer, U8 order);
     U0 reset(Buffer.It& buffer);
     I8 getI8(Buffer.It& buffer);
@@ -50,9 +65,24 @@ Various utilities such as mutex, thread, ...
     U0 putU64(Buffer.It& buffer, U64 value);
     U0 putF32(Buffer.It& buffer, F32 value);
     U0 putF64(Buffer.It& buffer, F64 value);
-  }
+}
 
-  namespace DynamicLibrary {
+namespace Thread {
+    typedef U0* (*Fn)(U0*);
+    #if defined(_WIN32) || defined(_WIN64)
+      struct It {
+        HANDLE handle;
+      };
+    #else
+      struct It {
+        pthread_t handle;
+      };
+    #endif
+    Thread.It start(Thread.Fn method, U0* arg);
+    U0 join(Thread.It& thread);
+}
+
+namespace DynamicLibrary {
     #if defined(_WIN32) || defined(_WIN64)
       struct It {
         HINSTANCE handle;
@@ -66,17 +96,15 @@ Various utilities such as mutex, thread, ...
         U8 isValid;
       };
     #endif
-
     DynamicLibrary.It load(const I8* name);
     U0* get(DynamicLibrary.It& dll, const I8* functionName);
     U0 unload(DynamicLibrary.It& dll);
-  }
+}
 
-  namespace List {
+namespace List {
     struct It {
-      std::list<T> handle;
+        std::list<T> handle;
     };
-
     U0 add(List.It<T>& list, T value);
     U0 addAt(List.It<T>& list, T value, I32 index);
     U8 remove(List.It<T>& list, T value);
@@ -87,9 +115,12 @@ Various utilities such as mutex, thread, ...
     T* last(List.It<T>& list);
     U64 size(List.It<T>& list);
     U0 clear(List.It<T>& list);
-  }
-  
-  namespace Mutex {
+}
+  `}
+  cpp={`#define UHC_LITTLE_ENDIAN 0
+#define UHC_BIG_ENDIAN 1
+
+namespace Mutex {
     #if defined(_WIN32) || defined(_WIN64)
       struct It {
         CRITICAL_SECTION handle;
@@ -99,16 +130,44 @@ Various utilities such as mutex, thread, ...
         pthread_mutex_t handle;
       };
     #endif
+    Mutex::It create();
+    void destroy(Mutex::It& mutex);
+    void lock(Mutex::It& mutex);
+    void unlock(Mutex::It& mutex);
+}
 
-    Mutex.It create();
-    U0 destroy(Mutex.It& mutex);
-    U0 lock(Mutex.It& mutex);
-    U0 unlock(Mutex.It& mutex);
-  }
+namespace Buffer {
+    struct It {
+        void* handle;
+        unsigned char order;
+        unsigned int cursor;
+    };
+    void setOrder(Buffer::It& buffer, unsigned char order);
+    void reset(Buffer::It& buffer);
+    char getI8(Buffer::It& buffer);
+    unsigned char getU8(Buffer::It& buffer);
+    short getI16(Buffer::It& buffer);
+    unsigned short getU16(Buffer::It& buffer);
+    int getI32(Buffer::It& buffer);
+    unsigned int getU32(Buffer::It& buffer);
+    long long getI64(Buffer::It& buffer);
+    unsigned long long getU64(Buffer::It& buffer);
+    float getF32(Buffer::It& buffer);
+    double getF64(Buffer::It& buffer);
+    void putI8(Buffer::It& buffer, char value);
+    void putU8(Buffer::It& buffer, unsigned char value);
+    void putI16(Buffer::It& buffer, short value);
+    void putU16(Buffer::It& buffer, unsigned short value);
+    void putI32(Buffer::It& buffer, int value);
+    void putU32(Buffer::It& buffer, unsigned int value);
+    void putI64(Buffer::It& buffer, long long value);
+    void putU64(Buffer::It& buffer, unsigned long long value);
+    void putF32(Buffer::It& buffer, float value);
+    void putF64(Buffer::It& buffer, double value);
+}
 
-  namespace Thread {
-    typedef U0* (*Fn)(U0*);
-
+namespace Thread {
+    typedef void* (*Fn)(void*);
     #if defined(_WIN32) || defined(_WIN64)
       struct It {
         HANDLE handle;
@@ -118,46 +177,11 @@ Various utilities such as mutex, thread, ...
         pthread_t handle;
       };
     #endif
+    Thread::It start(Thread::Fn method, void* arg);
+    void join(Thread::It& thread);
+}
 
-    Thread.It start(Thread.Fn method, U0* arg);
-    U0 join(Thread.It& thread);
-  }
-  `}
-  cpp={`#define UHC_LITTLE_ENDIAN 0
-  #define UHC_BIG_ENDIAN 1
-  
-  namespace Buffer {
-    struct It {
-      void* handle;
-      unsigned char order;
-      uint32_t cursor;
-    };
-      
-    void setOrder(Buffer::It& buffer, unsigned char order);
-    void reset(Buffer::It& buffer);
-    char getI8(Buffer::It& buffer);
-    unsigned char getU8(Buffer::It& buffer);
-    int16_t getI16(Buffer::It& buffer);
-    uint16_t getU16(Buffer::It& buffer);
-    int32_t getI32(Buffer::It& buffer);
-    uint32_t getU32(Buffer::It& buffer);
-    int64_t getI64(Buffer::It& buffer);
-    uint64_t getU64(Buffer::It& buffer);
-    float getF32(Buffer::It& buffer);
-    double getF64(Buffer::It& buffer);
-    void putI8(Buffer::It& buffer, char value);
-    void putU8(Buffer::It& buffer, unsigned char value);
-    void putI16(Buffer::It& buffer, int16_t value);
-    void putU16(Buffer::It& buffer, uint16_t value);
-    void putI32(Buffer::It& buffer, int32_t value);
-    void putU32(Buffer::It& buffer, uint32_t value);
-    void putI64(Buffer::It& buffer, int64_t value);
-    void putU64(Buffer::It& buffer, uint64_t value);
-    void putF32(Buffer::It& buffer, float value);
-    void putF64(Buffer::It& buffer, double value);
-  }
-
-  namespace DynamicLibrary {
+namespace DynamicLibrary {
     #if defined(_WIN32) || defined(_WIN64)
       struct It {
         HINSTANCE handle;
@@ -171,61 +195,25 @@ Various utilities such as mutex, thread, ...
         unsigned char isValid;
       };
     #endif
-
-    DynamicLibrary.It load(const char* name);
+    DynamicLibrary::It load(const char* name);
     void* get(DynamicLibrary::It& dll, const char* functionName);
     void unload(DynamicLibrary::It& dll);
-  }
+}
 
-  namespace List {
+namespace List {
     struct It {
-      std::list<T> handle;
+        std::list<T> handle;
     };
-
     void add(List::It<T>& list, T value);
-    void addAt(List::It<T>& list, T value, int32_t index);
+    void addAt(List::It<T>& list, T value, int index);
     unsigned char remove(List::It<T>& list, T value);
-    void removeAt(List::It<T>& list, int32_t index);
-    T* get(List::It<T>& list, int32_t index);
-    void set(List::It<T>& list, int32_t index, T value);
+    void removeAt(List::It<T>& list, int index);
+    T* get(List::It<T>& list, int index);
+    void set(List::It<T>& list, int index, T value);
     T* first(List::It<T>& list);
     T* last(List::It<T>& list);
-    uint64_t size(List::It<T>& list);
+    unsigned long long size(List::It<T>& list);
     void clear(List::It<T>& list);
-  }
-  
-  namespace Mutex {
-    #if defined(_WIN32) || defined(_WIN64)
-      struct It {
-        CRITICAL_SECTION handle;
-      };
-    #else
-      struct It {
-        pthread_mutex_t handle;
-      };
-    #endif
-
-    Mutex.It create();
-    void destroy(Mutex::It& mutex);
-    void lock(Mutex::It& mutex);
-    void unlock(Mutex::It& mutex);
-  }
-
-  namespace Thread {
-    typedef void* (*Fn)(void*);
-
-    #if defined(_WIN32) || defined(_WIN64)
-      struct It {
-        HANDLE handle;
-      };
-    #else
-      struct It {
-        pthread_t handle;
-      };
-    #endif
-
-    Thread.It start(Thread.Fn method, void* arg);
-    void join(Thread::It& thread);
-  }
+}
   `}
 />

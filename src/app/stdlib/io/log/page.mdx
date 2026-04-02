@@ -1,10 +1,10 @@
 # Log
 
-Leveled logger with colored output.
+Leveled logger with colored console output
 
 <H2 id="Level">Level</H2>
 
-Log level enum
+Log level values for filtering output
 
 <CodeTabs
   uhc={`enum Level {
@@ -13,7 +13,7 @@ Log level enum
     UHC_LOG_INFO,
     UHC_LOG_WARN,
     UHC_LOG_ERROR,
-  };
+};
   `}
   cpp={`enum Level {
     UHC_LOG_TRACE,
@@ -21,14 +21,15 @@ Log level enum
     UHC_LOG_INFO,
     UHC_LOG_WARN,
     UHC_LOG_ERROR,
-  };
+};
   `}
 />
+
 ---
 
 <H2 id="trace">trace</H2>
 
-Log message as trace
+Log a message at TRACE level
 
 <CodeTabs
   uhc={`U0 trace(const I8* fmt, ...);`}
@@ -36,14 +37,14 @@ Log message as trace
 />
 
 **Parameters**
-- `fmt` — A string using printf format
-- `...` — Vararg corresponding to the string format
+- `fmt` — printf-style format string
+- `...` — Format arguments
 
 ---
 
 <H2 id="debug">debug</H2>
 
-Log message as debug
+Log a message at DEBUG level
 
 <CodeTabs
   uhc={`U0 debug(const I8* fmt, ...);`}
@@ -51,44 +52,44 @@ Log message as debug
 />
 
 **Parameters**
-- `fmt` — A string using printf format
-- `...` — Vararg corresponding to the string format
+- `fmt` — printf-style format string
+- `...` — Format arguments
 
 ---
 
 <H2 id="info">info</H2>
 
-Log message as info
+Log a message at INFO level
 
 <CodeTabs
-  uhc={`U0 info(const I8* fmt, ...);`}
-  cpp={`void info(const char* fmt, ...);`}
+  uhc={`U0 info (const I8* fmt, ...);`}
+  cpp={`void info (const char* fmt, ...);`}
 />
 
 **Parameters**
-- `fmt` — A string using printf format
-- `...` — Vararg corresponding to the string format
+- `fmt` — printf-style format string
+- `...` — Format arguments
 
 ---
 
 <H2 id="warn">warn</H2>
 
-Log message as warn
+Log a message at WARN level
 
 <CodeTabs
-  uhc={`U0 warn(const I8* fmt, ...);`}
-  cpp={`void warn(const char* fmt, ...);`}
+  uhc={`U0 warn (const I8* fmt, ...);`}
+  cpp={`void warn (const char* fmt, ...);`}
 />
 
 **Parameters**
-- `fmt` — A string using printf format
-- `...` — Vararg corresponding to the string format
+- `fmt` — printf-style format string
+- `...` — Format arguments
 
 ---
 
 <H2 id="error">error</H2>
 
-Log message as error
+Log a message at ERROR level
 
 <CodeTabs
   uhc={`U0 error(const I8* fmt, ...);`}
@@ -96,21 +97,20 @@ Log message as error
 />
 
 **Parameters**
-- `fmt` — A string using printf format
-- `...` — Vararg corresponding to the string format
+- `fmt` — printf-style format string
+- `...` — Format arguments
 
 ---
 
-
 <H2 id="msg">msg</H2>
 
-Log message
+Log a raw message without a level prefix
 
 <CodeTabs
-  uhc={`U0 msg(const I8* fmt, ...);`}
-  cpp={`void msg(const char* fmt, ...);`}
+  uhc={`U0 msg  (const I8* fmt, ...);`}
+  cpp={`void msg  (const char* fmt, ...);`}
 />
 
 **Parameters**
-- `fmt` — A string using printf format
-- `...` — Vararg corresponding to the string format
+- `fmt` — printf-style format string
+- `...` — Format arguments

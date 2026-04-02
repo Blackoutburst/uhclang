@@ -1,165 +1,19 @@
 # Matrix
 
-4x4 matrices
-
----
-
-<H2 id="M00">M00</H2>
-
-<CodeTabs
-  uhc={`#define M00 0x00`}
-  cpp={`#define M00 0x00`}
-/>
-
----
-
-<H2 id="M01">M01</H2>
-
-<CodeTabs
-  uhc={`#define M01 0x01`}
-  cpp={`#define M01 0x01`}
-/>
-
----
-
-<H2 id="M02">M02</H2>
-
-<CodeTabs
-  uhc={`#define M02 0x02`}
-  cpp={`#define M02 0x02`}
-/>
-
----
-
-<H2 id="M03">M03</H2>
-
-<CodeTabs
-  uhc={`#define M03 0x03`}
-  cpp={`#define M03 0x03`}
-/>
-
----
-
-<H2 id="M10">M10</H2>
-
-<CodeTabs
-  uhc={`#define M10 0x04`}
-  cpp={`#define M10 0x04`}
-/>
-
----
-
-<H2 id="M11">M11</H2>
-
-<CodeTabs
-  uhc={`#define M11 0x05`}
-  cpp={`#define M11 0x05`}
-/>
-
----
-
-<H2 id="M12">M12</H2>
-
-<CodeTabs
-  uhc={`#define M12 0x06`}
-  cpp={`#define M12 0x06`}
-/>
-
----
-
-<H2 id="M13">M13</H2>
-
-<CodeTabs
-  uhc={`#define M13 0x07`}
-  cpp={`#define M13 0x07`}
-/>
-
----
-
-<H2 id="M20">M20</H2>
-
-<CodeTabs
-  uhc={`#define M20 0x08`}
-  cpp={`#define M20 0x08`}
-/>
-
----
-
-<H2 id="M21">M21</H2>
-
-<CodeTabs
-  uhc={`#define M21 0x09`}
-  cpp={`#define M21 0x09`}
-/>
-
----
-
-<H2 id="M22">M22</H2>
-
-<CodeTabs
-  uhc={`#define M22 0x0A`}
-  cpp={`#define M22 0x0A`}
-/>
-
----
-
-<H2 id="M23">M23</H2>
-
-<CodeTabs
-  uhc={`#define M23 0x0B`}
-  cpp={`#define M23 0x0B`}
-/>
-
----
-
-<H2 id="M30">M30</H2>
-
-<CodeTabs
-  uhc={`#define M30 0x0C`}
-  cpp={`#define M30 0x0C`}
-/>
-
----
-
-<H2 id="M31">M31</H2>
-
-<CodeTabs
-  uhc={`#define M31 0x0D`}
-  cpp={`#define M31 0x0D`}
-/>
-
----
-
-<H2 id="M32">M32</H2>
-
-<CodeTabs
-  uhc={`#define M32 0x0E`}
-  cpp={`#define M32 0x0E`}
-/>
-
----
-
-<H2 id="M33">M33</H2>
-
-<CodeTabs
-  uhc={`#define M33 0x0F`}
-  cpp={`#define M33 0x0F`}
-/>
-
----
+4x4 row-major float matrix
 
 <H2 id="It">It</H2>
 
-The matrix object
+Matrix object (16 floats, initialized to identity)
 
 <CodeTabs
   uhc={`struct It {
     F32 values[16];
-  };
+};
   `}
   cpp={`struct It {
     float values[16];
-  };
+};
   `}
 />
 
@@ -167,13 +21,7 @@ The matrix object
 
 <H2 id="setIdentity">setIdentity</H2>
 
-Put a matrix back to identity values
-```c
-1 0 0 0
-0 1 0 0
-0 0 1 0
-0 0 0 1
-```
+Reset a matrix to the identity matrix
 
 <CodeTabs
   uhc={`U0 setIdentity(Matrix.It& mat);`}
@@ -181,13 +29,13 @@ Put a matrix back to identity values
 />
 
 **Parameters**
-- `mat` — Matrix that will be reset to identity
+- `mat` — The matrix to reset
 
 ---
 
 <H2 id="multiply">multiply</H2>
 
-Multiply 2 matrices together
+Multiply two matrices and store the result
 
 <CodeTabs
   uhc={`U0 multiply(Matrix.It& result, Matrix.It& left, Matrix.It& right);`}
@@ -195,15 +43,15 @@ Multiply 2 matrices together
 />
 
 **Parameters**
-- `result` — Matrix that will hold the result
-- `left` — First matrix for operation
-- `right` — Second matrix for operation
+- `result` — Matrix to store the result
+- `left` — First (left) matrix
+- `right` — Second (right) matrix
 
 ---
 
 <H2 id="copy">copy</H2>
 
-Copy a matrix
+Copy a matrix into another
 
 <CodeTabs
   uhc={`U0 copy(Matrix.It& src, Matrix.It& dest);`}
@@ -212,13 +60,13 @@ Copy a matrix
 
 **Parameters**
 - `src` — Source matrix
-- `dest` — New matrix with src values
+- `dest` — Destination matrix
 
 ---
 
 <H2 id="ortho2D">ortho2D</H2>
 
-Create a 2D projection matrix
+Build a 2D orthographic projection matrix
 
 <CodeTabs
   uhc={`U0 ortho2D(Matrix.It& mat, F32 left, F32 right, F32 bottom, F32 top, F32 near, F32 far);`}
@@ -226,7 +74,7 @@ Create a 2D projection matrix
 />
 
 **Parameters**
-- `mat` — Matrix that will hold the result
+- `mat` — Output matrix
 - `left` — Left boundary
 - `right` — Right boundary
 - `bottom` — Bottom boundary
@@ -238,7 +86,7 @@ Create a 2D projection matrix
 
 <H2 id="ortho2DVk">ortho2DVk</H2>
 
-Create a 2D projection matrix for special Vulkan usage
+Build a 2D orthographic projection matrix adjusted for Vulkan's coordinate system
 
 <CodeTabs
   uhc={`U0 ortho2DVk(Matrix.It& mat, F32 left, F32 right, F32 bottom, F32 top, F32 near, F32 far);`}
@@ -246,7 +94,7 @@ Create a 2D projection matrix for special Vulkan usage
 />
 
 **Parameters**
-- `mat` — Matrix that will hold the result
+- `mat` — Output matrix
 - `left` — Left boundary
 - `right` — Right boundary
 - `bottom` — Bottom boundary
@@ -258,7 +106,7 @@ Create a 2D projection matrix for special Vulkan usage
 
 <H2 id="projection">projection</H2>
 
-Create a 3D projection matrix
+Build a 3D perspective projection matrix
 
 <CodeTabs
   uhc={`U0 projection(Matrix.It& mat, F32 width, F32 height, F32 fov, F32 near, F32 far);`}
@@ -266,18 +114,18 @@ Create a 3D projection matrix
 />
 
 **Parameters**
-- `mat` — Matrix that will hold the result
-- `width` — Frustum width
-- `height` — Frustum height
-- `fov` — Field of view
-- `near` — Near plane
-- `far` — Far plane
+- `mat` — Output matrix
+- `width` — Viewport width
+- `height` — Viewport height
+- `fov` — Field of view angle in radians
+- `near` — Near plane distance
+- `far` — Far plane distance
 
 ---
 
 <H2 id="scale">scale</H2>
 
-Scale a matrix
+Apply a scale transform to a matrix
 
 <CodeTabs
   uhc={`U0 scale(Matrix.It& mat, F32 x, F32 y, F32 z, F32 w);`}
@@ -285,17 +133,17 @@ Scale a matrix
 />
 
 **Parameters**
-- `mat` — Matrix that will hold the result
-- `x` — X axis scale factor
-- `y` — Y axis scale factor
-- `z` — Z axis scale factor
-- `w` — W axis scale factor
+- `mat` — Matrix to modify
+- `x` — X scale factor
+- `y` — Y scale factor
+- `z` — Z scale factor
+- `w` — W scale factor
 
 ---
 
 <H2 id="translate">translate</H2>
 
-Translate a matrix
+Apply a translation transform to a matrix
 
 <CodeTabs
   uhc={`U0 translate(Matrix.It& mat, F32 x, F32 y, F32 z, F32 w);`}
@@ -303,17 +151,17 @@ Translate a matrix
 />
 
 **Parameters**
-- `mat` — Matrix that will hold the result
-- `x` — X axis translate factor
-- `y` — Y axis translate factor
-- `z` — Z axis translate factor
-- `w` — W axis translate factor
+- `mat` — Matrix to modify
+- `x` — X translation
+- `y` — Y translation
+- `z` — Z translation
+- `w` — W translation
 
 ---
 
 <H2 id="rotate">rotate</H2>
 
-Rotate a matrix
+Apply a rotation transform to a matrix
 
 <CodeTabs
   uhc={`U0 rotate(Matrix.It& mat, F32 angle, F32 x, F32 y, F32 z);`}
@@ -321,17 +169,17 @@ Rotate a matrix
 />
 
 **Parameters**
-- `mat` — Matrix that will hold the result
-- `angle` — The rotation angle in rad
-- `x` — Allow rotation on X axis [0 - 1]
-- `y` — Allow rotation on Y axis [0 - 1]
-- `z` — Allow rotation on Z axis [0 - 1]
+- `mat` — Matrix to modify
+- `angle` — Rotation angle in radians
+- `x` — X axis weight
+- `y` — Y axis weight
+- `z` — Z axis weight
 
 ---
 
 <H2 id="lookAt">lookAt</H2>
 
-Build a view (camera) matrix from eye position, target, and up vector
+Build a view matrix from eye position, target, and up vector
 
 <CodeTabs
   uhc={`U0 lookAt(Matrix.It& mat, VectorF.It& eye, VectorF.It& center, VectorF.It& up);`}
@@ -339,8 +187,7 @@ Build a view (camera) matrix from eye position, target, and up vector
 />
 
 **Parameters**
-- `mat` — Matrix that will hold the result
-- `eye` — The camera position
-- `center` — The camera focus point
+- `mat` — Output view matrix
+- `eye` — Camera position
+- `center` — Camera target point
 - `up` — World up direction
-

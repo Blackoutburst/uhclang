@@ -1,58 +1,54 @@
 # UgVertexSettings
 
-Pipeline render settings controlling blending, culling, depth, and polygon mode. All fields have sensible defaults.
+Rasterizer, blending, and depth settings for a pipeline
 
 <H2 id="It">It</H2>
 
+Full set of configurable pipeline rasterizer and blend state options
+
 <CodeTabs
   uhc={`struct It {
-    U8 depthVao = 0;
-    I32 colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-    VkBool32 blendEnable = VK_TRUE;
-    VkBlendFactor srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-    VkBlendFactor dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-    VkBlendOp colorBlendOp = VK_BLEND_OP_ADD;
-    VkBlendFactor srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-    VkBlendFactor dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-    VkBlendOp alphaBlendOp = VK_BLEND_OP_ADD;
-    VkBool32 depthClampEnable = VK_FALSE;
-    VkBool32 rasterizerDiscardEnable = VK_FALSE;
-    VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL;
-    VkCullModeFlagBits cullMode = VK_CULL_MODE_BACK_BIT;
-    VkFrontFace frontFace = VK_FRONT_FACE_CLOCKWISE;
-    VkBool32 depthBiasEnable = VK_FALSE;
-    F32 depthBiasConstantFactor = 0.0f;
-    F32 depthBiasClamp = 0.0f;
-    F32 depthBiasSlopeFactor = 0.0f;
-    F32 lineWidth = 1.0f;
-  };`}
+    U8 depthVao;
+    I32 colorWriteMask;
+    VkBool32 blendEnable;
+    VkBlendFactor srcColorBlendFactor;
+    VkBlendFactor dstColorBlendFactor;
+    VkBlendOp colorBlendOp;
+    VkBlendFactor srcAlphaBlendFactor;
+    VkBlendFactor dstAlphaBlendFactor;
+    VkBlendOp alphaBlendOp;
+    VkBool32 depthClampEnable;
+    VkBool32 rasterizerDiscardEnable;
+    VkPolygonMode polygonMode;
+    VkCullModeFlagBits cullMode;
+    VkFrontFace frontFace;
+    VkBool32 depthBiasEnable;
+    F32 depthBiasConstantFactor;
+    F32 depthBiasClamp;
+    F32 depthBiasSlopeFactor;
+    F32 lineWidth;
+};
+  `}
   cpp={`struct It {
-    unsigned char depthVao = 0;
-    int32_t colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-    VkBool32 blendEnable = VK_TRUE;
-    VkBlendFactor srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-    VkBlendFactor dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-    VkBlendOp colorBlendOp = VK_BLEND_OP_ADD;
-    VkBlendFactor srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-    VkBlendFactor dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-    VkBlendOp alphaBlendOp = VK_BLEND_OP_ADD;
-    VkBool32 depthClampEnable = VK_FALSE;
-    VkBool32 rasterizerDiscardEnable = VK_FALSE;
-    VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL;
-    VkCullModeFlagBits cullMode = VK_CULL_MODE_BACK_BIT;
-    VkFrontFace frontFace = VK_FRONT_FACE_CLOCKWISE;
-    VkBool32 depthBiasEnable = VK_FALSE;
-    float depthBiasConstantFactor = 0.0f;
-    float depthBiasClamp = 0.0f;
-    float depthBiasSlopeFactor = 0.0f;
-    float lineWidth = 1.0f;
-  };`}
+    unsigned char depthVao;
+    int colorWriteMask;
+    VkBool32 blendEnable;
+    VkBlendFactor srcColorBlendFactor;
+    VkBlendFactor dstColorBlendFactor;
+    VkBlendOp colorBlendOp;
+    VkBlendFactor srcAlphaBlendFactor;
+    VkBlendFactor dstAlphaBlendFactor;
+    VkBlendOp alphaBlendOp;
+    VkBool32 depthClampEnable;
+    VkBool32 rasterizerDiscardEnable;
+    VkPolygonMode polygonMode;
+    VkCullModeFlagBits cullMode;
+    VkFrontFace frontFace;
+    VkBool32 depthBiasEnable;
+    float depthBiasConstantFactor;
+    float depthBiasClamp;
+    float depthBiasSlopeFactor;
+    float lineWidth;
+};
+  `}
 />
-
-**Key fields**
-- `depthVao` — Non-zero to enable depth-only rendering
-- `polygonMode` — Fill, line, or point rendering
-- `cullMode` — Face culling mode
-- `frontFace` — Winding order for front faces
-- `blendEnable` — Toggle alpha blending
-- `lineWidth` — Line width when `polygonMode` is `VK_POLYGON_MODE_LINE`

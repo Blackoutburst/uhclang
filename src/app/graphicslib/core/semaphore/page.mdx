@@ -1,25 +1,27 @@
-# Semaphore
+# UgSemaphore
 
-GPU-GPU synchronization primitive.
+GPU–GPU synchronization semaphore
 
 <H2 id="It">It</H2>
 
-Semaphore object.
+Thin wrapper around a Vulkan semaphore handle
 
 <CodeTabs
   uhc={`struct It {
     VkSemaphore handle;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkSemaphore handle;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="create">create</H2>
 
-Create a semaphore.
+Create a semaphore
 
 <CodeTabs
   uhc={`UgSemaphore.It create(UgContext.It& ctx);`}
@@ -27,15 +29,15 @@ Create a semaphore.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
+- `ctx` — Vulkan context
 
-**Returns** — Initialized semaphore
+**Returns** — Initialized semaphore object
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy a semaphore.
+Destroy a semaphore
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgSemaphore.It& semaphore);`}
@@ -43,5 +45,5 @@ Destroy a semaphore.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `semaphore` — The semaphore to destroy
+- `ctx` — Vulkan context
+- `semaphore` — Semaphore to destroy

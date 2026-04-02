@@ -1,19 +1,19 @@
 # List
 
-Simple list
+Generic doubly-linked list
 
 <H2 id="It">It</H2>
 
-List object
+List container object
 
 <CodeTabs
   uhc={`struct It {
     std::list<T> handle;
-  };
+};
   `}
   cpp={`struct It {
     std::list<T> handle;
-  };
+};
   `}
 />
 
@@ -21,7 +21,7 @@ List object
 
 <H2 id="add">add</H2>
 
-Add an element at the end of the list
+Append a value to the end of the list
 
 <CodeTabs
   uhc={`U0 add(List.It<T>& list, T value);`}
@@ -29,30 +29,30 @@ Add an element at the end of the list
 />
 
 **Parameters**
-- `list` — The list
-- `value` — Value
+- `list` — Target list
+- `value` — Value to append
 
 ---
 
 <H2 id="addAt">addAt</H2>
 
-Add an element at a specific index
+Insert a value at a specific index
 
 <CodeTabs
   uhc={`U0 addAt(List.It<T>& list, T value, I32 index);`}
-  cpp={`void addAt(List::It<T>& list, T value, int32_t index);`}
+  cpp={`void addAt(List::It<T>& list, T value, int index);`}
 />
 
 **Parameters**
-- `list` — The list
-- `value` — Value
-- `index` — The index at which the element should be added
+- `list` — Target list
+- `value` — Value to insert
+- `index` — Zero-based position
 
 ---
 
 <H2 id="remove">remove</H2>
 
-Remove the first matching element from the list.
+Remove the first matching value from the list
 
 <CodeTabs
   uhc={`U8 remove(List.It<T>& list, T value);`}
@@ -60,42 +60,42 @@ Remove the first matching element from the list.
 />
 
 **Parameters**
-- `list` — The list
-- `value` — Value to remove
+- `list` — Target list
+- `value` — Value to find and remove
 
-**Returns** — Non-zero if the element was found and removed
+**Returns** — Non-zero if element was found and removed
 
 ---
 
 <H2 id="removeAt">removeAt</H2>
 
-Remove an element at a specific index
+Remove the element at a specific index
 
 <CodeTabs
   uhc={`U0 removeAt(List.It<T>& list, I32 index);`}
-  cpp={`void removeAt(List::It<T>& list, int32_t index);`}
+  cpp={`void removeAt(List::It<T>& list, int index);`}
 />
 
 **Parameters**
-- `list` — The list
-- `index` — The index at which the element should be removed
+- `list` — Target list
+- `index` — Zero-based position to remove
 
 ---
 
 <H2 id="get">get</H2>
 
-Get an element at a specific index
+Get a pointer to the element at a specific index
 
 <CodeTabs
   uhc={`T* get(List.It<T>& list, I32 index);`}
-  cpp={`T* get(List::It<T>& list, int32_t index);`}
+  cpp={`T* get(List::It<T>& list, int index);`}
 />
 
 **Parameters**
-- `list` — The list
-- `index` — The element index
+- `list` — Target list
+- `index` — Zero-based position
 
-**Returns** — Pointer to the element at `index`
+**Returns** — Pointer to the element
 
 ---
 
@@ -105,19 +105,19 @@ Set the value of an element at a specific index
 
 <CodeTabs
   uhc={`U0 set(List.It<T>& list, I32 index, T value);`}
-  cpp={`void set(List::It<T>& list, int32_t index, T value);`}
+  cpp={`void set(List::It<T>& list, int index, T value);`}
 />
 
 **Parameters**
-- `list` — The list
-- `value` — Value
-- `index` — The index of the element
+- `list` — Target list
+- `index` — Zero-based position
+- `value` — New value
 
 ---
 
 <H2 id="first">first</H2>
 
-Return the first element of the list.
+Get a pointer to the first element
 
 <CodeTabs
   uhc={`T* first(List.It<T>& list);`}
@@ -125,15 +125,15 @@ Return the first element of the list.
 />
 
 **Parameters**
-- `list` — The list
+- `list` — Target list
 
-**Returns** — Pointer to the first element
+**Returns** — Pointer to first element, or NULL if empty
 
 ---
 
 <H2 id="last">last</H2>
 
-Return the last element of the list.
+Get a pointer to the last element
 
 <CodeTabs
   uhc={`T* last(List.It<T>& list);`}
@@ -141,31 +141,31 @@ Return the last element of the list.
 />
 
 **Parameters**
-- `list` — The list
+- `list` — Target list
 
-**Returns** — Pointer to the last element
+**Returns** — Pointer to last element, or NULL if empty
 
 ---
 
 <H2 id="size">size</H2>
 
-Return the number of elements in the list.
+Get the number of elements in the list
 
 <CodeTabs
   uhc={`U64 size(List.It<T>& list);`}
-  cpp={`uint64_t size(List::It<T>& list);`}
+  cpp={`unsigned long long size(List::It<T>& list);`}
 />
 
 **Parameters**
-- `list` — The list
+- `list` — Target list
 
-**Returns** — Number of elements
+**Returns** — Element count
 
 ---
 
 <H2 id="clear">clear</H2>
 
-Clear the list
+Remove all elements from the list
 
 <CodeTabs
   uhc={`U0 clear(List.It<T>& list);`}
@@ -173,4 +173,4 @@ Clear the list
 />
 
 **Parameters**
-- `list` — The list
+- `list` — Target list

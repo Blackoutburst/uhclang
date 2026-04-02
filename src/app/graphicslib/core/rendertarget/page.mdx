@@ -1,10 +1,10 @@
-# RenderTarget
+# UgRenderTarget
 
-Off-screen render target backed by a texture.
+Off-screen render target backed by a texture
 
 <H2 id="It">It</H2>
 
-Render target object.
+Off-screen framebuffer with its render pass and color texture
 
 <CodeTabs
   uhc={`struct It {
@@ -13,39 +13,41 @@ Render target object.
     UgTexture.It texture;
     U32 width;
     U32 height;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkRenderPass renderPass;
     VkFramebuffer framebuffer;
     UgTexture::It texture;
-    uint32_t width;
-    uint32_t height;
-  };`}
+    unsigned int width;
+    unsigned int height;
+};
+  `}
 />
 
 ---
 
 <H2 id="create">create</H2>
 
-Create an off-screen render target of the given dimensions.
+Create an off-screen render target of the given dimensions
 
 <CodeTabs
   uhc={`UgRenderTarget.It create(UgContext.It& ctx, U32 width, U32 height);`}
-  cpp={`UgRenderTarget::It create(UgContext::It& ctx, uint32_t width, uint32_t height);`}
+  cpp={`UgRenderTarget::It create(UgContext::It& ctx, unsigned int width, unsigned int height);`}
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
+- `ctx` — Vulkan context
 - `width` — Width in pixels
 - `height` — Height in pixels
 
-**Returns** — Initialized render target
+**Returns** — Initialized render target object
 
 ---
 
 <H2 id="begin">begin</H2>
 
-Begin rendering into the render target.
+Begin rendering into the render target
 
 <CodeTabs
   uhc={`U0 begin(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);`}
@@ -53,14 +55,14 @@ Begin rendering into the render target.
 />
 
 **Parameters**
-- `rt` — The render target
-- `cmd` — The active command buffer
+- `rt` — Render target to render into
+- `cmd` — Active command buffer
 
 ---
 
 <H2 id="end">end</H2>
 
-End rendering into the render target.
+End rendering into the render target
 
 <CodeTabs
   uhc={`U0 end(UgCommandBuffer.It& cmd);`}
@@ -68,13 +70,13 @@ End rendering into the render target.
 />
 
 **Parameters**
-- `cmd` — The active command buffer
+- `cmd` — Active command buffer
 
 ---
 
 <H2 id="setViewport">setViewport</H2>
 
-Set the dynamic viewport and scissor to the render target dimensions.
+Set the viewport to match the render target dimensions
 
 <CodeTabs
   uhc={`U0 setViewport(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);`}
@@ -82,14 +84,14 @@ Set the dynamic viewport and scissor to the render target dimensions.
 />
 
 **Parameters**
-- `rt` — The render target
-- `cmd` — The active command buffer
+- `rt` — Render target whose dimensions define the viewport
+- `cmd` — Active command buffer
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy the render target and all its resources.
+Destroy the render target and free all associated resources
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgRenderTarget.It& rt);`}
@@ -97,5 +99,5 @@ Destroy the render target and all its resources.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `rt` — The render target to destroy
+- `ctx` — Vulkan context
+- `rt` — Render target to destroy

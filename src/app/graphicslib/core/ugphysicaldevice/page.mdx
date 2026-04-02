@@ -1,10 +1,10 @@
 # UgPhysicalDevice
 
-Physical GPU enumeration and selection.
+Physical device enumeration and selection utilities
 
 <H2 id="getProperties">getProperties</H2>
 
-Get the properties of a physical device.
+Get the properties of a physical device
 
 <CodeTabs
   uhc={`VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);`}
@@ -12,7 +12,7 @@ Get the properties of a physical device.
 />
 
 **Parameters**
-- `device` — The physical device
+- `device` — Physical device to query
 
 **Returns** — Device properties struct
 
@@ -20,7 +20,7 @@ Get the properties of a physical device.
 
 <H2 id="typeName">typeName</H2>
 
-Return a human-readable string for a device type.
+Get a human-readable name for a physical device type
 
 <CodeTabs
   uhc={`const I8* typeName(VkPhysicalDeviceType type);`}
@@ -28,15 +28,15 @@ Return a human-readable string for a device type.
 />
 
 **Parameters**
-- `type` — The Vulkan device type enum value
+- `type` — Vulkan device type enum value
 
-**Returns** — Null-terminated string (e.g. `"Discrete GPU"`)
+**Returns** — Null-terminated string name for the type
 
 ---
 
 <H2 id="hasExtensions">hasExtensions</H2>
 
-Check whether a physical device supports the required extensions.
+Check whether a physical device supports the required extensions
 
 <CodeTabs
   uhc={`U8 hasExtensions(VkPhysicalDevice device);`}
@@ -44,7 +44,7 @@ Check whether a physical device supports the required extensions.
 />
 
 **Parameters**
-- `device` — The physical device to check
+- `device` — Physical device to check
 
 **Returns** — Non-zero if all required extensions are supported
 
@@ -52,23 +52,23 @@ Check whether a physical device supports the required extensions.
 
 <H2 id="count">count</H2>
 
-Return the number of available physical devices.
+Get the number of physical devices available in the instance
 
 <CodeTabs
   uhc={`U32 count(VkInstance instance);`}
-  cpp={`uint32_t count(VkInstance instance);`}
+  cpp={`unsigned int count(VkInstance instance);`}
 />
 
 **Parameters**
-- `instance` — The Vulkan instance
+- `instance` — Vulkan instance to query
 
-**Returns** — Number of physical devices
+**Returns** — Number of available physical devices
 
 ---
 
 <H2 id="list">list</H2>
 
-Print information about all available physical devices.
+Print a list of all available physical devices to the log
 
 <CodeTabs
   uhc={`U0 list(VkInstance instance);`}
@@ -76,13 +76,13 @@ Print information about all available physical devices.
 />
 
 **Parameters**
-- `instance` — The Vulkan instance
+- `instance` — Vulkan instance to query
 
 ---
 
 <H2 id="get">get</H2>
 
-Select a physical device of a desired type.
+Get a physical device by desired type, falling back if unavailable
 
 <CodeTabs
   uhc={`VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, U8 desiredType);`}
@@ -90,17 +90,17 @@ Select a physical device of a desired type.
 />
 
 **Parameters**
-- `instance` — The Vulkan instance
-- `surface` — The window surface (for presentation support check)
-- `desiredType` — Preferred `VkPhysicalDeviceType`
+- `instance` — Vulkan instance to query
+- `surface` — Surface used for presentation support checks
+- `desiredType` — Preferred VkPhysicalDeviceType
 
-**Returns** — Selected physical device
+**Returns** — Selected physical device handle
 
 ---
 
 <H2 id="create">create</H2>
 
-Automatically select the best available physical device.
+Select and create the best physical device for rendering
 
 <CodeTabs
   uhc={`VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);`}
@@ -108,7 +108,7 @@ Automatically select the best available physical device.
 />
 
 **Parameters**
-- `instance` — The Vulkan instance
-- `surface` — The window surface
+- `instance` — Vulkan instance to query
+- `surface` — Surface used for presentation support checks
 
-**Returns** — The chosen physical device
+**Returns** — Selected physical device handle

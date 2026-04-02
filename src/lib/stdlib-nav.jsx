@@ -37,40 +37,23 @@ export const stdlibNav = [
     label: "Math",
     slug: "math",
     namespaces: [
-      { 
-        label: "Math", 
-        slug: "math", 
+      {
+        label: "Math",
+        slug: "math",
         methods: [
-          { label: "UHC_PI", slug: "UHC_PI" },
           { label: "rad", slug: "rad" },
           { label: "sign", slug: "sign" },
           { label: "fsign", slug: "fsign" },
           { label: "fsignf", slug: "fsignf" },
           { label: "clamp", slug: "clamp" },
           { label: "fclamp", slug: "fclamp" },
-          { label: "fclampf", slug: "fclampf" },        
-        ] 
+          { label: "fclampf", slug: "fclampf" },
+        ],
       },
-      { 
-        label: "Matrix", 
-        slug: "matrix", 
+      {
+        label: "Matrix",
+        slug: "matrix",
         methods: [
-          { label: "M00", slug: "M00" },
-          { label: "M01", slug: "M01" },
-          { label: "M02", slug: "M02" },
-          { label: "M03", slug: "M03" },
-          { label: "M10", slug: "M10" },
-          { label: "M11", slug: "M11" },
-          { label: "M12", slug: "M12" },
-          { label: "M13", slug: "M13" },
-          { label: "M20", slug: "M20" },
-          { label: "M21", slug: "M21" },
-          { label: "M22", slug: "M22" },
-          { label: "M23", slug: "M23" },
-          { label: "M30", slug: "M30" },
-          { label: "M31", slug: "M31" },
-          { label: "M32", slug: "M32" },
-          { label: "M33", slug: "M33" },
           { label: "It", slug: "It" },
           { label: "setIdentity", slug: "setIdentity" },
           { label: "multiply", slug: "multiply" },
@@ -82,11 +65,11 @@ export const stdlibNav = [
           { label: "translate", slug: "translate" },
           { label: "rotate", slug: "rotate" },
           { label: "lookAt", slug: "lookAt" },
-        ] 
+        ],
       },
-      { 
-        label: "VectorF", 
-        slug: "vectorf", 
+      {
+        label: "VectorF",
+        slug: "vectorf",
         methods: [
           { label: "It", slug: "It" },
           { label: "equals", slug: "equals" },
@@ -97,11 +80,11 @@ export const stdlibNav = [
           { label: "dot", slug: "dot" },
           { label: "cross", slug: "cross" },
           { label: "sub", slug: "sub" },
-        ] 
+        ],
       },
-      { 
-        label: "VectorI", 
-        slug: "vectori", 
+      {
+        label: "VectorI",
+        slug: "vectori",
         methods: [
           { label: "It", slug: "It" },
           { label: "equals", slug: "equals" },
@@ -112,7 +95,7 @@ export const stdlibNav = [
           { label: "dot", slug: "dot" },
           { label: "cross", slug: "cross" },
           { label: "sub", slug: "sub" },
-        ]
+        ],
       },
     ],
   },
@@ -120,9 +103,9 @@ export const stdlibNav = [
     label: "Network",
     slug: "network",
     namespaces: [
-      { 
-        label: "TcpClient", 
-        slug: "tcpclient", 
+      {
+        label: "TcpClient",
+        slug: "tcpclient",
         methods: [
           { label: "It", slug: "It" },
           { label: "create", slug: "create" },
@@ -130,11 +113,11 @@ export const stdlibNav = [
           { label: "write", slug: "write" },
           { label: "read", slug: "read" },
           { label: "readAll", slug: "readAll" },
-        ] 
+        ],
       },
-      { 
-        label: "TcpServer", 
-        slug: "tcpserver", 
+      {
+        label: "TcpServer",
+        slug: "tcpserver",
         methods: [
           { label: "It", slug: "It" },
           { label: "create", slug: "create" },
@@ -144,22 +127,19 @@ export const stdlibNav = [
           { label: "read", slug: "read" },
           { label: "readAll", slug: "readAll" },
           { label: "broadcast", slug: "broadcast" },
-        ] 
+        ],
       },
     ],
   },
-
   {
-    label: "Std",
+    label: "STD",
     slug: "std",
     namespaces: [
-      { 
-        label: "Buffer", 
-        slug: "buffer", 
+      {
+        label: "Buffer",
+        slug: "buffer",
         methods: [
           { label: "It", slug: "It" },
-          { label: "UHC_LITTLE_ENDIAN", slug: "UHC_LITTLE_ENDIAN" },
-          { label: "UHC_BIG_ENDIAN", slug: "UHC_BIG_ENDIAN" },
           { label: "setOrder", slug: "setOrder" },
           { label: "reset", slug: "reset" },
           { label: "getI8", slug: "getI8" },
@@ -182,21 +162,21 @@ export const stdlibNav = [
           { label: "putU64", slug: "putU64" },
           { label: "putF32", slug: "putF32" },
           { label: "putF64", slug: "putF64" },
-        ] 
+        ],
       },
-      { 
-        label: "DynamicLibrary", 
+      {
+        label: "DynamicLibrary",
         slug: "dynamiclibrary",
         methods: [
           { label: "It", slug: "It" },
           { label: "load", slug: "load" },
           { label: "get", slug: "get" },
           { label: "unload", slug: "unload" },
-        ] 
+        ],
       },
-      { 
-        label: "List", 
-        slug: "list", 
+      {
+        label: "List",
+        slug: "list",
         methods: [
           { label: "It", slug: "It" },
           { label: "add", slug: "add" },
@@ -204,33 +184,34 @@ export const stdlibNav = [
           { label: "remove", slug: "remove" },
           { label: "removeAt", slug: "removeAt" },
           { label: "get", slug: "get" },
+          { label: "set", slug: "set" },
           { label: "first", slug: "first" },
           { label: "last", slug: "last" },
           { label: "size", slug: "size" },
           { label: "clear", slug: "clear" },
-        ] 
+        ],
       },
-      { 
-        label: "Mutex", 
-        slug: "mutex", 
+      {
+        label: "Mutex",
+        slug: "mutex",
         methods: [
           { label: "It", slug: "It" },
           { label: "create", slug: "create" },
           { label: "destroy", slug: "destroy" },
           { label: "lock", slug: "lock" },
           { label: "unlock", slug: "unlock" },
-        ] 
+        ],
       },
-      { 
-        label: "Thread", 
-        slug: "thread", 
+      {
+        label: "Thread",
+        slug: "thread",
         methods: [
           { label: "Fn", slug: "Fn" },
           { label: "It", slug: "It" },
           { label: "start", slug: "start" },
           { label: "join", slug: "join" },
-        ] 
+        ],
       },
     ],
-  },
+  }
 ]

@@ -1,0 +1,80 @@
+# UgTextureArray
+
+Layered texture array for batch rendering
+
+<H2 id="It">It</H2>
+
+GPU texture array with its image, memory, view, sampler, and descriptor set
+
+<CodeTabs
+  uhc={`struct It {
+    VkImage image;
+    VkDeviceMemory memory;
+    VkImageView view;
+    VkSampler sampler;
+    VkDescriptorSetLayout setLayout;
+    VkDescriptorSet descriptorSet;
+    U32 layerCount;
+};
+  `}
+  cpp={`struct It {
+    VkImage image;
+    VkDeviceMemory memory;
+    VkImageView view;
+    VkSampler sampler;
+    VkDescriptorSetLayout setLayout;
+    VkDescriptorSet descriptorSet;
+    unsigned int layerCount;
+};
+  `}
+/>
+
+---
+
+<H2 id="create">create</H2>
+
+Load multiple images as layers and upload them as a texture array
+
+<CodeTabs
+  uhc={`UgTextureArray.It create(UgContext.It& ctx, const I8** paths, U32 count);`}
+  cpp={`UgTextureArray::It create(UgContext::It& ctx, const char** paths, unsigned int count);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+- `paths` — Array of file paths, one per layer
+- `count` — Number of layers
+
+**Returns** — Initialized texture array object
+
+---
+
+<H2 id="bind">bind</H2>
+
+Bind the texture array's descriptor set to a pipeline slot
+
+<CodeTabs
+  uhc={`U0 bind(UgTextureArray.It& arr, UgCommandBuffer.It& cmd, VkPipelineLayout pipelineLayout, U32 slot);`}
+  cpp={`void bind(UgTextureArray::It& arr, UgCommandBuffer::It& cmd, VkPipelineLayout pipelineLayout, unsigned int slot);`}
+/>
+
+**Parameters**
+- `arr` — Texture array to bind
+- `cmd` — Active command buffer
+- `pipelineLayout` — Pipeline layout the descriptor set is compatible with
+- `slot` — Descriptor set index (texture slot)
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the texture array and free all GPU resources
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgTextureArray.It& arr);`}
+  cpp={`void destroy(UgContext::It& ctx, UgTextureArray::It& arr);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+- `arr` — Texture array to destroy

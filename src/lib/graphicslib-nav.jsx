@@ -27,60 +27,6 @@ export const graphicslibNav = [
     slug: "core",
     namespaces: [
       {
-        label: "UgBuffer",
-        slug: "ugbuffer",
-        methods: [
-          { label: "It", slug: "It" },
-          { label: "create", slug: "create" },
-          { label: "upload", slug: "upload" },
-          { label: "destroy", slug: "destroy" },
-        ],
-      },
-      {
-        label: "UgFrameBuffer",
-        slug: "ugframebuffer",
-        methods: [
-          { label: "It", slug: "It" },
-          { label: "create", slug: "create" },
-          { label: "destroy", slug: "destroy" },
-        ],
-      },
-      {
-        label: "UgUniformBuffer",
-        slug: "uguniformbuffer",
-        methods: [
-          { label: "It", slug: "It" },
-          { label: "create", slug: "create" },
-          { label: "bind", slug: "bind" },
-          { label: "destroy", slug: "destroy" },
-          { label: "reset", slug: "reset" },
-          { label: "setFloat", slug: "setFloat" },
-          { label: "setVec2f", slug: "setVec2f" },
-          { label: "setVec3f", slug: "setVec3f" },
-          { label: "setVec4f", slug: "setVec4f" },
-          { label: "setMat", slug: "setMat" },
-        ],
-      },
-      {
-        label: "UgCommandBuffer",
-        slug: "ugcommandbuffer",
-        methods: [
-          { label: "It", slug: "It" },
-          { label: "begin", slug: "begin" },
-          { label: "end", slug: "end" },
-          { label: "create", slug: "create" },
-          { label: "destroy", slug: "destroy" },
-        ],
-      },
-      {
-        label: "UgCommandPool",
-        slug: "commandpool",
-        methods: [
-          { label: "create", slug: "create" },
-          { label: "destroy", slug: "destroy" },
-        ],
-      },
-      {
         label: "UgContext",
         slug: "context",
         methods: [
@@ -90,8 +36,8 @@ export const graphicslibNav = [
         ],
       },
       {
-        label: "UgDescriptorPool",
-        slug: "descriptorpool",
+        label: "UgInstance",
+        slug: "instance",
         methods: [
           { label: "create", slug: "create" },
           { label: "destroy", slug: "destroy" },
@@ -133,6 +79,68 @@ export const graphicslibNav = [
         ],
       },
       {
+        label: "UgBuffer",
+        slug: "ugbuffer",
+        methods: [
+          { label: "It", slug: "It" },
+          { label: "create", slug: "create" },
+          { label: "upload", slug: "upload" },
+          { label: "destroy", slug: "destroy" },
+        ],
+      },
+      {
+        label: "UgFrameBuffer",
+        slug: "ugframebuffer",
+        methods: [
+          { label: "It", slug: "It" },
+          { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
+        ],
+      },
+      {
+        label: "UgUniformBuffer",
+        slug: "uguniformbuffer",
+        methods: [
+          { label: "It", slug: "It" },
+          { label: "create", slug: "create" },
+          { label: "bind", slug: "bind" },
+          { label: "destroy", slug: "destroy" },
+          { label: "reset", slug: "reset" },
+          { label: "setFloat", slug: "setFloat" },
+          { label: "setVec2f", slug: "setVec2f" },
+          { label: "setVec3f", slug: "setVec3f" },
+          { label: "setVec4f", slug: "setVec4f" },
+          { label: "setMat", slug: "setMat" },
+        ],
+      },
+      {
+        label: "UgCommandBuffer",
+        slug: "ugcommandbuffer",
+        methods: [
+          { label: "It", slug: "It" },
+          { label: "begin", slug: "begin" },
+          { label: "end", slug: "end" },
+          { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
+        ],
+      },
+      {
+        label: "UgCommandPool",
+        slug: "commandpool",
+        methods: [
+          { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
+        ],
+      },
+      {
+        label: "UgDescriptorPool",
+        slug: "descriptorpool",
+        methods: [
+          { label: "create", slug: "create" },
+          { label: "destroy", slug: "destroy" },
+        ],
+      },
+      {
         label: "UgFence",
         slug: "fence",
         methods: [
@@ -141,6 +149,15 @@ export const graphicslibNav = [
           { label: "destroy", slug: "destroy" },
           { label: "wait", slug: "wait" },
           { label: "reset", slug: "reset" },
+        ],
+      },
+      {
+        label: "UgSemaphore",
+        slug: "semaphore",
+        methods: [
+          { label: "It", slug: "It" },
+          { label: "create", slug: "create" },
+          { label: "destroy", slug: "destroy" },
         ],
       },
       {
@@ -161,38 +178,62 @@ export const graphicslibNav = [
         ],
       },
       {
-        label: "UgInstance",
-        slug: "instance",
+        label: "UgWindowSurface",
+        slug: "surface",
         methods: [
+          { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
+        ],
+      },
+      {
+        label: "UgSwapchain",
+        slug: "swapchain",
+        methods: [
+          { label: "It", slug: "It" },
+          { label: "extend", slug: "extend" },
+          { label: "update", slug: "update" },
+          { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
+        ],
+      },
+      {
+        label: "UgShader",
+        slug: "ugshader",
+        methods: [
+          { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
+        ],
+      },
+      {
+        label: "UgShaderProgram",
+        slug: "ugshaderprogram",
+        methods: [
+          { label: "It", slug: "It" },
+          { label: "createShaderInfo", slug: "createShaderInfo" },
           { label: "create", slug: "create" },
           { label: "destroy", slug: "destroy" },
         ],
       },
       {
-        label: "UgPipeline",
-        slug: "ugpipeline",
+        label: "UgRenderPass",
+        slug: "renderpass",
         methods: [
-          { label: "createDynamicState", slug: "createDynamicState" },
-          { label: "createInputAssembly", slug: "createInputAssembly" },
-          { label: "createViewport", slug: "createViewport" },
-          { label: "createScissor", slug: "createScissor" },
-          { label: "createViewportState", slug: "createViewportState" },
-          { label: "createRasterizerState", slug: "createRasterizerState" },
-          { label: "createMultisamplingState", slug: "createMultisamplingState" },
-          { label: "createColorBlendAttachmentState", slug: "createColorBlendAttachmentState" },
-          { label: "createColorBlendState", slug: "createColorBlendState" },
-          { label: "createDepthStencil", slug: "createDepthStencil" },
-          { label: "create", slug: "create" },
+          { label: "end", slug: "end" },
+          { label: "begin", slug: "begin" },
           { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
         ],
       },
       {
-        label: "UgPipelineLayout",
-        slug: "ugpipelinelayout",
+        label: "UgRenderTarget",
+        slug: "rendertarget",
         methods: [
+          { label: "It", slug: "It" },
           { label: "create", slug: "create" },
+          { label: "begin", slug: "begin" },
+          { label: "end", slug: "end" },
+          { label: "setViewport", slug: "setViewport" },
           { label: "destroy", slug: "destroy" },
-          { label: "remove", slug: "remove" },
         ],
       },
       {
@@ -212,71 +253,45 @@ export const graphicslibNav = [
         ],
       },
       {
-        label: "UgRenderPass",
-        slug: "renderpass",
+        label: "UgPipeline",
+        slug: "ugpipeline",
         methods: [
-          { label: "begin", slug: "begin" },
-          { label: "end", slug: "end" },
-          { label: "create", slug: "create" },
+          { label: "createDynamicState", slug: "createDynamicState" },
+          { label: "createInputAssembly", slug: "createInputAssembly" },
+          { label: "createViewport", slug: "createViewport" },
+          { label: "createScissor", slug: "createScissor" },
+          { label: "createViewportState", slug: "createViewportState" },
+          { label: "createRasterizerState", slug: "createRasterizerState" },
+          { label: "createMultisamplingState", slug: "createMultisamplingState" },
+          { label: "createColorBlendAttachmentState", slug: "createColorBlendAttachmentState" },
+          { label: "createColorBlendState", slug: "createColorBlendState" },
           { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
+          { label: "createDepthStencil", slug: "createDepthStencil" },
         ],
       },
       {
-        label: "UgRenderTarget",
-        slug: "rendertarget",
+        label: "UgPipelineLayout",
+        slug: "ugpipelinelayout",
+        methods: [
+          { label: "remove", slug: "remove" },
+          { label: "destroy", slug: "destroy" },
+          { label: "create", slug: "create" },
+        ],
+      },
+      {
+        label: "UgMaterialPipelineEntry",
+        slug: "ugmaterialpipelineentry",
         methods: [
           { label: "It", slug: "It" },
-          { label: "create", slug: "create" },
-          { label: "begin", slug: "begin" },
-          { label: "end", slug: "end" },
-          { label: "setViewport", slug: "setViewport" },
-          { label: "destroy", slug: "destroy" },
         ],
       },
       {
-        label: "UgSemaphore",
-        slug: "semaphore",
+        label: "UgMaterial",
+        slug: "ugmaterial",
         methods: [
           { label: "It", slug: "It" },
-          { label: "create", slug: "create" },
           { label: "destroy", slug: "destroy" },
-        ],
-      },
-      {
-        label: "UgShader",
-        slug: "ugshader",
-        methods: [
-          { label: "create", slug: "create" },
-          { label: "destroy", slug: "destroy" },
-        ],
-      },
-      {
-        label: "UgShaderProgram",
-        slug: "ugshaderprogram",
-        methods: [
-          { label: "It", slug: "It" },
-          { label: "createShaderInfo", slug: "createShaderInfo" },
-          { label: "create", slug: "create" },
-          { label: "destroy", slug: "destroy" },
-        ],
-      },
-      {
-        label: "UgWindowSurface",
-        slug: "surface",
-        methods: [
-          { label: "create", slug: "create" },
-          { label: "destroy", slug: "destroy" },
-        ],
-      },
-      {
-        label: "UgSwapchain",
-        slug: "swapchain",
-        methods: [
-          { label: "It", slug: "It" },
-          { label: "extend", slug: "extend" },
-          { label: "update", slug: "update" },
-          { label: "destroy", slug: "destroy" },
-          { label: "create", slug: "create" },
         ],
       },
       {
@@ -285,6 +300,7 @@ export const graphicslibNav = [
         methods: [
           { label: "It", slug: "It" },
           { label: "create", slug: "create" },
+          { label: "createSetLayout", slug: "createSetLayout" },
           { label: "bind", slug: "bind" },
           { label: "destroy", slug: "destroy" },
         ],
@@ -294,6 +310,16 @@ export const graphicslibNav = [
         slug: "ugsampler",
         methods: [
           { label: "create", slug: "create" },
+          { label: "destroy", slug: "destroy" },
+        ],
+      },
+      {
+        label: "UgTextureArray",
+        slug: "ugtexturearray",
+        methods: [
+          { label: "It", slug: "It" },
+          { label: "create", slug: "create" },
+          { label: "bind", slug: "bind" },
           { label: "destroy", slug: "destroy" },
         ],
       },
@@ -318,16 +344,6 @@ export const graphicslibNav = [
           { label: "It", slug: "It" },
         ],
       },
-      {
-        label: "UgVertexArray",
-        slug: "ugvertexarray",
-        methods: [
-          { label: "It", slug: "It" },
-          { label: "create", slug: "create" },
-          { label: "bind", slug: "bind" },
-          { label: "destroy", slug: "destroy" },
-        ],
-      },
     ],
   },
   {
@@ -335,7 +351,7 @@ export const graphicslibNav = [
     slug: "debug",
     namespaces: [
       {
-        label: "LogCallback",
+        label: "UgLogCallback",
         slug: "logcallback",
         methods: [
           { label: "destroy", slug: "destroy" },
@@ -345,7 +361,7 @@ export const graphicslibNav = [
         ],
       },
       {
-        label: "ValidationLayers",
+        label: "UgValidationLayer",
         slug: "validationlayers",
         methods: [
           { label: "count", slug: "count" },
@@ -368,5 +384,5 @@ export const graphicslibNav = [
         ],
       },
     ],
-  },
+  }
 ]

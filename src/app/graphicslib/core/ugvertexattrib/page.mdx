@@ -1,23 +1,22 @@
 # UgVertexAttrib
 
-Describes a single vertex attribute: its shader location, data format, and byte offset within the vertex struct.
+Single vertex attribute binding description
 
 <H2 id="It">It</H2>
+
+Location, format, and byte offset of one vertex attribute
 
 <CodeTabs
   uhc={`struct It {
     U32 location;
     VkFormat format;
     U32 offset;
-  };`}
+};
+  `}
   cpp={`struct It {
-    uint32_t location;
+    unsigned int location;
     VkFormat format;
-    uint32_t offset;
-  };`}
+    unsigned int offset;
+};
+  `}
 />
-
-**Fields**
-- `location` — Shader input location index
-- `format` — Vulkan format of the attribute (e.g. `VK_FORMAT_R32G32B32_SFLOAT` for a vec3)
-- `offset` — Byte offset from the start of the vertex struct

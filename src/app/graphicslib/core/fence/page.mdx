@@ -1,25 +1,27 @@
-# Fence
+# UgFence
 
-CPU-GPU synchronization primitive.
+CPU–GPU synchronization fence
 
 <H2 id="It">It</H2>
 
-Fence object.
+Thin wrapper around a Vulkan fence handle
 
 <CodeTabs
   uhc={`struct It {
     VkFence handle;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkFence handle;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="create">create</H2>
 
-Create a fence in the signaled state.
+Create a fence in the signaled state
 
 <CodeTabs
   uhc={`UgFence.It create(UgContext.It& ctx);`}
@@ -27,15 +29,15 @@ Create a fence in the signaled state.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
+- `ctx` — Vulkan context
 
-**Returns** — Initialized fence
+**Returns** — Initialized fence object
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy a fence.
+Destroy a fence
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgFence.It& fence);`}
@@ -43,14 +45,14 @@ Destroy a fence.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `fence` — The fence to destroy
+- `ctx` — Vulkan context
+- `fence` — Fence to destroy
 
 ---
 
 <H2 id="wait">wait</H2>
 
-Block the CPU until the fence is signaled.
+Block the CPU until the fence is signaled
 
 <CodeTabs
   uhc={`U0 wait(UgContext.It& ctx, UgFence.It& fence);`}
@@ -58,14 +60,14 @@ Block the CPU until the fence is signaled.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `fence` — The fence to wait on
+- `ctx` — Vulkan context
+- `fence` — Fence to wait on
 
 ---
 
 <H2 id="reset">reset</H2>
 
-Reset the fence to the unsignaled state.
+Reset a fence back to the unsignaled state
 
 <CodeTabs
   uhc={`U0 reset(UgContext.It& ctx, UgFence.It& fence);`}
@@ -73,5 +75,5 @@ Reset the fence to the unsignaled state.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `fence` — The fence to reset
+- `ctx` — Vulkan context
+- `fence` — Fence to reset

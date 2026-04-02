@@ -1,10 +1,10 @@
 # UgDevice
 
-Logical device creation and queue retrieval.
+Logical device creation and queue access
 
 <H2 id="It">It</H2>
 
-Logical device object with queues and properties.
+Logical device handle together with its queues and properties
 
 <CodeTabs
   uhc={`struct It {
@@ -12,20 +12,22 @@ Logical device object with queues and properties.
     VkPhysicalDeviceProperties properties;
     VkQueue graphicQueue;
     VkQueue presentQueue;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkDevice handle;
     VkPhysicalDeviceProperties properties;
     VkQueue graphicQueue;
     VkQueue presentQueue;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="getQueue">getQueue</H2>
 
-Retrieve a queue handle from a logical device.
+Retrieve a queue of a specific type from the logical device
 
 <CodeTabs
   uhc={`VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);`}
@@ -33,9 +35,9 @@ Retrieve a queue handle from a logical device.
 />
 
 **Parameters**
-- `device` — The physical device
-- `logicalDevice` — The logical device
-- `queueType` — The desired queue capability
+- `device` — Physical device used during queue family lookup
+- `logicalDevice` — Logical device to retrieve the queue from
+- `queueType` — Queue capability flag identifying the desired queue
 
 **Returns** — Queue handle
 
@@ -43,7 +45,7 @@ Retrieve a queue handle from a logical device.
 
 <H2 id="getPresentationQueue">getPresentationQueue</H2>
 
-Retrieve the presentation queue handle.
+Retrieve the presentation queue from the logical device
 
 <CodeTabs
   uhc={`VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);`}
@@ -51,9 +53,9 @@ Retrieve the presentation queue handle.
 />
 
 **Parameters**
-- `device` — The physical device
-- `surface` — The window surface
-- `logicalDevice` — The logical device
+- `device` — Physical device used for surface support checks
+- `surface` — Surface to present to
+- `logicalDevice` — Logical device to retrieve the queue from
 
 **Returns** — Presentation queue handle
 
@@ -61,24 +63,24 @@ Retrieve the presentation queue handle.
 
 <H2 id="getSurfaceSupport">getSurfaceSupport</H2>
 
-Get the index of the queue family that supports surface presentation.
+Check whether a physical device supports presentation to a surface
 
 <CodeTabs
   uhc={`U32 getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);`}
-  cpp={`uint32_t getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);`}
+  cpp={`unsigned int getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);`}
 />
 
 **Parameters**
-- `device` — The physical device
-- `surface` — The window surface
+- `device` — Physical device to check
+- `surface` — Surface to check presentation support for
 
-**Returns** — Queue family index that supports presentation
+**Returns** — Non-zero queue family index if supported
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy the logical device.
+Destroy the logical device
 
 <CodeTabs
   uhc={`U0 destroy(UgDevice.It& device);`}
@@ -86,13 +88,13 @@ Destroy the logical device.
 />
 
 **Parameters**
-- `device` — The device to destroy
+- `device` — Logical device to destroy
 
 ---
 
 <H2 id="make">make</H2>
 
-Create a raw `VkDevice` from a physical device and surface.
+Create the raw VkDevice without wrapping it
 
 <CodeTabs
   uhc={`VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);`}
@@ -100,8 +102,8 @@ Create a raw `VkDevice` from a physical device and surface.
 />
 
 **Parameters**
-- `device` — The physical device
-- `surface` — The window surface
+- `device` — Physical device to create from
+- `surface` — Surface used for presentation queue selection
 
 **Returns** — Raw logical device handle
 
@@ -109,7 +111,7 @@ Create a raw `VkDevice` from a physical device and surface.
 
 <H2 id="create">create</H2>
 
-Create a fully initialized logical device with graphics and presentation queues.
+Create the logical device and populate queue handles
 
 <CodeTabs
   uhc={`UgDevice.It create(VkPhysicalDevice device, VkSurfaceKHR surface);`}
@@ -117,7 +119,7 @@ Create a fully initialized logical device with graphics and presentation queues.
 />
 
 **Parameters**
-- `device` — The physical device
-- `surface` — The window surface
+- `device` — Physical device to create from
+- `surface` — Surface used for presentation queue selection
 
-**Returns** — Initialized device object
+**Returns** — Initialized logical device object

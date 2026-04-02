@@ -1,39 +1,39 @@
-# Dynamic Library
+# DynamicLibrary
 
-Dynamic Library utilities (.so/.dll) 
+Cross-platform shared library loader
 
 <H2 id="It">It</H2>
 
-Dynamic Library object
+Platform-specific dynamic library handle
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      HINSTANCE handle;
-      I8* name;
-      U8 isValid;
-    };
-  #else
-    struct It {
-      U0* handle;
-      I8* name;
-      U8 isValid;
-    };
-  #endif
+  struct It {
+    HINSTANCE handle;
+    I8* name;
+    U8 isValid;
+  };
+#else
+  struct It {
+    U0* handle;
+    I8* name;
+    U8 isValid;
+  };
+#endif
   `}
   cpp={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      HINSTANCE handle;
-      char* name;
-      unsigned char isValid;
-    };
-  #else
-    struct It {
-      void* handle;
-      char* name;
-      unsigned char isValid;
-    };
-  #endif
+  struct It {
+    HINSTANCE handle;
+    char* name;
+    unsigned char isValid;
+  };
+#else
+  struct It {
+    void* handle;
+    char* name;
+    unsigned char isValid;
+  };
+#endif
   `}
 />
 
@@ -41,7 +41,7 @@ Dynamic Library object
 
 <H2 id="load">load</H2>
 
-Load a dynamic library by name or path.
+Load a shared library by name or path
 
 <CodeTabs
   uhc={`DynamicLibrary.It load(const I8* name);`}
@@ -49,15 +49,15 @@ Load a dynamic library by name or path.
 />
 
 **Parameters**
-- `name` — The library name or path (e.g. `"libfoo.so"`, `"foo.dll"`)
+- `name` — Library name or path
 
-**Returns** — Library object — check `isValid` before use
+**Returns** — Library object — check isValid before use
 
 ---
 
 <H2 id="get">get</H2>
 
-Get a function from a library
+Retrieve a function pointer from a loaded library
 
 <CodeTabs
   uhc={`U0* get(DynamicLibrary.It& dll, const I8* functionName);`}
@@ -66,15 +66,15 @@ Get a function from a library
 
 **Parameters**
 - `dll` — The dynamic library
-- `functionName` — The exported function name
+- `functionName` — The exported symbol name
 
-**Returns** — Raw function pointer (`void*`) — cast to the expected signature before calling
+**Returns** — Raw function pointer — cast before calling
 
 ---
 
 <H2 id="unload">unload</H2>
 
-Unload a dynamic library
+Unload a dynamic library and free its resources
 
 <CodeTabs
   uhc={`U0 unload(DynamicLibrary.It& dll);`}
@@ -82,6 +82,4 @@ Unload a dynamic library
 />
 
 **Parameters**
-- `dll` — The dynamic library 
-
----
+- `dll` — The dynamic library

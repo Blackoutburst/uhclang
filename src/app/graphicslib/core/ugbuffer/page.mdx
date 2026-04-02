@@ -1,62 +1,64 @@
 # UgBuffer
 
-Raw GPU buffer allocation and data upload.
+Generic GPU buffer allocation and upload
 
 <H2 id="It">It</H2>
 
-GPU buffer object.
+GPU buffer with its backing device memory
 
 <CodeTabs
   uhc={`struct It {
     VkBuffer handle;
     VkDeviceMemory memory;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkBuffer handle;
     VkDeviceMemory memory;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="create">create</H2>
 
-Allocate a GPU buffer with the given usage flags.
+Allocate a GPU buffer with the specified usage
 
 <CodeTabs
   uhc={`UgBuffer.It create(UgContext.It& ctx, U32 size, VkBufferUsageFlagBits usage);`}
-  cpp={`UgBuffer::It create(UgContext::It& ctx, uint32_t size, VkBufferUsageFlagBits usage);`}
+  cpp={`UgBuffer::It create(UgContext::It& ctx, unsigned int size, VkBufferUsageFlagBits usage);`}
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
+- `ctx` — Vulkan context
 - `size` — Size in bytes
-- `usage` — Vulkan buffer usage flags
+- `usage` — Buffer usage flags
 
-**Returns** — Initialized buffer object
+**Returns** — Allocated buffer object
 
 ---
 
 <H2 id="upload">upload</H2>
 
-Upload CPU data to a GPU buffer.
+Upload data from CPU memory into a GPU buffer
 
 <CodeTabs
   uhc={`U0 upload(UgContext.It& ctx, UgBuffer.It& buffer, U0* data, U32 size);`}
-  cpp={`void upload(UgContext::It& ctx, UgBuffer::It& buffer, void* data, uint32_t size);`}
+  cpp={`void upload(UgContext::It& ctx, UgBuffer::It& buffer, void* data, unsigned int size);`}
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `buffer` — The destination buffer
-- `data` — Pointer to the source data
+- `ctx` — Vulkan context
+- `buffer` — Destination buffer
+- `data` — Pointer to source data
 - `size` — Number of bytes to upload
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy a GPU buffer and free its memory.
+Destroy a GPU buffer and free its device memory
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgBuffer.It& buffer);`}
@@ -64,5 +66,5 @@ Destroy a GPU buffer and free its memory.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `buffer` — The buffer to destroy
+- `ctx` — Vulkan context
+- `buffer` — Buffer to destroy

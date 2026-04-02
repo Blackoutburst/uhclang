@@ -1,27 +1,29 @@
 # UgImageView
 
-Vulkan image view creation and management.
+Vulkan image view creation and management
 
 <H2 id="It">It</H2>
 
-Image view object wrapping a `VkImage` and its `VkImageView`.
+Vulkan image together with its default image view
 
 <CodeTabs
   uhc={`struct It {
     VkImage image;
     VkImageView view;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkImage image;
     VkImageView view;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="create">create</H2>
 
-Create an image view for a given image and format.
+Create an image view for a given image and format
 
 <CodeTabs
   uhc={`UgImageView.It create(UgContext.It& ctx, VkImage image, VkFormat format);`}
@@ -29,9 +31,9 @@ Create an image view for a given image and format.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `image` — The Vulkan image
-- `format` — The image format
+- `ctx` — Vulkan context
+- `image` — Image to create the view for
+- `format` — Pixel format of the image
 
 **Returns** — Initialized image view object
 
@@ -39,7 +41,7 @@ Create an image view for a given image and format.
 
 <H2 id="destroy">destroy</H2>
 
-Destroy an image view.
+Destroy an image view
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgImageView.It& imageView);`}
@@ -47,14 +49,14 @@ Destroy an image view.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `imageView` — The image view to destroy
+- `ctx` — Vulkan context
+- `imageView` — Image view to destroy
 
 ---
 
 <H2 id="makeView">makeView</H2>
 
-Create a raw `VkImageView` with an explicit aspect mask.
+Create a raw VkImageView with a custom aspect mask
 
 <CodeTabs
   uhc={`VkImageView makeView(UgContext.It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);`}
@@ -62,9 +64,9 @@ Create a raw `VkImageView` with an explicit aspect mask.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `image` — The Vulkan image
-- `format` — The image format
-- `aspectMask` — Which aspects to expose (color, depth, stencil)
+- `ctx` — Vulkan context
+- `image` — Image to create the view for
+- `format` — Pixel format of the image
+- `aspectMask` — Aspect flags for the view (color, depth, stencil)
 
-**Returns** — Raw `VkImageView` handle
+**Returns** — Raw image view handle

@@ -1,29 +1,31 @@
-# Renderer
+# UgRenderer
 
-High-level renderer bundling the swapchain, framebuffers, and render pass.
+High-level swapchain renderer managing per-frame synchronization
 
 <H2 id="It">It</H2>
 
-Renderer object.
+Renderer state: swapchain, framebuffers, and render pass
 
 <CodeTabs
   uhc={`struct It {
     UgSwapchain.It swapchain;
     UgFrameBuffer.It framebuffers;
     VkRenderPass renderPass;
-  };`}
+};
+  `}
   cpp={`struct It {
     UgSwapchain::It swapchain;
     UgFrameBuffer::It framebuffers;
     VkRenderPass renderPass;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="create">create</H2>
 
-Create a renderer with a swapchain, framebuffers, and render pass.
+Create a renderer for the given context
 
 <CodeTabs
   uhc={`UgRenderer.It create(UgContext.It& ctx);`}
@@ -31,15 +33,15 @@ Create a renderer with a swapchain, framebuffers, and render pass.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
+- `ctx` — Vulkan context
 
-**Returns** — Initialized renderer
+**Returns** — Initialized renderer object
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy the renderer and all its resources.
+Destroy the renderer and free all swapchain resources
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgRenderer.It& renderer);`}
@@ -47,14 +49,14 @@ Destroy the renderer and all its resources.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `renderer` — The renderer to destroy
+- `ctx` — Vulkan context
+- `renderer` — Renderer to destroy
 
 ---
 
 <H2 id="update">update</H2>
 
-Recreate the swapchain and framebuffers (e.g. on window resize).
+Recreate the swapchain and framebuffers after a resize
 
 <CodeTabs
   uhc={`U0 update(UgContext.It& ctx, UgRenderer.It& renderer);`}
@@ -62,14 +64,14 @@ Recreate the swapchain and framebuffers (e.g. on window resize).
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `renderer` — The renderer to update
+- `ctx` — Vulkan context
+- `renderer` — Renderer to update
 
 ---
 
 <H2 id="begin">begin</H2>
 
-Begin the render pass for the current frame.
+Begin the render pass for the current frame
 
 <CodeTabs
   uhc={`U0 begin(UgRenderer.It& renderer, UgCommandBuffer.It& cmd);`}
@@ -77,14 +79,14 @@ Begin the render pass for the current frame.
 />
 
 **Parameters**
-- `renderer` — The renderer
-- `cmd` — The active command buffer
+- `renderer` — Active renderer
+- `cmd` — Command buffer to record into
 
 ---
 
 <H2 id="end">end</H2>
 
-End the render pass.
+End the render pass
 
 <CodeTabs
   uhc={`U0 end(UgCommandBuffer.It& cmd);`}
@@ -92,13 +94,13 @@ End the render pass.
 />
 
 **Parameters**
-- `cmd` — The active command buffer
+- `cmd` — Command buffer to record into
 
 ---
 
 <H2 id="setViewport">setViewport</H2>
 
-Set the dynamic viewport and scissor on the command buffer.
+Set the viewport and scissor to the current swapchain extent
 
 <CodeTabs
   uhc={`U0 setViewport(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd);`}
@@ -106,15 +108,15 @@ Set the dynamic viewport and scissor on the command buffer.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `renderer` — The renderer (for swapchain extent)
-- `cmd` — The active command buffer
+- `ctx` — Vulkan context
+- `renderer` — Active renderer
+- `cmd` — Command buffer to record into
 
 ---
 
 <H2 id="submit">submit</H2>
 
-Submit the command buffer to the graphics queue.
+Submit the recorded command buffer to the graphics queue
 
 <CodeTabs
   uhc={`U0 submit(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd, UgFence.It& fence);`}
@@ -122,16 +124,16 @@ Submit the command buffer to the graphics queue.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `renderer` — The renderer (for semaphores)
-- `cmd` — The command buffer to submit
-- `fence` — The fence to signal when done
+- `ctx` — Vulkan context
+- `renderer` — Active renderer
+- `cmd` — Command buffer to submit
+- `fence` — Fence to signal when the submission completes
 
 ---
 
 <H2 id="present">present</H2>
 
-Present the current swapchain image to the screen.
+Present the current swapchain image
 
 <CodeTabs
   uhc={`VkResult present(UgContext.It& ctx, UgRenderer.It& renderer);`}
@@ -139,16 +141,16 @@ Present the current swapchain image to the screen.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `renderer` — The renderer
+- `ctx` — Vulkan context
+- `renderer` — Active renderer
 
-**Returns** — `VK_SUCCESS` or `VK_ERROR_OUT_OF_DATE_KHR` on resize
+**Returns** — VkResult — VK_SUCCESS or an out-of-date/suboptimal code
 
 ---
 
 <H2 id="aquire">aquire</H2>
 
-Acquire the next swapchain image for rendering.
+Acquire the next swapchain image for rendering
 
 <CodeTabs
   uhc={`VkResult aquire(UgContext.It& ctx, UgRenderer.It& renderer);`}
@@ -156,7 +158,7 @@ Acquire the next swapchain image for rendering.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `renderer` — The renderer
+- `ctx` — Vulkan context
+- `renderer` — Active renderer
 
-**Returns** — `VK_SUCCESS` or `VK_ERROR_OUT_OF_DATE_KHR` on resize
+**Returns** — VkResult — VK_SUCCESS or an out-of-date code

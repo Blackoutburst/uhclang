@@ -1,10 +1,10 @@
 # UgUniformBuffer
 
-Uniform buffer backed by a descriptor set for shader data upload.
+Uniform buffer with descriptor set management
 
 <H2 id="It">It</H2>
 
-Uniform buffer object.
+Uniform buffer with its descriptor set and mapped CPU pointer
 
 <CodeTabs
   uhc={`struct It {
@@ -15,33 +15,35 @@ Uniform buffer object.
     U32 size;
     VkDescriptorSet descriptorSet;
     U32 cursor;
-  };`}
+};
+  `}
   cpp={`struct It {
     UgBuffer::It buffer;
     VkDescriptorSetLayout setLayout;
     void* mappedData;
-    uint32_t binding;
-    uint32_t size;
+    unsigned int binding;
+    unsigned int size;
     VkDescriptorSet descriptorSet;
-    uint32_t cursor;
-  };`}
+    unsigned int cursor;
+};
+  `}
 />
 
 ---
 
 <H2 id="create">create</H2>
 
-Create a uniform buffer at a given shader binding point.
+Create a uniform buffer and allocate its descriptor set
 
 <CodeTabs
   uhc={`UgUniformBuffer.It create(UgContext.It& ctx, U32 binding, U32 size);`}
-  cpp={`UgUniformBuffer::It create(UgContext::It& ctx, uint32_t binding, uint32_t size);`}
+  cpp={`UgUniformBuffer::It create(UgContext::It& ctx, unsigned int binding, unsigned int size);`}
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `binding` — Shader binding index
-- `size` — Buffer size in bytes
+- `ctx` — Vulkan context
+- `binding` — Descriptor binding index
+- `size` — Size of the uniform buffer in bytes
 
 **Returns** — Initialized uniform buffer
 
@@ -49,7 +51,7 @@ Create a uniform buffer at a given shader binding point.
 
 <H2 id="bind">bind</H2>
 
-Bind the uniform buffer descriptor set to the pipeline.
+Bind the uniform buffer's descriptor set to the command buffer
 
 <CodeTabs
   uhc={`U0 bind(UgUniformBuffer.It& uniformBuffer, VkCommandBuffer cmdBuffer, VkPipelineLayout pipelineLayout);`}
@@ -57,15 +59,15 @@ Bind the uniform buffer descriptor set to the pipeline.
 />
 
 **Parameters**
-- `uniformBuffer` — The uniform buffer to bind
-- `cmdBuffer` — The active command buffer
-- `pipelineLayout` — The pipeline layout
+- `uniformBuffer` — Uniform buffer to bind
+- `cmdBuffer` — Active command buffer
+- `pipelineLayout` — Pipeline layout the descriptor set is compatible with
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy the uniform buffer and free its resources.
+Destroy the uniform buffer and release its descriptor set
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgUniformBuffer.It& uniformBuffer);`}
@@ -73,14 +75,14 @@ Destroy the uniform buffer and free its resources.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `uniformBuffer` — The uniform buffer to destroy
+- `ctx` — Vulkan context
+- `uniformBuffer` — Uniform buffer to destroy
 
 ---
 
 <H2 id="reset">reset</H2>
 
-Reset the write cursor to the beginning of the buffer.
+Reset the write cursor back to the beginning of the buffer
 
 <CodeTabs
   uhc={`U0 reset(UgUniformBuffer.It& uniformBuffer);`}
@@ -88,13 +90,13 @@ Reset the write cursor to the beginning of the buffer.
 />
 
 **Parameters**
-- `uniformBuffer` — The uniform buffer to reset
+- `uniformBuffer` — Uniform buffer to reset
 
 ---
 
 <H2 id="setFloat">setFloat</H2>
 
-Write a float value into the uniform buffer at the current cursor position.
+Write a float value at the current cursor position
 
 <CodeTabs
   uhc={`U0 setFloat(UgUniformBuffer.It& buffer, F32 value);`}
@@ -102,14 +104,14 @@ Write a float value into the uniform buffer at the current cursor position.
 />
 
 **Parameters**
-- `buffer` — The uniform buffer
-- `value` — The float value to write
+- `buffer` — Uniform buffer to write into
+- `value` — Float value to write
 
 ---
 
 <H2 id="setVec2f">setVec2f</H2>
 
-Write a 2-component float vector into the uniform buffer.
+Write a 2-component float vector at the current cursor position
 
 <CodeTabs
   uhc={`U0 setVec2f(UgUniformBuffer.It& buffer, VectorF.It vec);`}
@@ -117,14 +119,14 @@ Write a 2-component float vector into the uniform buffer.
 />
 
 **Parameters**
-- `buffer` — The uniform buffer
-- `vec` — The vector to write
+- `buffer` — Uniform buffer to write into
+- `vec` — Vector to write
 
 ---
 
 <H2 id="setVec3f">setVec3f</H2>
 
-Write a 3-component float vector into the uniform buffer.
+Write a 3-component float vector at the current cursor position
 
 <CodeTabs
   uhc={`U0 setVec3f(UgUniformBuffer.It& buffer, VectorF.It vec);`}
@@ -132,14 +134,14 @@ Write a 3-component float vector into the uniform buffer.
 />
 
 **Parameters**
-- `buffer` — The uniform buffer
-- `vec` — The vector to write
+- `buffer` — Uniform buffer to write into
+- `vec` — Vector to write
 
 ---
 
 <H2 id="setVec4f">setVec4f</H2>
 
-Write a 4-component float vector into the uniform buffer.
+Write a 4-component float vector at the current cursor position
 
 <CodeTabs
   uhc={`U0 setVec4f(UgUniformBuffer.It& buffer, VectorF.It vec);`}
@@ -147,14 +149,14 @@ Write a 4-component float vector into the uniform buffer.
 />
 
 **Parameters**
-- `buffer` — The uniform buffer
-- `vec` — The vector to write
+- `buffer` — Uniform buffer to write into
+- `vec` — Vector to write
 
 ---
 
 <H2 id="setMat">setMat</H2>
 
-Write a 4x4 matrix into the uniform buffer.
+Write a 4×4 matrix at the current cursor position
 
 <CodeTabs
   uhc={`U0 setMat(UgUniformBuffer.It& buffer, Matrix.It mat);`}
@@ -162,5 +164,5 @@ Write a 4x4 matrix into the uniform buffer.
 />
 
 **Parameters**
-- `buffer` — The uniform buffer
-- `mat` — The matrix to write
+- `buffer` — Uniform buffer to write into
+- `mat` — Matrix to write

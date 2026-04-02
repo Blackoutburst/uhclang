@@ -1,25 +1,27 @@
 # UgCommandBuffer
 
-Command buffer recording and submission wrapper.
+Single-use and reusable command buffer wrapper
 
 <H2 id="It">It</H2>
 
-Command buffer object.
+Thin wrapper around a Vulkan command buffer handle
 
 <CodeTabs
   uhc={`struct It {
     VkCommandBuffer handle;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkCommandBuffer handle;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="begin">begin</H2>
 
-Begin recording commands into the command buffer.
+Begin recording commands into the command buffer
 
 <CodeTabs
   uhc={`U0 begin(UgCommandBuffer.It& cmd);`}
@@ -27,13 +29,13 @@ Begin recording commands into the command buffer.
 />
 
 **Parameters**
-- `cmd` — The command buffer to begin
+- `cmd` — Command buffer to begin
 
 ---
 
 <H2 id="end">end</H2>
 
-End command buffer recording.
+End recording commands into the command buffer
 
 <CodeTabs
   uhc={`U0 end(UgCommandBuffer.It& cmd);`}
@@ -41,29 +43,13 @@ End command buffer recording.
 />
 
 **Parameters**
-- `cmd` — The command buffer to end
-
----
-
-<H2 id="create">create</H2>
-
-Allocate a new command buffer from the context's command pool.
-
-<CodeTabs
-  uhc={`UgCommandBuffer.It create(UgContext.It& ctx);`}
-  cpp={`UgCommandBuffer::It create(UgContext::It& ctx);`}
-/>
-
-**Parameters**
-- `ctx` — The Vulkan context
-
-**Returns** — Allocated command buffer
+- `cmd` — Command buffer to end
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Free the command buffer back to the pool.
+Free the command buffer
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgCommandBuffer.It& cmd);`}
@@ -71,5 +57,21 @@ Free the command buffer back to the pool.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `cmd` — The command buffer to free
+- `ctx` — Vulkan context
+- `cmd` — Command buffer to destroy
+
+---
+
+<H2 id="create">create</H2>
+
+Allocate a new command buffer from the context's command pool
+
+<CodeTabs
+  uhc={`UgCommandBuffer.It create(UgContext.It& ctx);`}
+  cpp={`UgCommandBuffer::It create(UgContext::It& ctx);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+
+**Returns** — Allocated command buffer

@@ -1,23 +1,10 @@
 # Math
 
-Helpers function
-
----
-
-<H2 id="UHC_PI">UHC_PI</H2>
-
-π value
-
-<CodeTabs
-  uhc={`#define UHC_PI 3.141592653589793`}
-  cpp={`#define UHC_PI 3.141592653589793`}
-/>
-
----
+Scalar math helper functions
 
 <H2 id="rad">rad</H2>
 
-Convert deg to rad
+Convert degrees to radians
 
 <CodeTabs
   uhc={`F32 rad(F32 angle);`}
@@ -25,7 +12,7 @@ Convert deg to rad
 />
 
 **Parameters**
-- `angle` — The angle in degrees
+- `angle` — Angle in degrees
 
 **Returns** — Equivalent angle in radians
 
@@ -33,23 +20,23 @@ Convert deg to rad
 
 <H2 id="sign">sign</H2>
 
-Return the sign of an integer value.
+Return the sign of an integer value
 
 <CodeTabs
   uhc={`I8 sign(I32 value);`}
-  cpp={`char sign(int32_t value);`}
+  cpp={`char sign(int value);`}
 />
 
 **Parameters**
-- `value` — The value to check
+- `value` — The value to inspect
 
-**Returns** — `-1` if negative, `0` if zero, `1` if positive
+**Returns** — -1 if negative, 0 if zero, 1 if positive
 
 ---
 
 <H2 id="fsign">fsign</H2>
 
-Return the sign of a float as an integer.
+Return the sign of a float as an integer
 
 <CodeTabs
   uhc={`I8 fsign(F32 value);`}
@@ -57,15 +44,15 @@ Return the sign of a float as an integer.
 />
 
 **Parameters**
-- `value` — The value to check
+- `value` — The value to inspect
 
-**Returns** — `-1` if negative, `0` if zero, `1` if positive
+**Returns** — -1 if negative, 0 if zero, 1 if positive
 
 ---
 
 <H2 id="fsignf">fsignf</H2>
 
-Return the sign of a float as a float.
+Return the sign of a float as a float
 
 <CodeTabs
   uhc={`F32 fsignf(F32 value);`}
@@ -73,25 +60,25 @@ Return the sign of a float as a float.
 />
 
 **Parameters**
-- `value` — The value to check
+- `value` — The value to inspect
 
-**Returns** — `-1.0` if negative, `0.0` if zero, `1.0` if positive
+**Returns** — -1.0 if negative, 0.0 if zero, 1.0 if positive
 
 ---
 
 <H2 id="clamp">clamp</H2>
 
-Clamp an integer value between a min and max boundary.
+Clamp an integer between min and max
 
 <CodeTabs
   uhc={`I32 clamp(I32 v, I32 min, I32 max);`}
-  cpp={`int32_t clamp(int32_t v, int32_t min, int32_t max);`}
+  cpp={`int clamp(int v, int min, int max);`}
 />
 
 **Parameters**
-- `v` — The value to clamp
-- `min` — Lower boundary (inclusive)
-- `max` — Upper boundary (inclusive)
+- `v` — Value to clamp
+- `min` — Lower bound (inclusive)
+- `max` — Upper bound (inclusive)
 
 **Returns** — Clamped integer value
 
@@ -99,25 +86,25 @@ Clamp an integer value between a min and max boundary.
 
 <H2 id="fclamp">fclamp</H2>
 
-Clamp a float value between boundaries, returned as an integer.
+Clamp a float between boundaries, return as integer
 
 <CodeTabs
   uhc={`I32 fclamp(F32 v, F32 min, F32 max);`}
-  cpp={`int32_t fclamp(float v, float min, float max);`}
+  cpp={`int fclamp(float v, float min, float max);`}
 />
 
 **Parameters**
-- `v` — The value to clamp
-- `min` — Lower boundary (inclusive)
-- `max` — Upper boundary (inclusive)
+- `v` — Value to clamp
+- `min` — Lower bound
+- `max` — Upper bound
 
-**Returns** — Clamped value as an integer
+**Returns** — Clamped value as integer
 
 ---
 
 <H2 id="fclampf">fclampf</H2>
 
-Clamp a float value between boundaries, returned as a float.
+Clamp a float between boundaries, return as float
 
 <CodeTabs
   uhc={`F32 fclampf(F32 v, F32 min, F32 max);`}
@@ -125,8 +112,8 @@ Clamp a float value between boundaries, returned as a float.
 />
 
 **Parameters**
-- `v` — The value to clamp
-- `min` — Lower boundary (inclusive)
-- `max` — Upper boundary (inclusive)
+- `v` — Value to clamp
+- `min` — Lower bound
+- `max` — Upper bound
 
 **Returns** — Clamped float value

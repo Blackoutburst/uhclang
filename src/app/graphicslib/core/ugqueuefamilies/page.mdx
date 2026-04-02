@@ -1,18 +1,18 @@
 # UgQueueFamilies
 
-Query queue families on a physical device.
+Queue family query utilities
 
 <H2 id="count">count</H2>
 
-Return the number of queue families on a physical device.
+Get the number of queue families available on a physical device
 
 <CodeTabs
   uhc={`U32 count(VkPhysicalDevice device);`}
-  cpp={`uint32_t count(VkPhysicalDevice device);`}
+  cpp={`unsigned int count(VkPhysicalDevice device);`}
 />
 
 **Parameters**
-- `device` — The physical device
+- `device` — Physical device to query
 
 **Returns** — Number of queue families
 
@@ -20,7 +20,7 @@ Return the number of queue families on a physical device.
 
 <H2 id="hasType">hasType</H2>
 
-Check if a physical device has a queue family of the given type.
+Check whether the device has a queue family supporting a given type
 
 <CodeTabs
   uhc={`U8 hasType(VkPhysicalDevice device, VkQueueFlagBits type);`}
@@ -28,24 +28,24 @@ Check if a physical device has a queue family of the given type.
 />
 
 **Parameters**
-- `device` — The physical device
-- `type` — The queue capability flags to look for
+- `device` — Physical device to check
+- `type` — Queue capability flag to look for
 
-**Returns** — Non-zero if a matching family exists
+**Returns** — Non-zero if a matching queue family exists
 
 ---
 
 <H2 id="getType">getType</H2>
 
-Get the index of the first queue family matching a type.
+Get the index of the first queue family supporting a given type
 
 <CodeTabs
   uhc={`U32 getType(VkPhysicalDevice device, VkQueueFlagBits type);`}
-  cpp={`uint32_t getType(VkPhysicalDevice device, VkQueueFlagBits type);`}
+  cpp={`unsigned int getType(VkPhysicalDevice device, VkQueueFlagBits type);`}
 />
 
 **Parameters**
-- `device` — The physical device
-- `type` — The queue capability flags
+- `device` — Physical device to query
+- `type` — Queue capability flag to find
 
 **Returns** — Queue family index

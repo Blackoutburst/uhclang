@@ -2,8 +2,8 @@
 
 File, logging and other I/O operation
 
-- [File](/stdlib/io/file)  — Easy file reading
-- [Log](/stdlib/io/log) — Clean logger with levels and colored output
+- [File](/stdlib/io/file) — Simple file reading utilities
+- [Log](/stdlib/io/log) — Leveled logger with colored console output
 
 <H2 id="Header">Header</H2>
 
@@ -12,56 +12,53 @@ File, logging and other I/O operation
   cpp={`#include <uhcio.hh>`}
 />
 
-
 <H2 id="Header">Cheat sheet</H2>
 
 <CodeTabs
   uhc={`namespace Log {
     enum Level {
-      UHC_LOG_TRACE,
-      UHC_LOG_DEBUG,
-      UHC_LOG_INFO,
-      UHC_LOG_WARN,
-      UHC_LOG_ERROR,
+        UHC_LOG_TRACE,
+        UHC_LOG_DEBUG,
+        UHC_LOG_INFO,
+        UHC_LOG_WARN,
+        UHC_LOG_ERROR,
     };
-    
     U0 trace(const I8* fmt, ...);
     U0 debug(const I8* fmt, ...);
-    U0 info(const I8* fmt, ...);
-    U0 warn(const I8* fmt, ...);
+    U0 info (const I8* fmt, ...);
+    U0 warn (const I8* fmt, ...);
     U0 error(const I8* fmt, ...);
-    U0 msg(const I8* fmt, ...);
-  }
-    
-  namespace File {
+    U0 msg  (const I8* fmt, ...);
+}
+
+namespace File {
     I64 getSize(FILE* file);
     FILE* open(const I8* filePath);
     U0 close(FILE* file);
     I8* read(FILE* file);
-  }
+}
   `}
   cpp={`namespace Log {
     enum Level {
-      UHC_LOG_TRACE,
-      UHC_LOG_DEBUG,
-      UHC_LOG_INFO,
-      UHC_LOG_WARN,
-      UHC_LOG_ERROR,
+        UHC_LOG_TRACE,
+        UHC_LOG_DEBUG,
+        UHC_LOG_INFO,
+        UHC_LOG_WARN,
+        UHC_LOG_ERROR,
     };
-    
     void trace(const char* fmt, ...);
     void debug(const char* fmt, ...);
-    void info(const char* fmt, ...);
-    void warn(const char* fmt, ...);
+    void info (const char* fmt, ...);
+    void warn (const char* fmt, ...);
     void error(const char* fmt, ...);
-    void msg(const char* fmt, ...);
-  }
+    void msg  (const char* fmt, ...);
+}
 
-  namespace File {
-    int64_t getSize(FILE* file);
+namespace File {
+    long long getSize(FILE* file);
     FILE* open(const char* filePath);
     void close(FILE* file);
     char* read(FILE* file);
-  }
+}
   `}
 />

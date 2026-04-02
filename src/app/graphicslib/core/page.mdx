@@ -1,25 +1,39 @@
 # Core
 
-Vulkan core abstractions for rendering.
+Vulkan core rendering primitives
 
-- [Buffer](/graphicslib/core/buffer) — GPU buffers, frame buffers, uniform buffers, command buffers
-- [CommandPool](/graphicslib/core/commandpool) — Command pool management
-- [Context](/graphicslib/core/context) — Vulkan context (instance, device, surface, pools)
-- [DescriptorPool](/graphicslib/core/descriptorpool) — Descriptor pool management
-- [Device](/graphicslib/core/device) — Physical device, queue families, logical device
-- [Fence](/graphicslib/core/fence) — CPU-GPU synchronization fence
-- [Image](/graphicslib/core/image) — Image views and layout transitions
-- [Instance](/graphicslib/core/instance) — Vulkan instance creation
-- [Pipeline](/graphicslib/core/pipeline) — Graphics pipeline and pipeline layout
-- [Renderer](/graphicslib/core/renderer) — High-level renderer (swapchain + framebuffers + render pass)
-- [RenderPass](/graphicslib/core/renderpass) — Render pass management
-- [RenderTarget](/graphicslib/core/rendertarget) — Off-screen render target
-- [Semaphore](/graphicslib/core/semaphore) — GPU-GPU synchronization semaphore
-- [Shader](/graphicslib/core/shader) — Shader module and shader program
-- [Surface](/graphicslib/core/surface) — Window surface
-- [Swapchain](/graphicslib/core/swapchain) — Swapchain management
-- [Texture](/graphicslib/core/texture) — Textures and samplers
-- [VAO](/graphicslib/core/vao) — Vertex attributes, descriptors, settings, and vertex arrays
+- [UgContext](/graphicslib/core/context) — Top-level Vulkan context holding all core rendering state
+- [UgInstance](/graphicslib/core/instance) — Vulkan instance creation and destruction
+- [UgPhysicalDevice](/graphicslib/core/ugphysicaldevice) — Physical device enumeration and selection utilities
+- [UgQueueFamilies](/graphicslib/core/ugqueuefamilies) — Queue family query utilities
+- [UgDevice](/graphicslib/core/ugdevice) — Logical device creation and queue access
+- [UgBuffer](/graphicslib/core/ugbuffer) — Generic GPU buffer allocation and upload
+- [UgFrameBuffer](/graphicslib/core/ugframebuffer) — Framebuffer array tied to swapchain images
+- [UgUniformBuffer](/graphicslib/core/uguniformbuffer) — Uniform buffer with descriptor set management
+- [UgCommandBuffer](/graphicslib/core/ugcommandbuffer) — Single-use and reusable command buffer wrapper
+- [UgCommandPool](/graphicslib/core/commandpool) — Vulkan command pool creation and destruction
+- [UgDescriptorPool](/graphicslib/core/descriptorpool) — Vulkan descriptor pool creation and destruction
+- [UgFence](/graphicslib/core/fence) — CPU–GPU synchronization fence
+- [UgSemaphore](/graphicslib/core/semaphore) — GPU–GPU synchronization semaphore
+- [UgImageView](/graphicslib/core/ugimageview) — Vulkan image view creation and management
+- [UgImageLayout](/graphicslib/core/ugimagelayout) — Image layout transition utilities
+- [UgWindowSurface](/graphicslib/core/surface) — Vulkan window surface creation and destruction
+- [UgSwapchain](/graphicslib/core/swapchain) — Vulkan swapchain creation and frame management
+- [UgShader](/graphicslib/core/ugshader) — SPIR-V shader module loading
+- [UgShaderProgram](/graphicslib/core/ugshaderprogram) — Linked vertex and fragment shader program
+- [UgRenderPass](/graphicslib/core/renderpass) — Vulkan render pass management
+- [UgRenderTarget](/graphicslib/core/rendertarget) — Off-screen render target backed by a texture
+- [UgRenderer](/graphicslib/core/renderer) — High-level swapchain renderer managing per-frame synchronization
+- [UgPipeline](/graphicslib/core/ugpipeline) — Vulkan graphics pipeline creation helpers
+- [UgPipelineLayout](/graphicslib/core/ugpipelinelayout) — Vulkan pipeline layout management
+- [UgMaterialPipelineEntry](/graphicslib/core/ugmaterialpipelineentry) — Per-render-pass pipeline cache entry
+- [UgMaterial](/graphicslib/core/ugmaterial) — Material combining shaders, vertex layout, and per-pass pipeline cache
+- [UgTexture](/graphicslib/core/ugtexture) — 2D texture loading and descriptor management
+- [UgSampler](/graphicslib/core/ugsampler) — Vulkan sampler creation and destruction
+- [UgTextureArray](/graphicslib/core/ugtexturearray) — Layered texture array for batch rendering
+- [UgVertexAttrib](/graphicslib/core/ugvertexattrib) — Single vertex attribute binding description
+- [UgVertexDesc](/graphicslib/core/ugvertexdesc) — Vertex buffer layout description
+- [UgVertexSettings](/graphicslib/core/ugvertexsettings) — Rasterizer, blending, and depth settings for a pipeline
 
 <H2 id="Header">Header</H2>
 
@@ -28,42 +42,93 @@ Vulkan core abstractions for rendering.
   cpp={`#include <uhcgraphics.hh>`}
 />
 
-<H2 id="Cheat-sheet">Cheat sheet</H2>
+<H2 id="Header">Cheat sheet</H2>
 
 <CodeTabs
-  uhc={`namespace UgBuffer {
-    struct It { 
-      VkBuffer handle; 
-      VkDeviceMemory memory; 
+  uhc={`#define UG_MATERIAL_MAX_RENDER_PASSES 4
+#define UG_MATERIAL_MAX_TEXTURES 4
+
+namespace UgContext {
+    struct It {
+        UgWindow.It window;
+        VkInstance instance;
+        VkDebugUtilsMessengerEXT logger;
+        VkSurfaceKHR surface;
+        VkPhysicalDevice physicalDevice;
+        UgDevice.It device;
+        VkDescriptorPool descriptorPool;
+        VkCommandPool cmdPool;
     };
-    
+    UgContext.It create(UgWindow.It& window, U8 debug);
+    U0 destroy(UgContext.It& ctx);
+}
+
+namespace UgInstance {
+    VkInstance create(U8 debug);
+    U0 destroy(UgContext.It& ctx);
+}
+
+namespace UgPhysicalDevice {
+    VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);
+    const I8* typeName(VkPhysicalDeviceType type);
+    U8 hasExtensions(VkPhysicalDevice device);
+    U32 count(VkInstance instance);
+    U0 list(VkInstance instance);
+    VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, U8 desiredType);
+    VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);
+}
+
+namespace UgQueueFamilies {
+    U32 count(VkPhysicalDevice device);
+    U8 hasType(VkPhysicalDevice device, VkQueueFlagBits type);
+    U32 getType(VkPhysicalDevice device, VkQueueFlagBits type);
+}
+
+namespace UgDevice {
+    struct It {
+        VkDevice handle;
+        VkPhysicalDeviceProperties properties;
+        VkQueue graphicQueue;
+        VkQueue presentQueue;
+    };
+    VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);
+    VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);
+    U32 getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
+    U0 destroy(UgDevice.It& device);
+    VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);
+    UgDevice.It create(VkPhysicalDevice device, VkSurfaceKHR surface);
+}
+
+namespace UgBuffer {
+    struct It {
+        VkBuffer handle;
+        VkDeviceMemory memory;
+    };
     UgBuffer.It create(UgContext.It& ctx, U32 size, VkBufferUsageFlagBits usage);
     U0 upload(UgContext.It& ctx, UgBuffer.It& buffer, U0* data, U32 size);
     U0 destroy(UgContext.It& ctx, UgBuffer.It& buffer);
-  }
+}
 
-  namespace UgFrameBuffer {
-    struct It { 
-      VkFramebuffer* handles; 
-      VkExtent2D extends; 
-      U32 bufferCount; 
+namespace UgFrameBuffer {
+    struct It {
+        VkFramebuffer* handles;
+        VkExtent2D extends;
+        U32 bufferCount;
     };
-    
-    UgFrameBuffer.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass);
     U0 destroy(UgContext.It& ctx, UgFrameBuffer.It& framebuffers);
-  }
+    UgFrameBuffer.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass);
+}
 
-  namespace UgUniformBuffer {
-    struct It { 
-      UgBuffer.It buffer; 
-      VkDescriptorSetLayout setLayout; 
-      U0* mappedData; 
-      U32 binding; 
-      U32 size; 
-      VkDescriptorSet descriptorSet; 
-      U32 cursor; 
+namespace UgUniformBuffer {
+    struct It {
+        UgBuffer.It buffer;
+        VkDescriptorSetLayout setLayout;
+        U0* mappedData;
+        U32 binding;
+        U32 size;
+        VkDescriptorSet descriptorSet;
+        U32 cursor;
     };
-    
     UgUniformBuffer.It create(UgContext.It& ctx, U32 binding, U32 size);
     U0 bind(UgUniformBuffer.It& uniformBuffer, VkCommandBuffer cmdBuffer, VkPipelineLayout pipelineLayout);
     U0 destroy(UgContext.It& ctx, UgUniformBuffer.It& uniformBuffer);
@@ -73,111 +138,143 @@ Vulkan core abstractions for rendering.
     U0 setVec3f(UgUniformBuffer.It& buffer, VectorF.It vec);
     U0 setVec4f(UgUniformBuffer.It& buffer, VectorF.It vec);
     U0 setMat(UgUniformBuffer.It& buffer, Matrix.It mat);
-  }
+}
 
-  namespace UgCommandBuffer {
-    struct It { 
-      VkCommandBuffer handle; 
+namespace UgCommandBuffer {
+    struct It {
+        VkCommandBuffer handle;
     };
-    
-    UgCommandBuffer.It create(UgContext.It& ctx);
     U0 begin(UgCommandBuffer.It& cmd);
     U0 end(UgCommandBuffer.It& cmd);
     U0 destroy(UgContext.It& ctx, UgCommandBuffer.It& cmd);
-  }
+    UgCommandBuffer.It create(UgContext.It& ctx);
+}
 
-  namespace UgCommandPool {
-    VkCommandPool create(UgContext.It& ctx);
+namespace UgCommandPool {
     U0 destroy(UgContext.It& ctx, VkCommandPool cmdPool);
-  }
+    VkCommandPool create(UgContext.It& ctx);
+}
 
-  namespace UgContext {
-    struct It { 
-      UgWindow.It window;
-      VkInstance instance;
-      VkDebugUtilsMessengerEXT logger;
-      VkSurfaceKHR surface;
-      VkPhysicalDevice physicalDevice;
-      UgDevice.It device;
-      VkDescriptorPool descriptorPool;
-      VkCommandPool cmdPool; 
-    };
-    
-    UgContext.It create(UgWindow.It& window, U8 debug);
-    U0 destroy(UgContext.It& ctx);
-  }
-
-  namespace UgDescriptorPool {
+namespace UgDescriptorPool {
     VkDescriptorPool create(UgContext.It& ctx);
     U0 destroy(UgContext.It& ctx, VkDescriptorPool descriptorPool);
-  }
+}
 
-  namespace UgPhysicalDevice {
-    VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);
-    const I8* typeName(VkPhysicalDeviceType type);
-    U8 hasExtensions(VkPhysicalDevice device);
-    U32 count(VkInstance instance);
-    U0 list(VkInstance instance);
-    VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, U8 desiredType);
-    VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);
-  }
-
-  namespace UgQueueFamilies {
-    U32 count(VkPhysicalDevice device);
-    U8 hasType(VkPhysicalDevice device, VkQueueFlagBits type);
-    U32 getType(VkPhysicalDevice device, VkQueueFlagBits type);
-  }
-
-  namespace UgDevice {
-    struct It { 
-      VkDevice handle;
-      VkPhysicalDeviceProperties properties;
-      VkQueue graphicQueue;
-      VkQueue presentQueue; 
+namespace UgFence {
+    struct It {
+        VkFence handle;
     };
-    
-    UgDevice.It create(VkPhysicalDevice device, VkSurfaceKHR surface);
-    VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);
-    VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);
-    VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);
-    U32 getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
-    U0 destroy(UgDevice.It& device);
-  }
-
-  namespace UgFence {
-    struct It { 
-      VkFence handle; 
-    };
-
     UgFence.It create(UgContext.It& ctx);
+    U0 destroy(UgContext.It& ctx, UgFence.It& fence);
     U0 wait(UgContext.It& ctx, UgFence.It& fence);
     U0 reset(UgContext.It& ctx, UgFence.It& fence);
-    U0 destroy(UgContext.It& ctx, UgFence.It& fence);
-  }
+}
 
-  namespace UgImageView {
-    struct It { 
-      VkImage image; 
-      VkImageView view; 
+namespace UgSemaphore {
+    struct It {
+        VkSemaphore handle;
     };
-    
+    UgSemaphore.It create(UgContext.It& ctx);
+    U0 destroy(UgContext.It& ctx, UgSemaphore.It& semaphore);
+}
+
+namespace UgImageView {
+    struct It {
+        VkImage image;
+        VkImageView view;
+    };
     UgImageView.It create(UgContext.It& ctx, VkImage image, VkFormat format);
-    VkImageView makeView(UgContext.It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);
     U0 destroy(UgContext.It& ctx, UgImageView.It& imageView);
-  }
+    VkImageView makeView(UgContext.It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);
+}
 
-  namespace UgImageLayout {
+namespace UgImageLayout {
     U0 transition(VkCommandBuffer cmdBuffer, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
-  }
+}
 
-  namespace UgInstance {
-    VkInstance create(U8 debug);
-    U0 destroy(UgContext.It& ctx);
-  }
+namespace UgWindowSurface {
+    U0 destroy(VkInstance instance, VkSurfaceKHR surface);
+    VkSurfaceKHR create(VkInstance instance, UgWindow.It& window);
+}
 
-  namespace UgPipeline {
-    VkPipeline create(UgContext.It& ctx, VkPipelineLayout layout, UgSwapchain.It& swapchain, UgShaderProgram.It& shaderProgram, VkRenderPass renderPass, VkPipelineVertexInputStateCreateInfo* vertexInput, const UgVertexSettings.It& settings);
-    U0 destroy(UgContext.It& ctx, VkPipeline graphicsPipeline);
+namespace UgSwapchain {
+    struct It {
+        VkSwapchainKHR handle;
+        UgImageView.It* imageViews;
+        U32 imageCount;
+        U32 currentFrame;
+        U32 imageIndex;
+        UgSemaphore.It* pSemaphore;
+        UgSemaphore.It* rSemaphore;
+        VkSurfaceFormatKHR surfaceFormat;
+        VkPresentModeKHR presentMode;
+        VkSurfaceCapabilitiesKHR capabilities;
+        VkImage depthImage;
+        VkDeviceMemory depthImageMemory;
+        VkImageView depthImageView;
+    };
+    VkExtent2D extend(UgContext.It& ctx, UgSwapchain.It& swapchain);
+    U0 update(UgContext.It& ctx, UgSwapchain.It& swapchain, VkCommandBuffer cmdBuffer);
+    U0 destroy(UgContext.It& ctx, UgSwapchain.It& swapchain);
+    UgSwapchain.It create(UgContext.It& ctx);
+}
+
+namespace UgShader {
+    U0 destroy(UgContext.It& ctx, VkShaderModule shader);
+    VkShaderModule create(UgContext.It& ctx, const I8* filePath);
+}
+
+namespace UgShaderProgram {
+    struct It {
+        VkPipelineShaderStageCreateInfo handle[2];
+        VkShaderModule vertexShader;
+        VkShaderModule fragmentShader;
+    };
+    VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);
+    UgShaderProgram.It create(UgContext.It& ctx, const I8* vertexSource, const I8* fragmentSource);
+    U0 destroy(UgContext.It& ctx, UgShaderProgram.It& shaderProgram);
+}
+
+namespace UgRenderPass {
+    U0 end(VkCommandBuffer cmdBuffer);
+    U0 begin(VkRenderPass renderPass, UgFrameBuffer.It& framebuffers, VkCommandBuffer cmdBuffer, U32 imageIndex);
+    U0 destroy(UgContext.It& ctx, VkRenderPass renderPass);
+    VkRenderPass create(UgContext.It& ctx, UgSwapchain.It& swapchain);
+}
+
+namespace UgRenderTarget {
+    struct It {
+        VkRenderPass renderPass;
+        VkFramebuffer framebuffer;
+        UgTexture.It texture;
+        U32 width;
+        U32 height;
+    };
+    UgRenderTarget.It create(UgContext.It& ctx, U32 width, U32 height);
+    U0 begin(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);
+    U0 end(UgCommandBuffer.It& cmd);
+    U0 setViewport(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);
+    U0 destroy(UgContext.It& ctx, UgRenderTarget.It& rt);
+}
+
+namespace UgRenderer {
+    struct It {
+        UgSwapchain.It swapchain;
+        UgFrameBuffer.It framebuffers;
+        VkRenderPass renderPass;
+    };
+    UgRenderer.It create(UgContext.It& ctx);
+    U0 destroy(UgContext.It& ctx, UgRenderer.It& renderer);
+    U0 update(UgContext.It& ctx, UgRenderer.It& renderer);
+    U0 begin(UgRenderer.It& renderer, UgCommandBuffer.It& cmd);
+    U0 end(UgCommandBuffer.It& cmd);
+    U0 setViewport(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd);
+    U0 submit(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd, UgFence.It& fence);
+    VkResult present(UgContext.It& ctx, UgRenderer.It& renderer);
+    VkResult aquire(UgContext.It& ctx, UgRenderer.It& renderer);
+}
+
+namespace UgPipeline {
     VkPipelineDynamicStateCreateInfo createDynamicState();
     VkPipelineInputAssemblyStateCreateInfo createInputAssembly();
     VkViewport createViewport(UgContext.It& ctx, UgSwapchain.It& swapchain);
@@ -187,215 +284,200 @@ Vulkan core abstractions for rendering.
     VkPipelineMultisampleStateCreateInfo createMultisamplingState();
     VkPipelineColorBlendAttachmentState createColorBlendAttachmentState(const UgVertexSettings.It& settings);
     VkPipelineColorBlendStateCreateInfo createColorBlendState(VkPipelineColorBlendAttachmentState* colorBlendAttachment);
+    U0 destroy(UgContext.It& ctx, VkPipeline graphicsPipeline);
+    VkPipeline create(UgContext.It& ctx, VkPipelineLayout layout, UgSwapchain.It& swapchain, UgShaderProgram.It& shaderProgram, VkRenderPass renderPass, VkPipelineVertexInputStateCreateInfo* vertexInput, const UgVertexSettings.It& settings);
     VkPipelineDepthStencilStateCreateInfo createDepthStencil();
-  }
+}
 
-  namespace UgPipelineLayout {
-    VkPipelineLayout create(UgContext.It& ctx, U32 count, VkDescriptorSetLayout* setLayouts);
-    U0 destroy(UgContext.It& ctx, VkPipelineLayout pipelineLayout);
+namespace UgPipelineLayout {
     U0 remove(UgContext.It& ctx, VkPipelineLayout layout);
-  }
+    U0 destroy(UgContext.It& ctx, VkPipelineLayout pipelineLayout);
+    VkPipelineLayout create(UgContext.It& ctx, U32 count, VkDescriptorSetLayout* setLayouts);
+}
 
-  namespace UgRenderer {
-    struct It { 
-      UgSwapchain.It swapchain;
-      UgFrameBuffer.It framebuffers;
-      VkRenderPass renderPass; 
+namespace UgMaterialPipelineEntry {
+    struct It {
+        VkRenderPass renderPass;
+        VkPipeline   pipeline;
     };
-    
-    UgRenderer.It create(UgContext.It& ctx);
-    U0 update(UgContext.It& ctx, UgRenderer.It& renderer);
-    U0 begin(UgRenderer.It& renderer, UgCommandBuffer.It& cmd);
-    U0 end(UgCommandBuffer.It& cmd);
-    U0 setViewport(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd);
-    U0 submit(UgContext.It& ctx, UgRenderer.It& renderer, UgCommandBuffer.It& cmd, UgFence.It& fence);
-    VkResult present(UgContext.It& ctx, UgRenderer.It& renderer);
-    VkResult aquire(UgContext.It& ctx, UgRenderer.It& renderer);
-    U0 destroy(UgContext.It& ctx, UgRenderer.It& renderer);
-  }
+}
 
-  namespace UgRenderPass {
-    VkRenderPass create(UgContext.It& ctx, UgSwapchain.It& swapchain);
-    U0 begin(VkRenderPass renderPass, UgFrameBuffer.It& framebuffers, VkCommandBuffer cmdBuffer, U32 imageIndex);
-    U0 end(VkCommandBuffer cmdBuffer);
-    U0 destroy(UgContext.It& ctx, VkRenderPass renderPass);
-  }
-
-  namespace UgRenderTarget {
-    struct It { 
-      VkRenderPass renderPass;
-      VkFramebuffer framebuffer;
-      UgTexture.It texture;
-      U32 width;
-      U32 height; 
+namespace UgMaterial {
+    struct It {
+        VkPipelineLayout layout;
+        VkDescriptorSetLayout textureSetLayouts[UG_MATERIAL_MAX_TEXTURES];
+        UgShaderProgram.It shaderProgram;
+        UgVertexDesc.It    vertexDesc;
+        UgVertexSettings.It settings;
+        U32 textureCount;
+        UgMaterialPipelineEntry.It pipelineCache[UG_MATERIAL_MAX_RENDER_PASSES];
+        U32 pipelineCacheCount;
+        UgContext.It*   ctx;
+        UgSwapchain.It* swapchain;
     };
-    
-    UgRenderTarget.It create(UgContext.It& ctx, U32 width, U32 height);
-    U0 begin(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);
-    U0 end(UgCommandBuffer.It& cmd);
-    U0 setViewport(UgRenderTarget.It& rt, UgCommandBuffer.It& cmd);
-    U0 destroy(UgContext.It& ctx, UgRenderTarget.It& rt);
-  }
+    U0 destroy(UgContext.It& ctx, UgMaterial.It& mat);
+}
 
-  namespace UgSemaphore {
-    struct It { 
-      VkSemaphore handle; 
+namespace UgTexture {
+    struct It {
+        VkImage image;
+        VkDeviceMemory memory;
+        VkImageView view;
+        VkSampler sampler;
+        VkDescriptorSetLayout setLayout;
+        VkDescriptorSet descriptorSet;
     };
-    
-    UgSemaphore.It create(UgContext.It& ctx);
-    U0 destroy(UgContext.It& ctx, UgSemaphore.It& semaphore);
-  }
-
-  namespace UgShader {
-    VkShaderModule create(UgContext.It& ctx, const I8* filePath);
-    U0 destroy(UgContext.It& ctx, VkShaderModule shader);
-  }
-
-  namespace UgShaderProgram {
-    struct It { 
-      VkPipelineShaderStageCreateInfo handle[2];
-      VkShaderModule vertexShader;
-      VkShaderModule fragmentShader;
-    };
-    
-    UgShaderProgram.It create(UgContext.It& ctx, const I8* vertexSource, const I8* fragmentSource);
-    VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);
-    U0 destroy(UgContext.It& ctx, UgShaderProgram.It& shaderProgram);
-  }
-
-  namespace UgWindowSurface {
-    VkSurfaceKHR create(VkInstance instance, UgWindow.It& window);
-    U0 destroy(VkInstance instance, VkSurfaceKHR surface);
-  }
-
-  namespace UgSwapchain {
-    struct It { 
-      VkSwapchainKHR handle;
-      UgImageView.It* imageViews;
-      U32 imageCount;
-      U32 currentFrame;
-      U32 imageIndex;
-      UgSemaphore.It* pSemaphore;
-      UgSemaphore.It* rSemaphore;
-      VkSurfaceFormatKHR surfaceFormat;
-      VkPresentModeKHR presentMode;
-      VkSurfaceCapabilitiesKHR capabilities;
-      VkImage depthImage;
-      VkDeviceMemory depthImageMemory;
-      VkImageView depthImageView;
-    };
-    
-    UgSwapchain.It create(UgContext.It& ctx);
-    VkExtent2D extend(UgContext.It& ctx, UgSwapchain.It& swapchain);
-    U0 update(UgContext.It& ctx, UgSwapchain.It& swapchain, VkCommandBuffer cmdBuffer);
-    U0 destroy(UgContext.It& ctx, UgSwapchain.It& swapchain);
-  }
-
-  namespace UgTexture {
-    struct It { 
-      VkImage image;
-      VkDeviceMemory memory;
-      VkImageView view;
-      VkSampler sampler;
-      VkDescriptorSetLayout setLayout;
-      VkDescriptorSet descriptorSet;
-    };
-    
     UgTexture.It create(UgContext.It& ctx, const I8* path);
-    U0 bind(UgTexture.It& texture, UgCommandBuffer.It& cmd, VkPipelineLayout pipelineLayout);
+    VkDescriptorSetLayout createSetLayout(UgContext.It& ctx);
+    U0 bind(UgTexture.It& texture, UgCommandBuffer.It& cmd, VkPipelineLayout pipelineLayout, U32 slot);
     U0 destroy(UgContext.It& ctx, UgTexture.It& texture);
-  }
+}
 
-  namespace UgSampler {
+namespace UgSampler {
     VkSampler create(UgContext.It& ctx);
     U0 destroy(UgContext.It& ctx, VkSampler sampler);
-  }
+}
 
-  namespace UgVertexAttrib {
-    struct It { 
-      U32 location; 
-      VkFormat format; 
-      U32 offset; 
-    };
-  }
-
-  namespace UgVertexDesc {
-    struct It { 
-      U32 stride; 
-      UgVertexAttrib.It* attributes; 
-      U32 attributeCount; 
-    };
-  }
-
-  namespace UgVertexSettings {
+namespace UgTextureArray {
     struct It {
-      U8 depthVao;
-      I32 colorWriteMask;
-      VkBool32 blendEnable;
-      VkBlendFactor srcColorBlendFactor;
-      VkBlendFactor dstColorBlendFactor;
-      VkBlendOp colorBlendOp;
-      VkBlendFactor srcAlphaBlendFactor;
-      VkBlendFactor dstAlphaBlendFactor;
-      VkBlendOp alphaBlendOp;
-      VkBool32 depthClampEnable;
-      VkBool32 rasterizerDiscardEnable;
-      VkPolygonMode polygonMode;
-      VkCullModeFlagBits cullMode;
-      VkFrontFace frontFace;
-      VkBool32 depthBiasEnable;
-      F32 depthBiasConstantFactor;
-      F32 depthBiasClamp;
-      F32 depthBiasSlopeFactor;
-      F32 lineWidth;
+        VkImage image;
+        VkDeviceMemory memory;
+        VkImageView view;
+        VkSampler sampler;
+        VkDescriptorSetLayout setLayout;
+        VkDescriptorSet descriptorSet;
+        U32 layerCount;
     };
-  }
+    UgTextureArray.It create(UgContext.It& ctx, const I8** paths, U32 count);
+    U0 bind(UgTextureArray.It& arr, UgCommandBuffer.It& cmd, VkPipelineLayout pipelineLayout, U32 slot);
+    U0 destroy(UgContext.It& ctx, UgTextureArray.It& arr);
+}
 
-  namespace UgVertexArray {
-    struct It { 
-      VkPipelineLayout layout; 
-      VkPipeline pipeline; 
-      UgUniformBuffer.It uniformBuffer; 
+namespace UgVertexAttrib {
+    struct It {
+        U32 location;
+        VkFormat format;
+        U32 offset;
     };
-    
-    UgVertexArray.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass, UgVertexDesc.It& desc, UgUniformBuffer.It& uniformBuffer, UgTexture.It* texture, UgShaderProgram.It& shaderProgram, const UgVertexSettings.It& settings);
-    U0 bind(UgVertexArray.It& vao, UgCommandBuffer.It& cmd);
-    U0 destroy(UgContext.It& ctx, UgVertexArray.It& vao);
-  }`}
-  cpp={`namespace UgBuffer {
-    struct It { 
-      VkBuffer handle;
-      VkDeviceMemory memory;
+}
+
+namespace UgVertexDesc {
+    struct It {
+        U32 stride;
+        UgVertexAttrib.It* attributes;
+        U32 attributeCount;
     };
-    
-    UgBuffer::It create(UgContext::It& ctx, uint32_t size, VkBufferUsageFlagBits usage);
-    void upload(UgContext::It& ctx, UgBuffer::It& buffer, void* data, uint32_t size);
+}
+
+namespace UgVertexSettings {
+    struct It {
+        U8 depthVao;
+        I32 colorWriteMask;
+        VkBool32 blendEnable;
+        VkBlendFactor srcColorBlendFactor;
+        VkBlendFactor dstColorBlendFactor;
+        VkBlendOp colorBlendOp;
+        VkBlendFactor srcAlphaBlendFactor;
+        VkBlendFactor dstAlphaBlendFactor;
+        VkBlendOp alphaBlendOp;
+        VkBool32 depthClampEnable;
+        VkBool32 rasterizerDiscardEnable;
+        VkPolygonMode polygonMode;
+        VkCullModeFlagBits cullMode;
+        VkFrontFace frontFace;
+        VkBool32 depthBiasEnable;
+        F32 depthBiasConstantFactor;
+        F32 depthBiasClamp;
+        F32 depthBiasSlopeFactor;
+        F32 lineWidth;
+    };
+}
+  `}
+  cpp={`#define UG_MATERIAL_MAX_RENDER_PASSES 4
+#define UG_MATERIAL_MAX_TEXTURES 4
+
+namespace UgContext {
+    struct It {
+        UgWindow::It window;
+        VkInstance instance;
+        VkDebugUtilsMessengerEXT logger;
+        VkSurfaceKHR surface;
+        VkPhysicalDevice physicalDevice;
+        UgDevice::It device;
+        VkDescriptorPool descriptorPool;
+        VkCommandPool cmdPool;
+    };
+    UgContext::It create(UgWindow::It& window, unsigned char debug);
+    void destroy(UgContext::It& ctx);
+}
+
+namespace UgInstance {
+    VkInstance create(unsigned char debug);
+    void destroy(UgContext::It& ctx);
+}
+
+namespace UgPhysicalDevice {
+    VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);
+    const char* typeName(VkPhysicalDeviceType type);
+    unsigned char hasExtensions(VkPhysicalDevice device);
+    unsigned int count(VkInstance instance);
+    void list(VkInstance instance);
+    VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, unsigned char desiredType);
+    VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);
+}
+
+namespace UgQueueFamilies {
+    unsigned int count(VkPhysicalDevice device);
+    unsigned char hasType(VkPhysicalDevice device, VkQueueFlagBits type);
+    unsigned int getType(VkPhysicalDevice device, VkQueueFlagBits type);
+}
+
+namespace UgDevice {
+    struct It {
+        VkDevice handle;
+        VkPhysicalDeviceProperties properties;
+        VkQueue graphicQueue;
+        VkQueue presentQueue;
+    };
+    VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);
+    VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);
+    unsigned int getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
+    void destroy(UgDevice::It& device);
+    VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);
+    UgDevice::It create(VkPhysicalDevice device, VkSurfaceKHR surface);
+}
+
+namespace UgBuffer {
+    struct It {
+        VkBuffer handle;
+        VkDeviceMemory memory;
+    };
+    UgBuffer::It create(UgContext::It& ctx, unsigned int size, VkBufferUsageFlagBits usage);
+    void upload(UgContext::It& ctx, UgBuffer::It& buffer, void* data, unsigned int size);
     void destroy(UgContext::It& ctx, UgBuffer::It& buffer);
-  }
+}
 
-  namespace UgFrameBuffer {
+namespace UgFrameBuffer {
     struct It {
-      VkFramebuffer* handles;
-      VkExtent2D extends;
-      uint32_t bufferCount;
+        VkFramebuffer* handles;
+        VkExtent2D extends;
+        unsigned int bufferCount;
     };
-    
-    UgFrameBuffer::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass);
     void destroy(UgContext::It& ctx, UgFrameBuffer::It& framebuffers);
-  }
+    UgFrameBuffer::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass);
+}
 
-  namespace UgUniformBuffer {
-    struct It { 
-      UgBuffer::It buffer;
-      VkDescriptorSetLayout setLayout;
-      void* mappedData;
-      uint32_t binding;
-      uint32_t size;
-      VkDescriptorSet descriptorSet;
-      uint32_t cursor;
+namespace UgUniformBuffer {
+    struct It {
+        UgBuffer::It buffer;
+        VkDescriptorSetLayout setLayout;
+        void* mappedData;
+        unsigned int binding;
+        unsigned int size;
+        VkDescriptorSet descriptorSet;
+        unsigned int cursor;
     };
-    
-    UgUniformBuffer::It create(UgContext::It& ctx, uint32_t binding, uint32_t size);
+    UgUniformBuffer::It create(UgContext::It& ctx, unsigned int binding, unsigned int size);
     void bind(UgUniformBuffer::It& uniformBuffer, VkCommandBuffer cmdBuffer, VkPipelineLayout pipelineLayout);
     void destroy(UgContext::It& ctx, UgUniformBuffer::It& uniformBuffer);
     void reset(UgUniformBuffer::It& uniformBuffer);
@@ -404,111 +486,143 @@ Vulkan core abstractions for rendering.
     void setVec3f(UgUniformBuffer::It& buffer, VectorF::It vec);
     void setVec4f(UgUniformBuffer::It& buffer, VectorF::It vec);
     void setMat(UgUniformBuffer::It& buffer, Matrix::It mat);
-  }
+}
 
-  namespace UgCommandBuffer {
-    struct It { 
-      VkCommandBuffer handle;
+namespace UgCommandBuffer {
+    struct It {
+        VkCommandBuffer handle;
     };
-    
-    UgCommandBuffer::It create(UgContext::It& ctx);
     void begin(UgCommandBuffer::It& cmd);
     void end(UgCommandBuffer::It& cmd);
     void destroy(UgContext::It& ctx, UgCommandBuffer::It& cmd);
-  }
+    UgCommandBuffer::It create(UgContext::It& ctx);
+}
 
-  namespace UgCommandPool {
-    VkCommandPool create(UgContext::It& ctx);
+namespace UgCommandPool {
     void destroy(UgContext::It& ctx, VkCommandPool cmdPool);
-  }
+    VkCommandPool create(UgContext::It& ctx);
+}
 
-  namespace UgContext {
-    struct It { 
-      UgWindow::It window;
-      VkInstance instance;
-      VkDebugUtilsMessengerEXT logger;
-      VkSurfaceKHR surface;
-      VkPhysicalDevice physicalDevice;
-      UgDevice::It device;
-      VkDescriptorPool descriptorPool;
-      VkCommandPool cmdPool;
-    };
-    
-    UgContext::It create(UgWindow::It& window, unsigned char debug);
-    void destroy(UgContext::It& ctx);
-  }
-
-  namespace UgDescriptorPool {
+namespace UgDescriptorPool {
     VkDescriptorPool create(UgContext::It& ctx);
     void destroy(UgContext::It& ctx, VkDescriptorPool descriptorPool);
-  }
+}
 
-  namespace UgPhysicalDevice {
-    VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device);
-    const char* typeName(VkPhysicalDeviceType type);
-    unsigned char hasExtensions(VkPhysicalDevice device);
-    uint32_t count(VkInstance instance);
-    void list(VkInstance instance);
-    VkPhysicalDevice get(VkInstance instance, VkSurfaceKHR surface, unsigned char desiredType);
-    VkPhysicalDevice create(VkInstance instance, VkSurfaceKHR surface);
-  }
-
-  namespace UgQueueFamilies {
-    uint32_t count(VkPhysicalDevice device);
-    unsigned char hasType(VkPhysicalDevice device, VkQueueFlagBits type);
-    uint32_t getType(VkPhysicalDevice device, VkQueueFlagBits type);
-  }
-
-  namespace UgDevice {
-    struct It { 
-      VkDevice handle;
-      VkPhysicalDeviceProperties properties;
-      VkQueue graphicQueue;
-      VkQueue presentQueue;
+namespace UgFence {
+    struct It {
+        VkFence handle;
     };
-    
-    UgDevice::It create(VkPhysicalDevice device, VkSurfaceKHR surface);
-    VkDevice make(VkPhysicalDevice device, VkSurfaceKHR surface);
-    VkQueue getQueue(VkPhysicalDevice device, VkDevice logicalDevice, VkQueueFlagBits queueType);
-    VkQueue getPresentationQueue(VkPhysicalDevice device, VkSurfaceKHR surface, VkDevice logicalDevice);
-    uint32_t getSurfaceSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
-    void destroy(UgDevice::It& device);
-  }
-
-  namespace UgFence {
-    struct It { 
-      VkFence handle;
-    };
-    
     UgFence::It create(UgContext::It& ctx);
+    void destroy(UgContext::It& ctx, UgFence::It& fence);
     void wait(UgContext::It& ctx, UgFence::It& fence);
     void reset(UgContext::It& ctx, UgFence::It& fence);
-    void destroy(UgContext::It& ctx, UgFence::It& fence);
-  }
+}
 
-  namespace UgImageView {
-    struct It { 
-      VkImage image; 
-      VkImageView view;
+namespace UgSemaphore {
+    struct It {
+        VkSemaphore handle;
     };
-    
+    UgSemaphore::It create(UgContext::It& ctx);
+    void destroy(UgContext::It& ctx, UgSemaphore::It& semaphore);
+}
+
+namespace UgImageView {
+    struct It {
+        VkImage image;
+        VkImageView view;
+    };
     UgImageView::It create(UgContext::It& ctx, VkImage image, VkFormat format);
-    VkImageView makeView(UgContext::It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);
     void destroy(UgContext::It& ctx, UgImageView::It& imageView);
-  }
+    VkImageView makeView(UgContext::It& ctx, VkImage image, VkFormat format, VkImageAspectFlags aspectMask);
+}
 
-  namespace UgImageLayout {
+namespace UgImageLayout {
     void transition(VkCommandBuffer cmdBuffer, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
-  }
+}
 
-  namespace UgInstance {
-    VkInstance create(unsigned char debug);
-    void destroy(UgContext::It& ctx);
-  }
+namespace UgWindowSurface {
+    void destroy(VkInstance instance, VkSurfaceKHR surface);
+    VkSurfaceKHR create(VkInstance instance, UgWindow::It& window);
+}
 
-  namespace UgPipeline {
-    VkPipeline create(UgContext::It& ctx, VkPipelineLayout layout, UgSwapchain::It& swapchain, UgShaderProgram::It& shaderProgram, VkRenderPass renderPass, VkPipelineVertexInputStateCreateInfo* vertexInput, const UgVertexSettings::It& settings);
-    void destroy(UgContext::It& ctx, VkPipeline graphicsPipeline);
+namespace UgSwapchain {
+    struct It {
+        VkSwapchainKHR handle;
+        UgImageView::It* imageViews;
+        unsigned int imageCount;
+        unsigned int currentFrame;
+        unsigned int imageIndex;
+        UgSemaphore::It* pSemaphore;
+        UgSemaphore::It* rSemaphore;
+        VkSurfaceFormatKHR surfaceFormat;
+        VkPresentModeKHR presentMode;
+        VkSurfaceCapabilitiesKHR capabilities;
+        VkImage depthImage;
+        VkDeviceMemory depthImageMemory;
+        VkImageView depthImageView;
+    };
+    VkExtent2D extend(UgContext::It& ctx, UgSwapchain::It& swapchain);
+    void update(UgContext::It& ctx, UgSwapchain::It& swapchain, VkCommandBuffer cmdBuffer);
+    void destroy(UgContext::It& ctx, UgSwapchain::It& swapchain);
+    UgSwapchain::It create(UgContext::It& ctx);
+}
+
+namespace UgShader {
+    void destroy(UgContext::It& ctx, VkShaderModule shader);
+    VkShaderModule create(UgContext::It& ctx, const char* filePath);
+}
+
+namespace UgShaderProgram {
+    struct It {
+        VkPipelineShaderStageCreateInfo handle[2];
+        VkShaderModule vertexShader;
+        VkShaderModule fragmentShader;
+    };
+    VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);
+    UgShaderProgram::It create(UgContext::It& ctx, const char* vertexSource, const char* fragmentSource);
+    void destroy(UgContext::It& ctx, UgShaderProgram::It& shaderProgram);
+}
+
+namespace UgRenderPass {
+    void end(VkCommandBuffer cmdBuffer);
+    void begin(VkRenderPass renderPass, UgFrameBuffer::It& framebuffers, VkCommandBuffer cmdBuffer, unsigned int imageIndex);
+    void destroy(UgContext::It& ctx, VkRenderPass renderPass);
+    VkRenderPass create(UgContext::It& ctx, UgSwapchain::It& swapchain);
+}
+
+namespace UgRenderTarget {
+    struct It {
+        VkRenderPass renderPass;
+        VkFramebuffer framebuffer;
+        UgTexture::It texture;
+        unsigned int width;
+        unsigned int height;
+    };
+    UgRenderTarget::It create(UgContext::It& ctx, unsigned int width, unsigned int height);
+    void begin(UgRenderTarget::It& rt, UgCommandBuffer::It& cmd);
+    void end(UgCommandBuffer::It& cmd);
+    void setViewport(UgRenderTarget::It& rt, UgCommandBuffer::It& cmd);
+    void destroy(UgContext::It& ctx, UgRenderTarget::It& rt);
+}
+
+namespace UgRenderer {
+    struct It {
+        UgSwapchain::It swapchain;
+        UgFrameBuffer::It framebuffers;
+        VkRenderPass renderPass;
+    };
+    UgRenderer::It create(UgContext::It& ctx);
+    void destroy(UgContext::It& ctx, UgRenderer::It& renderer);
+    void update(UgContext::It& ctx, UgRenderer::It& renderer);
+    void begin(UgRenderer::It& renderer, UgCommandBuffer::It& cmd);
+    void end(UgCommandBuffer::It& cmd);
+    void setViewport(UgContext::It& ctx, UgRenderer::It& renderer, UgCommandBuffer::It& cmd);
+    void submit(UgContext::It& ctx, UgRenderer::It& renderer, UgCommandBuffer::It& cmd, UgFence::It& fence);
+    VkResult present(UgContext::It& ctx, UgRenderer::It& renderer);
+    VkResult aquire(UgContext::It& ctx, UgRenderer::It& renderer);
+}
+
+namespace UgPipeline {
     VkPipelineDynamicStateCreateInfo createDynamicState();
     VkPipelineInputAssemblyStateCreateInfo createInputAssembly();
     VkViewport createViewport(UgContext::It& ctx, UgSwapchain::It& swapchain);
@@ -518,179 +632,113 @@ Vulkan core abstractions for rendering.
     VkPipelineMultisampleStateCreateInfo createMultisamplingState();
     VkPipelineColorBlendAttachmentState createColorBlendAttachmentState(const UgVertexSettings::It& settings);
     VkPipelineColorBlendStateCreateInfo createColorBlendState(VkPipelineColorBlendAttachmentState* colorBlendAttachment);
+    void destroy(UgContext::It& ctx, VkPipeline graphicsPipeline);
+    VkPipeline create(UgContext::It& ctx, VkPipelineLayout layout, UgSwapchain::It& swapchain, UgShaderProgram::It& shaderProgram, VkRenderPass renderPass, VkPipelineVertexInputStateCreateInfo* vertexInput, const UgVertexSettings::It& settings);
     VkPipelineDepthStencilStateCreateInfo createDepthStencil();
-  }
+}
 
-  namespace UgPipelineLayout {
-    VkPipelineLayout create(UgContext::It& ctx, uint32_t count, VkDescriptorSetLayout* setLayouts);
-    void destroy(UgContext::It& ctx, VkPipelineLayout pipelineLayout);
+namespace UgPipelineLayout {
     void remove(UgContext::It& ctx, VkPipelineLayout layout);
-  }
+    void destroy(UgContext::It& ctx, VkPipelineLayout pipelineLayout);
+    VkPipelineLayout create(UgContext::It& ctx, unsigned int count, VkDescriptorSetLayout* setLayouts);
+}
 
-  namespace UgRenderer {
-    struct It { 
-      UgSwapchain::It swapchain;
-      UgFrameBuffer::It framebuffers;
-      VkRenderPass renderPass;
+namespace UgMaterialPipelineEntry {
+    struct It {
+        VkRenderPass renderPass;
+        VkPipeline   pipeline;
     };
-    
-    UgRenderer::It create(UgContext::It& ctx);
-    void update(UgContext::It& ctx, UgRenderer::It& renderer);
-    void begin(UgRenderer::It& renderer, UgCommandBuffer::It& cmd);
-    void end(UgCommandBuffer::It& cmd);
-    void setViewport(UgContext::It& ctx, UgRenderer::It& renderer, UgCommandBuffer::It& cmd);
-    void submit(UgContext::It& ctx, UgRenderer::It& renderer, UgCommandBuffer::It& cmd, UgFence::It& fence);
-    VkResult present(UgContext::It& ctx, UgRenderer::It& renderer);
-    VkResult aquire(UgContext::It& ctx, UgRenderer::It& renderer);
-    void destroy(UgContext::It& ctx, UgRenderer::It& renderer);
-  }
+}
 
-  namespace UgRenderPass {
-    VkRenderPass create(UgContext::It& ctx, UgSwapchain::It& swapchain);
-    void begin(VkRenderPass renderPass, UgFrameBuffer::It& framebuffers, VkCommandBuffer cmdBuffer, uint32_t imageIndex);
-    void end(VkCommandBuffer cmdBuffer);
-    void destroy(UgContext::It& ctx, VkRenderPass renderPass);
-  }
-
-  namespace UgRenderTarget {
-    struct It { 
-      VkRenderPass renderPass;
-      VkFramebuffer framebuffer;
-      UgTexture::It texture;
-      uint32_t width;
-      uint32_t height;
+namespace UgMaterial {
+    struct It {
+        VkPipelineLayout layout;
+        VkDescriptorSetLayout textureSetLayouts[UG_MATERIAL_MAX_TEXTURES];
+        UgShaderProgram::It shaderProgram;
+        UgVertexDesc::It    vertexDesc;
+        UgVertexSettings::It settings;
+        unsigned int textureCount;
+        UgMaterialPipelineEntry::It pipelineCache[UG_MATERIAL_MAX_RENDER_PASSES];
+        unsigned int pipelineCacheCount;
+        UgContext::It*   ctx;
+        UgSwapchain::It* swapchain;
     };
-    
-    UgRenderTarget::It create(UgContext::It& ctx, uint32_t width, uint32_t height);
-    void begin(UgRenderTarget::It& rt, UgCommandBuffer::It& cmd);
-    void end(UgCommandBuffer::It& cmd);
-    void setViewport(UgRenderTarget::It& rt, UgCommandBuffer::It& cmd);
-    void destroy(UgContext::It& ctx, UgRenderTarget::It& rt);
-  }
+    void destroy(UgContext::It& ctx, UgMaterial::It& mat);
+}
 
-  namespace UgSemaphore {
-    struct It { 
-      VkSemaphore handle; 
+namespace UgTexture {
+    struct It {
+        VkImage image;
+        VkDeviceMemory memory;
+        VkImageView view;
+        VkSampler sampler;
+        VkDescriptorSetLayout setLayout;
+        VkDescriptorSet descriptorSet;
     };
-    
-    UgSemaphore::It create(UgContext::It& ctx);
-    void destroy(UgContext::It& ctx, UgSemaphore::It& semaphore);
-  }
-
-  namespace UgShader {
-    VkShaderModule create(UgContext::It& ctx, const char* filePath);
-    void destroy(UgContext::It& ctx, VkShaderModule shader);
-  }
-
-  namespace UgShaderProgram {
-    struct It { 
-      VkPipelineShaderStageCreateInfo handle[2];
-      VkShaderModule vertexShader;
-      VkShaderModule fragmentShader;
-    };
-    
-    UgShaderProgram::It create(UgContext::It& ctx, const char* vertexSource, const char* fragmentSource);
-    VkPipelineShaderStageCreateInfo createShaderInfo(VkShaderStageFlagBits stage, VkShaderModule shader);
-    void destroy(UgContext::It& ctx, UgShaderProgram::It& shaderProgram);
-  }
-
-  namespace UgWindowSurface {
-    VkSurfaceKHR create(VkInstance instance, UgWindow::It& window);
-    void destroy(VkInstance instance, VkSurfaceKHR surface);
-  }
-
-  namespace UgSwapchain {
-    struct It { 
-      VkSwapchainKHR handle;
-      UgImageView::It* imageViews;
-      uint32_t imageCount;
-      uint32_t currentFrame;
-      uint32_t imageIndex;
-      UgSemaphore::It* pSemaphore;
-      UgSemaphore::It* rSemaphore;
-      VkSurfaceFormatKHR surfaceFormat;
-      VkPresentModeKHR presentMode;
-      VkSurfaceCapabilitiesKHR capabilities;
-      VkImage depthImage;
-      VkDeviceMemory depthImageMemory;
-      VkImageView depthImageView;
-    };
-    
-    UgSwapchain::It create(UgContext::It& ctx);
-    VkExtent2D extend(UgContext::It& ctx, UgSwapchain::It& swapchain);
-    void update(UgContext::It& ctx, UgSwapchain::It& swapchain, VkCommandBuffer cmdBuffer);
-    void destroy(UgContext::It& ctx, UgSwapchain::It& swapchain);
-  }
-
-  namespace UgTexture {
-    struct It { 
-      VkImage image;
-      VkDeviceMemory memory;
-      VkImageView view;
-      VkSampler sampler;
-      VkDescriptorSetLayout setLayout;
-      VkDescriptorSet descriptorSet;
-    };
-    
     UgTexture::It create(UgContext::It& ctx, const char* path);
-    void bind(UgTexture::It& texture, UgCommandBuffer::It& cmd, VkPipelineLayout pipelineLayout);
+    VkDescriptorSetLayout createSetLayout(UgContext::It& ctx);
+    void bind(UgTexture::It& texture, UgCommandBuffer::It& cmd, VkPipelineLayout pipelineLayout, unsigned int slot);
     void destroy(UgContext::It& ctx, UgTexture::It& texture);
-  }
+}
 
-  namespace UgSampler {
+namespace UgSampler {
     VkSampler create(UgContext::It& ctx);
     void destroy(UgContext::It& ctx, VkSampler sampler);
-  }
+}
 
-  namespace UgVertexAttrib {
-    struct It { 
-      uint32_t location;
-      VkFormat format;
-      uint32_t offset;
-    };
-  }
-
-  namespace UgVertexDesc {
-    struct It { 
-      uint32_t stride;
-      UgVertexAttrib::It* attributes;
-      uint32_t attributeCount;
-    };
-  }
-
-  namespace UgVertexSettings {
+namespace UgTextureArray {
     struct It {
-      unsigned char depthVao = 0;
-      int32_t colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-      VkBool32 blendEnable = VK_TRUE;
-      VkBlendFactor srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-      VkBlendFactor dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-      VkBlendOp colorBlendOp = VK_BLEND_OP_ADD;
-      VkBlendFactor srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-      VkBlendFactor dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-      VkBlendOp alphaBlendOp = VK_BLEND_OP_ADD;
-      VkBool32 depthClampEnable = VK_FALSE;
-      VkBool32 rasterizerDiscardEnable = VK_FALSE;
-      VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL;
-      VkCullModeFlagBits cullMode = VK_CULL_MODE_BACK_BIT;
-      VkFrontFace frontFace = VK_FRONT_FACE_CLOCKWISE;
-      VkBool32 depthBiasEnable = VK_FALSE;
-      float depthBiasConstantFactor = 0.0f;
-      float depthBiasClamp = 0.0f;
-      float depthBiasSlopeFactor = 0.0f;
-      float lineWidth = 1.0f;
+        VkImage image;
+        VkDeviceMemory memory;
+        VkImageView view;
+        VkSampler sampler;
+        VkDescriptorSetLayout setLayout;
+        VkDescriptorSet descriptorSet;
+        unsigned int layerCount;
     };
-  }
+    UgTextureArray::It create(UgContext::It& ctx, const char** paths, unsigned int count);
+    void bind(UgTextureArray::It& arr, UgCommandBuffer::It& cmd, VkPipelineLayout pipelineLayout, unsigned int slot);
+    void destroy(UgContext::It& ctx, UgTextureArray::It& arr);
+}
 
-  namespace UgVertexArray {
-    struct It { 
-      VkPipelineLayout layout; 
-      VkPipeline pipeline; 
-      UgUniformBuffer::It uniformBuffer; 
+namespace UgVertexAttrib {
+    struct It {
+        unsigned int location;
+        VkFormat format;
+        unsigned int offset;
     };
-    
-    UgVertexArray::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass, UgVertexDesc::It& desc, UgUniformBuffer::It& uniformBuffer, UgTexture::It* texture, UgShaderProgram::It& shaderProgram, const UgVertexSettings::It& settings);
-    void bind(UgVertexArray::It& vao, UgCommandBuffer::It& cmd);
-    void destroy(UgContext::It& ctx, UgVertexArray::It& vao);
-  }`}
+}
+
+namespace UgVertexDesc {
+    struct It {
+        unsigned int stride;
+        UgVertexAttrib::It* attributes;
+        unsigned int attributeCount;
+    };
+}
+
+namespace UgVertexSettings {
+    struct It {
+        unsigned char depthVao;
+        int colorWriteMask;
+        VkBool32 blendEnable;
+        VkBlendFactor srcColorBlendFactor;
+        VkBlendFactor dstColorBlendFactor;
+        VkBlendOp colorBlendOp;
+        VkBlendFactor srcAlphaBlendFactor;
+        VkBlendFactor dstAlphaBlendFactor;
+        VkBlendOp alphaBlendOp;
+        VkBool32 depthClampEnable;
+        VkBool32 rasterizerDiscardEnable;
+        VkPolygonMode polygonMode;
+        VkCullModeFlagBits cullMode;
+        VkFrontFace frontFace;
+        VkBool32 depthBiasEnable;
+        float depthBiasConstantFactor;
+        float depthBiasClamp;
+        float depthBiasSlopeFactor;
+        float lineWidth;
+    };
+}
+  `}
 />

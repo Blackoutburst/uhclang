@@ -1,20 +1,18 @@
 # File
 
-Easy file reading
-
----
+Simple file reading utilities
 
 <H2 id="getSize">getSize</H2>
 
-Returns the size of a file in bytes.
+Get the size of an open file in bytes
 
 <CodeTabs
   uhc={`I64 getSize(FILE* file);`}
-  cpp={`int64_t getSize(FILE* file);`}
+  cpp={`long long getSize(FILE* file);`}
 />
 
 **Parameters**
-- `file` — the file handle
+- `file` — Open FILE pointer
 
 **Returns** — File size in bytes
 
@@ -22,7 +20,7 @@ Returns the size of a file in bytes.
 
 <H2 id="open">open</H2>
 
-Opens a file and returns a file handle. The file must be explicitly closed after use.
+Open a file for reading
 
 <CodeTabs
   uhc={`FILE* open(const I8* filePath);`}
@@ -30,15 +28,15 @@ Opens a file and returns a file handle. The file must be explicitly closed after
 />
 
 **Parameters**
-- `filePath` — path to the file
+- `filePath` — Path to the file
 
-**Returns** — Open file handle, or `null` on failure
+**Returns** — Open FILE pointer, or NULL on failure
 
 ---
 
 <H2 id="close">close</H2>
 
-Close and free a file handle.
+Close an open file
 
 <CodeTabs
   uhc={`U0 close(FILE* file);`}
@@ -46,13 +44,13 @@ Close and free a file handle.
 />
 
 **Parameters**
-- `file` — the file handle to close
+- `file` — The FILE pointer to close
 
 ---
 
 <H2 id="read">read</H2>
 
-Read the entire file contents into a heap-allocated string.
+Read the entire file contents into a heap-allocated string
 
 <CodeTabs
   uhc={`I8* read(FILE* file);`}
@@ -60,6 +58,6 @@ Read the entire file contents into a heap-allocated string.
 />
 
 **Parameters**
-- `file` — the file handle
+- `file` — Open FILE pointer
 
-**Returns** — Null-terminated string with the file contents (caller must free)
+**Returns** — Null-terminated file contents — caller must free

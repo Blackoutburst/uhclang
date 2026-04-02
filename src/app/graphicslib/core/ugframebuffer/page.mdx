@@ -1,47 +1,31 @@
 # UgFrameBuffer
 
-Collection of Vulkan framebuffers, one per swapchain image.
+Framebuffer array tied to swapchain images
 
 <H2 id="It">It</H2>
 
-Framebuffer collection object.
+Array of framebuffers covering all swapchain images
 
 <CodeTabs
   uhc={`struct It {
     VkFramebuffer* handles;
     VkExtent2D extends;
     U32 bufferCount;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkFramebuffer* handles;
     VkExtent2D extends;
-    uint32_t bufferCount;
-  };`}
+    unsigned int bufferCount;
+};
+  `}
 />
-
----
-
-<H2 id="create">create</H2>
-
-Create framebuffers for each swapchain image.
-
-<CodeTabs
-  uhc={`UgFrameBuffer.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass);`}
-  cpp={`UgFrameBuffer::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass);`}
-/>
-
-**Parameters**
-- `ctx` — The Vulkan context
-- `swapchain` — The swapchain whose images are used as attachments
-- `renderPass` — The compatible render pass
-
-**Returns** — Initialized framebuffer collection
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy all framebuffers in the collection.
+Destroy all framebuffers in the array
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgFrameBuffer.It& framebuffers);`}
@@ -49,5 +33,23 @@ Destroy all framebuffers in the collection.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `framebuffers` — The framebuffer collection to destroy
+- `ctx` — Vulkan context
+- `framebuffers` — Framebuffer array to destroy
+
+---
+
+<H2 id="create">create</H2>
+
+Create one framebuffer per swapchain image
+
+<CodeTabs
+  uhc={`UgFrameBuffer.It create(UgContext.It& ctx, UgSwapchain.It& swapchain, VkRenderPass renderPass);`}
+  cpp={`UgFrameBuffer::It create(UgContext::It& ctx, UgSwapchain::It& swapchain, VkRenderPass renderPass);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+- `swapchain` — Swapchain whose images the framebuffers wrap
+- `renderPass` — Render pass the framebuffers are compatible with
+
+**Returns** — Initialized framebuffer array

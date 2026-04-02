@@ -1,43 +1,10 @@
 # UgPipelineLayout
 
-Pipeline layout creation from descriptor set layouts.
-
-<H2 id="create">create</H2>
-
-Create a pipeline layout from an array of descriptor set layouts.
-
-<CodeTabs
-  uhc={`VkPipelineLayout create(UgContext.It& ctx, U32 count, VkDescriptorSetLayout* setLayouts);`}
-  cpp={`VkPipelineLayout create(UgContext::It& ctx, uint32_t count, VkDescriptorSetLayout* setLayouts);`}
-/>
-
-**Parameters**
-- `ctx` — The Vulkan context
-- `count` — Number of descriptor set layouts
-- `setLayouts` — Array of descriptor set layouts
-
-**Returns** — Created `VkPipelineLayout`
-
----
-
-<H2 id="destroy">destroy</H2>
-
-Destroy a pipeline layout.
-
-<CodeTabs
-  uhc={`U0 destroy(UgContext.It& ctx, VkPipelineLayout pipelineLayout);`}
-  cpp={`void destroy(UgContext::It& ctx, VkPipelineLayout pipelineLayout);`}
-/>
-
-**Parameters**
-- `ctx` — The Vulkan context
-- `pipelineLayout` — The layout to destroy
-
----
+Vulkan pipeline layout management
 
 <H2 id="remove">remove</H2>
 
-Alias for destroy — remove a pipeline layout.
+Destroy a pipeline layout (alias for destroy)
 
 <CodeTabs
   uhc={`U0 remove(UgContext.It& ctx, VkPipelineLayout layout);`}
@@ -45,5 +12,38 @@ Alias for destroy — remove a pipeline layout.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `layout` — The layout to remove
+- `ctx` — Vulkan context
+- `layout` — Pipeline layout to destroy
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy a pipeline layout
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, VkPipelineLayout pipelineLayout);`}
+  cpp={`void destroy(UgContext::It& ctx, VkPipelineLayout pipelineLayout);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+- `pipelineLayout` — Pipeline layout to destroy
+
+---
+
+<H2 id="create">create</H2>
+
+Create a pipeline layout from an array of descriptor set layouts
+
+<CodeTabs
+  uhc={`VkPipelineLayout create(UgContext.It& ctx, U32 count, VkDescriptorSetLayout* setLayouts);`}
+  cpp={`VkPipelineLayout create(UgContext::It& ctx, unsigned int count, VkDescriptorSetLayout* setLayouts);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+- `count` — Number of descriptor set layouts
+- `setLayouts` — Array of descriptor set layout handles
+
+**Returns** — Newly created pipeline layout handle

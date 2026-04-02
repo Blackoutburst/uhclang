@@ -1,35 +1,35 @@
-# TCP client
+# TcpClient
 
-TCP client
+TCP client for connecting to a server
 
 <H2 id="It">It</H2>
 
-TCP client object
+Platform-specific TCP client handle
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      SOCKET sockfd;
-      HANDLE thread;
-    };
-  #else
-    struct It {
-      I32 sockfd;
-      pthread_t thread;
-    };
-  #endif
+  struct It {
+    SOCKET sockfd;
+    HANDLE thread;
+  };
+#else
+  struct It {
+    I32 sockfd;
+    pthread_t thread;
+  };
+#endif
   `}
   cpp={`#if defined(_WIN32) || defined(_WIN64)
-    struct It {
-      SOCKET sockfd;
-      HANDLE thread;
-    };
-  #else
-    struct It {
-      int32_t sockfd;
-      pthread_t thread;
-    };
-  #endif
+  struct It {
+    SOCKET sockfd;
+    HANDLE thread;
+  };
+#else
+  struct It {
+    int sockfd;
+    pthread_t thread;
+  };
+#endif
   `}
 />
 
@@ -37,16 +37,16 @@ TCP client object
 
 <H2 id="create">create</H2>
 
-Create a TCP client and connect it to a server.
+Create a TCP client and connect to a server
 
 <CodeTabs
   uhc={`TcpClient.It create(I8* ip, I16 port);`}
-  cpp={`TcpClient::It create(char* ip, int16_t port);`}
+  cpp={`TcpClient::It create(char* ip, short port);`}
 />
 
 **Parameters**
 - `ip` — Server IP address
-- `port` — Server port
+- `port` — Server port number
 
 **Returns** — Connected client object
 
@@ -54,7 +54,7 @@ Create a TCP client and connect it to a server.
 
 <H2 id="destroy">destroy</H2>
 
-Destroy a TCP client and close connection if any
+Destroy a TCP client and close the connection
 
 <CodeTabs
   uhc={`U0 destroy(TcpClient.It& client);`}
@@ -68,16 +68,16 @@ Destroy a TCP client and close connection if any
 
 <H2 id="write">write</H2>
 
-Write a message to the server.
+Send data to the server
 
 <CodeTabs
   uhc={`U8 write(TcpClient.It& client, I8* buffer, U32 size);`}
-  cpp={`unsigned char write(TcpClient::It& client, char* buffer, uint32_t size);`}
+  cpp={`unsigned char write(TcpClient::It& client, char* buffer, unsigned int size);`}
 />
 
 **Parameters**
 - `client` — The TCP client
-- `buffer` — The data to send
+- `buffer` — Data to send
 - `size` — Number of bytes to send
 
 **Returns** — Non-zero on success
@@ -86,21 +86,17 @@ Write a message to the server.
 
 <H2 id="read">read</H2>
 
-Read a message from the server
-
-> [!IMPORTANT]
-> This method is non blocking and all byte may not be read
-> To read everything use readAll
+Read data from the server (non-blocking, may be partial)
 
 <CodeTabs
   uhc={`U8 read(TcpClient.It& client, I8* buffer, U32 size);`}
-  cpp={`unsigned char read(TcpClient::It& client, char* buffer, uint32_t size);`}
+  cpp={`unsigned char read(TcpClient::It& client, char* buffer, unsigned int size);`}
 />
 
 **Parameters**
 - `client` — The TCP client
-- `buffer` — Buffer to receive data into
-- `size` — Maximum number of bytes to read
+- `buffer` — Receive buffer
+- `size` — Maximum bytes to read
 
 **Returns** — Non-zero on success
 
@@ -108,16 +104,16 @@ Read a message from the server
 
 <H2 id="readAll">readAll</H2>
 
-Read a message from the server, blocking until all bytes are received
+Read data from the server, blocking until all bytes arrive
 
 <CodeTabs
   uhc={`U8 readAll(TcpClient.It& client, I8* buffer, U32 size);`}
-  cpp={`unsigned char readAll(TcpClient::It& client, char* buffer, uint32_t size);`}
+  cpp={`unsigned char readAll(TcpClient::It& client, char* buffer, unsigned int size);`}
 />
 
 **Parameters**
 - `client` — The TCP client
-- `buffer` — Buffer to receive data into
+- `buffer` — Receive buffer
 - `size` — Exact number of bytes to read
 
 **Returns** — Non-zero on success

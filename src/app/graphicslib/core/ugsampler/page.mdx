@@ -1,10 +1,10 @@
 # UgSampler
 
-Vulkan texture sampler creation and destruction.
+Vulkan sampler creation and destruction
 
 <H2 id="create">create</H2>
 
-Create a texture sampler with default filtering settings.
+Create a sampler with linear filtering and repeat wrap mode
 
 <CodeTabs
   uhc={`VkSampler create(UgContext.It& ctx);`}
@@ -12,15 +12,15 @@ Create a texture sampler with default filtering settings.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
+- `ctx` — Vulkan context
 
-**Returns** — Created `VkSampler`
+**Returns** — Newly created sampler handle
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy a sampler.
+Destroy a sampler
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, VkSampler sampler);`}
@@ -28,5 +28,5 @@ Destroy a sampler.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `sampler` — The sampler to destroy
+- `ctx` — Vulkan context
+- `sampler` — Sampler to destroy

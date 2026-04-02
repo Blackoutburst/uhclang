@@ -1,10 +1,10 @@
-# Swapchain
+# UgSwapchain
 
-Vulkan swapchain management including image views, depth buffer, and synchronization semaphores.
+Vulkan swapchain creation and frame management
 
 <H2 id="It">It</H2>
 
-Swapchain object.
+Swapchain with image views, semaphores, and depth buffer
 
 <CodeTabs
   uhc={`struct It {
@@ -21,13 +21,14 @@ Swapchain object.
     VkImage depthImage;
     VkDeviceMemory depthImageMemory;
     VkImageView depthImageView;
-  };`}
+};
+  `}
   cpp={`struct It {
     VkSwapchainKHR handle;
     UgImageView::It* imageViews;
-    uint32_t imageCount;
-    uint32_t currentFrame;
-    uint32_t imageIndex;
+    unsigned int imageCount;
+    unsigned int currentFrame;
+    unsigned int imageIndex;
     UgSemaphore::It* pSemaphore;
     UgSemaphore::It* rSemaphore;
     VkSurfaceFormatKHR surfaceFormat;
@@ -36,14 +37,15 @@ Swapchain object.
     VkImage depthImage;
     VkDeviceMemory depthImageMemory;
     VkImageView depthImageView;
-  };`}
+};
+  `}
 />
 
 ---
 
 <H2 id="extend">extend</H2>
 
-Return the current swapchain extent (width × height).
+Get the current render extent of the swapchain
 
 <CodeTabs
   uhc={`VkExtent2D extend(UgContext.It& ctx, UgSwapchain.It& swapchain);`}
@@ -51,16 +53,16 @@ Return the current swapchain extent (width × height).
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `swapchain` — The swapchain
+- `ctx` — Vulkan context
+- `swapchain` — Swapchain to query
 
-**Returns** — Current swapchain extent
+**Returns** — Current VkExtent2D for the swapchain images
 
 ---
 
 <H2 id="update">update</H2>
 
-Recreate the swapchain (called on window resize).
+Recreate the swapchain after a resize or out-of-date error
 
 <CodeTabs
   uhc={`U0 update(UgContext.It& ctx, UgSwapchain.It& swapchain, VkCommandBuffer cmdBuffer);`}
@@ -68,15 +70,15 @@ Recreate the swapchain (called on window resize).
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `swapchain` — The swapchain to recreate
-- `cmdBuffer` — A command buffer for layout transitions during recreation
+- `ctx` — Vulkan context
+- `swapchain` — Swapchain to update
+- `cmdBuffer` — Command buffer used for image layout transitions
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy the swapchain and all associated resources.
+Destroy the swapchain and all associated image views
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, UgSwapchain.It& swapchain);`}
@@ -84,14 +86,14 @@ Destroy the swapchain and all associated resources.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `swapchain` — The swapchain to destroy
+- `ctx` — Vulkan context
+- `swapchain` — Swapchain to destroy
 
 ---
 
 <H2 id="create">create</H2>
 
-Create a swapchain with image views, depth buffer, and semaphores.
+Create a swapchain for the context's surface
 
 <CodeTabs
   uhc={`UgSwapchain.It create(UgContext.It& ctx);`}
@@ -99,6 +101,6 @@ Create a swapchain with image views, depth buffer, and semaphores.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
+- `ctx` — Vulkan context
 
-**Returns** — Initialized swapchain
+**Returns** — Initialized swapchain object

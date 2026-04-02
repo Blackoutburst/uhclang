@@ -1,10 +1,10 @@
 # VectorI
 
-Int based vector 4
+Four-component integer vector (x, y, z, w)
 
 <H2 id="It">It</H2>
 
-The int vector object
+Integer vector object
 
 <CodeTabs
   uhc={`struct It {
@@ -12,14 +12,14 @@ The int vector object
     I32 y;
     I32 z;
     I32 w;
-  };
+};
   `}
   cpp={`struct It {
-    int32_t x;
-    int32_t y;
-    int32_t z;
-    int32_t w;
-  };
+    int x;
+    int y;
+    int z;
+    int w;
+};
   `}
 />
 
@@ -27,7 +27,7 @@ The int vector object
 
 <H2 id="equals">equals</H2>
 
-Check if 2 vectors are equal
+Test whether two integer vectors are component-wise equal
 
 <CodeTabs
   uhc={`U8 equals(VectorI.It& a, VectorI.It& b);`}
@@ -38,21 +38,21 @@ Check if 2 vectors are equal
 - `a` — First vector
 - `b` — Second vector
 
-**Returns** — Non-zero if all components are equal
+**Returns** — Non-zero if equal
 
 ---
 
 <H2 id="set">set</H2>
 
-Set a vector values
+Set all four components of an integer vector
 
 <CodeTabs
   uhc={`U0 set(VectorI.It& vec, I32 x, I32 y, I32 z, I32 w);`}
-  cpp={`void set(VectorI::It& vec, int32_t x, int32_t y, int32_t z, int32_t w);`}
+  cpp={`void set(VectorI::It& vec, int x, int y, int z, int w);`}
 />
 
 **Parameters**
-- `vec` — The vector
+- `vec` — Target vector
 - `x` — X component
 - `y` — Y component
 - `z` — Z component
@@ -62,7 +62,7 @@ Set a vector values
 
 <H2 id="normalize">normalize</H2>
 
-Normalize a vector values
+Normalize an integer vector to unit length in-place
 
 <CodeTabs
   uhc={`U0 normalize(VectorI.It& vec);`}
@@ -70,29 +70,29 @@ Normalize a vector values
 />
 
 **Parameters**
-- `vec` — The vector
+- `vec` — Vector to normalize
 
 ---
 
 <H2 id="length">length</H2>
 
-Return the magnitude of the vector.
+Compute the length (magnitude) of an integer vector
 
 <CodeTabs
   uhc={`F32 length(VectorI.It& vec);`}
-  cpp={`int32_t length(VectorI::It& vec);`}
+  cpp={`float length(VectorI::It& vec);`}
 />
 
 **Parameters**
 - `vec` — The vector
 
-**Returns** — Euclidean length
+**Returns** — Euclidean length as float
 
 ---
 
 <H2 id="zero">zero</H2>
 
-Set all vector components to 0
+Set all components of an integer vector to zero
 
 <CodeTabs
   uhc={`U0 zero(VectorI.It& vec);`}
@@ -100,30 +100,30 @@ Set all vector components to 0
 />
 
 **Parameters**
-- `vec` — The vector
+- `vec` — Vector to zero
 
 ---
 
 <H2 id="dot">dot</H2>
 
-Dot product between 2 vectors.
+Compute the dot product of two integer vectors
 
 <CodeTabs
   uhc={`I32 dot(VectorI.It& a, VectorI.It& b);`}
-  cpp={`int32_t dot(VectorI::It& a, VectorI::It& b);`}
+  cpp={`int dot(VectorI::It& a, VectorI::It& b);`}
 />
 
 **Parameters**
 - `a` — First vector
 - `b` — Second vector
 
-**Returns** — Scalar dot product
+**Returns** — Dot product
 
 ---
 
 <H2 id="cross">cross</H2>
 
-Cross product between 2 vectors
+Compute the cross product of two integer vectors
 
 <CodeTabs
   uhc={`U0 cross(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
@@ -131,16 +131,15 @@ Cross product between 2 vectors
 />
 
 **Parameters**
-- `result` — Result vector
+- `result` — Vector to store the result
 - `a` — First vector
 - `b` — Second vector
 
 ---
 
-
 <H2 id="sub">sub</H2>
 
-Subtract vector `b` from vector `a`
+Subtract one integer vector from another
 
 <CodeTabs
   uhc={`U0 sub(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
@@ -148,6 +147,6 @@ Subtract vector `b` from vector `a`
 />
 
 **Parameters**
-- `result` — Result vector
-- `a` — First vector
-- `b` — Second vector
+- `result` — Vector to store the result
+- `a` — Minuend vector
+- `b` — Subtrahend vector

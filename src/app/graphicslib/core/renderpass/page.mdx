@@ -1,27 +1,10 @@
-# RenderPass
+# UgRenderPass
 
-Vulkan render pass creation and command recording helpers.
-
-<H2 id="begin">begin</H2>
-
-Begin a render pass inside a command buffer.
-
-<CodeTabs
-  uhc={`U0 begin(VkRenderPass renderPass, UgFrameBuffer.It& framebuffers, VkCommandBuffer cmdBuffer, U32 imageIndex);`}
-  cpp={`void begin(VkRenderPass renderPass, UgFrameBuffer::It& framebuffers, VkCommandBuffer cmdBuffer, uint32_t imageIndex);`}
-/>
-
-**Parameters**
-- `renderPass` — The render pass to begin
-- `framebuffers` — The framebuffer collection
-- `cmdBuffer` — The active command buffer
-- `imageIndex` — Index of the current swapchain image
-
----
+Vulkan render pass management
 
 <H2 id="end">end</H2>
 
-End the current render pass.
+End the current render pass
 
 <CodeTabs
   uhc={`U0 end(VkCommandBuffer cmdBuffer);`}
@@ -29,30 +12,30 @@ End the current render pass.
 />
 
 **Parameters**
-- `cmdBuffer` — The active command buffer
+- `cmdBuffer` — Active command buffer
 
 ---
 
-<H2 id="create">create</H2>
+<H2 id="begin">begin</H2>
 
-Create a render pass compatible with the swapchain format.
+Begin a render pass using the framebuffer for the current image index
 
 <CodeTabs
-  uhc={`VkRenderPass create(UgContext.It& ctx, UgSwapchain.It& swapchain);`}
-  cpp={`VkRenderPass create(UgContext::It& ctx, UgSwapchain::It& swapchain);`}
+  uhc={`U0 begin(VkRenderPass renderPass, UgFrameBuffer.It& framebuffers, VkCommandBuffer cmdBuffer, U32 imageIndex);`}
+  cpp={`void begin(VkRenderPass renderPass, UgFrameBuffer::It& framebuffers, VkCommandBuffer cmdBuffer, unsigned int imageIndex);`}
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `swapchain` — The swapchain (for color format)
-
-**Returns** — Created `VkRenderPass`
+- `renderPass` — Render pass to begin
+- `framebuffers` — Framebuffer array to source the target from
+- `cmdBuffer` — Active command buffer
+- `imageIndex` — Index of the current swapchain image
 
 ---
 
 <H2 id="destroy">destroy</H2>
 
-Destroy a render pass.
+Destroy a render pass
 
 <CodeTabs
   uhc={`U0 destroy(UgContext.It& ctx, VkRenderPass renderPass);`}
@@ -60,5 +43,22 @@ Destroy a render pass.
 />
 
 **Parameters**
-- `ctx` — The Vulkan context
-- `renderPass` — The render pass to destroy
+- `ctx` — Vulkan context
+- `renderPass` — Render pass to destroy
+
+---
+
+<H2 id="create">create</H2>
+
+Create a render pass compatible with the swapchain's format and depth buffer
+
+<CodeTabs
+  uhc={`VkRenderPass create(UgContext.It& ctx, UgSwapchain.It& swapchain);`}
+  cpp={`VkRenderPass create(UgContext::It& ctx, UgSwapchain::It& swapchain);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+- `swapchain` — Swapchain whose format is used for the color attachment
+
+**Returns** — Newly created render pass handle

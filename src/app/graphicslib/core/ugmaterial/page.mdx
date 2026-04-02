@@ -1,0 +1,51 @@
+# UgMaterial
+
+Material combining shaders, vertex layout, and per-pass pipeline cache
+
+<H2 id="It">It</H2>
+
+Material with its pipeline layout, shader program, and cached pipelines
+
+<CodeTabs
+  uhc={`struct It {
+    VkPipelineLayout layout;
+    VkDescriptorSetLayout textureSetLayouts[UG_MATERIAL_MAX_TEXTURES];
+    UgShaderProgram.It shaderProgram;
+    UgVertexDesc.It    vertexDesc;
+    UgVertexSettings.It settings;
+    U32 textureCount;
+    UgMaterialPipelineEntry.It pipelineCache[UG_MATERIAL_MAX_RENDER_PASSES];
+    U32 pipelineCacheCount;
+    UgContext.It*   ctx;
+    UgSwapchain.It* swapchain;
+};
+  `}
+  cpp={`struct It {
+    VkPipelineLayout layout;
+    VkDescriptorSetLayout textureSetLayouts[UG_MATERIAL_MAX_TEXTURES];
+    UgShaderProgram::It shaderProgram;
+    UgVertexDesc::It    vertexDesc;
+    UgVertexSettings::It settings;
+    unsigned int textureCount;
+    UgMaterialPipelineEntry::It pipelineCache[UG_MATERIAL_MAX_RENDER_PASSES];
+    unsigned int pipelineCacheCount;
+    UgContext::It*   ctx;
+    UgSwapchain::It* swapchain;
+};
+  `}
+/>
+
+---
+
+<H2 id="destroy">destroy</H2>
+
+Destroy the material and all cached pipelines
+
+<CodeTabs
+  uhc={`U0 destroy(UgContext.It& ctx, UgMaterial.It& mat);`}
+  cpp={`void destroy(UgContext::It& ctx, UgMaterial::It& mat);`}
+/>
+
+**Parameters**
+- `ctx` — Vulkan context
+- `mat` — Material to destroy

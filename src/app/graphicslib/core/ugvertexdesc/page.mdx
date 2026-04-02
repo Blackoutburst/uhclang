@@ -1,23 +1,22 @@
 # UgVertexDesc
 
-Describes the full vertex layout: per-vertex stride and the array of attributes.
+Vertex buffer layout description
 
 <H2 id="It">It</H2>
+
+Stride and attribute array describing the vertex buffer layout
 
 <CodeTabs
   uhc={`struct It {
     U32 stride;
     UgVertexAttrib.It* attributes;
     U32 attributeCount;
-  };`}
+};
+  `}
   cpp={`struct It {
-    uint32_t stride;
+    unsigned int stride;
     UgVertexAttrib::It* attributes;
-    uint32_t attributeCount;
-  };`}
+    unsigned int attributeCount;
+};
+  `}
 />
-
-**Fields**
-- `stride` — Size in bytes of one vertex
-- `attributes` — Array of vertex attribute descriptors
-- `attributeCount` — Number of attributes in the array
