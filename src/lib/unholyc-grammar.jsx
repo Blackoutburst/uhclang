@@ -172,7 +172,7 @@ export const unholycGrammar = {
           // Storage / qualifiers / declaration keywords
           name: "storage.modifier.uhc",
           match:
-            "\\b(static|extern|inline|volatile|const|register|auto|constexpr|mutable|explicit|virtual|override|final|struct|union|enum|class|typedef|namespace|lambda|unused|template|typename|using|sizeof|alignof|decltype|new|delete|operator|public|private|protected|friend)\\b",
+            "\\b(static|extern|inline|volatile|const|register|auto|constexpr|mutable|explicit|virtual|override|final|struct|union|enum|class|typedef|namespace|lambda|self|unused|template|typename|using|sizeof|alignof|decltype|new|delete|operator|public|private|protected|friend)\\b",
         },
         {
           // Built-in types: standard C + HolyC
