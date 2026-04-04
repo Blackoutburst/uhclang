@@ -2,3 +2,65 @@
 
 Simple file reading utilities
 
+<H2 id="It">It</H2>
+
+The file objects
+
+<CodeTabs
+  uhc={`self {
+    FILE* handle
+    I64 size
+}
+  `}
+  cpp={`struct It {
+    FILE* handle;
+    long long size;
+};
+  `}
+/>
+
+---
+
+<H2 id="open">open</H2>
+
+Open a file for reading
+
+<CodeTabs
+  uhc={`File open(const I8* filePath)`}
+  cpp={`File::It open(const char* filePath);`}
+/>
+
+**Parameters**
+- `filePath` — Path to the file
+
+**Returns** — The file
+
+---
+
+<H2 id="close">close</H2>
+
+Close an open file
+
+<CodeTabs
+  uhc={`U0 close(File file)`}
+  cpp={`void close(File::It& file);`}
+/>
+
+**Parameters**
+- `file` — The file
+
+---
+
+<H2 id="read">read</H2>
+
+Read the entire file contents into a heap-allocated string
+
+<CodeTabs
+  uhc={`I8* read(File file)`}
+  cpp={`char* read(File::It& file);`}
+/>
+
+**Parameters**
+- `file` — The file
+
+**Returns** — Null-terminated file contents — caller must free

@@ -2,3 +2,151 @@
 
 Four-component float vector (x, y, z, w)
 
+<H2 id="It">It</H2>
+
+Float vector object
+
+<CodeTabs
+  uhc={`self {
+    F32 x
+    F32 y
+    F32 z
+    F32 w
+}
+  `}
+  cpp={`struct It {
+    float x;
+    float y;
+    float z;
+    float w;
+};
+  `}
+/>
+
+---
+
+<H2 id="equals">equals</H2>
+
+Test whether two float vectors are component-wise equal
+
+<CodeTabs
+  uhc={`U8 equals(VectorF a, VectorF b)`}
+  cpp={`unsigned char equals(VectorF::It& a, VectorF::It& b);`}
+/>
+
+**Parameters**
+- `a` — First vector
+- `b` — Second vector
+
+**Returns** — Non-zero if equal
+
+---
+
+<H2 id="set">set</H2>
+
+Set all four components of a float vector
+
+<CodeTabs
+  uhc={`U0 set(VectorF vec, F32 x, F32 y, F32 z, F32 w)`}
+  cpp={`void set(VectorF::It& vec, float x, float y, float z, float w);`}
+/>
+
+**Parameters**
+- `vec` — Target vector
+- `x` — X component
+- `y` — Y component
+- `z` — Z component
+- `w` — W component
+
+---
+
+<H2 id="normalize">normalize</H2>
+
+Normalize a float vector to unit length in-place
+
+<CodeTabs
+  uhc={`U0 normalize(VectorF vec)`}
+  cpp={`void normalize(VectorF::It& vec);`}
+/>
+
+**Parameters**
+- `vec` — Vector to normalize
+
+---
+
+<H2 id="length">length</H2>
+
+Compute the length (magnitude) of a float vector
+
+<CodeTabs
+  uhc={`F32 length(VectorF vec)`}
+  cpp={`float length(VectorF::It& vec);`}
+/>
+
+**Parameters**
+- `vec` — The vector
+
+**Returns** — Euclidean length
+
+---
+
+<H2 id="zero">zero</H2>
+
+Set all components of a float vector to zero
+
+<CodeTabs
+  uhc={`U0 zero(VectorF vec)`}
+  cpp={`void zero(VectorF::It& vec);`}
+/>
+
+**Parameters**
+- `vec` — Vector to zero
+
+---
+
+<H2 id="dot">dot</H2>
+
+Compute the dot product of two float vectors
+
+<CodeTabs
+  uhc={`F32 dot(VectorF a, VectorF b)`}
+  cpp={`float dot(VectorF::It& a, VectorF::It& b);`}
+/>
+
+**Parameters**
+- `a` — First vector
+- `b` — Second vector
+
+**Returns** — Dot product
+
+---
+
+<H2 id="cross">cross</H2>
+
+Compute the cross product of two float vectors
+
+<CodeTabs
+  uhc={`U0 cross(VectorF result, VectorF a, VectorF b)`}
+  cpp={`void cross(VectorF::It& result, VectorF::It& a, VectorF::It& b);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — First vector
+- `b` — Second vector
+
+---
+
+<H2 id="sub">sub</H2>
+
+Subtract one float vector from another
+
+<CodeTabs
+  uhc={`U0 sub(VectorF result, VectorF a, VectorF b)`}
+  cpp={`void sub(VectorF::It& result, VectorF::It& a, VectorF::It& b);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — Minuend vector
+- `b` — Subtrahend vector

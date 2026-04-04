@@ -14,9 +14,348 @@ Buffer object
 };
   `}
   cpp={`struct It {
-    void* handle
-    unsigned char order
-    unsigned int cursor
+    void* handle;
+    unsigned char order;
+    unsigned int cursor;
 };
   `}
 />
+
+---
+
+<H2 id="setOrder">setOrder</H2>
+
+Set the byte order for subsequent get/put operations
+
+<CodeTabs
+  uhc={`U0 setOrder(Buffer buffer, U8 order)`}
+  cpp={`void setOrder(Buffer::It& buffer, unsigned char order);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `order` — Byte order — use UHC_LITTLE_ENDIAN or UHC_BIG_ENDIAN
+
+---
+
+<H2 id="reset">reset</H2>
+
+Reset the buffer cursor to the beginning
+
+<CodeTabs
+  uhc={`U0 reset(Buffer buffer)`}
+  cpp={`void reset(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+---
+
+<H2 id="getI8">getI8</H2>
+
+Read a signed 8-bit integer from the buffer
+
+<CodeTabs
+  uhc={`I8 getI8(Buffer buffer)`}
+  cpp={`char getI8(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getU8">getU8</H2>
+
+Read an unsigned 8-bit integer from the buffer
+
+<CodeTabs
+  uhc={`U8 getU8(Buffer buffer)`}
+  cpp={`unsigned char getU8(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getI16">getI16</H2>
+
+Read a signed 16-bit integer from the buffer
+
+<CodeTabs
+  uhc={`I16 getI16(Buffer buffer)`}
+  cpp={`short getI16(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getU16">getU16</H2>
+
+Read an unsigned 16-bit integer from the buffer
+
+<CodeTabs
+  uhc={`U16 getU16(Buffer buffer)`}
+  cpp={`unsigned short getU16(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getI32">getI32</H2>
+
+Read a signed 32-bit integer from the buffer
+
+<CodeTabs
+  uhc={`I32 getI32(Buffer buffer)`}
+  cpp={`int getI32(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getU32">getU32</H2>
+
+Read an unsigned 32-bit integer from the buffer
+
+<CodeTabs
+  uhc={`U32 getU32(Buffer buffer)`}
+  cpp={`unsigned int getU32(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getI64">getI64</H2>
+
+Read a signed 64-bit integer from the buffer
+
+<CodeTabs
+  uhc={`I64 getI64(Buffer buffer)`}
+  cpp={`long long getI64(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getU64">getU64</H2>
+
+Read an unsigned 64-bit integer from the buffer
+
+<CodeTabs
+  uhc={`U64 getU64(Buffer buffer)`}
+  cpp={`unsigned long long getU64(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getF32">getF32</H2>
+
+Read a 32-bit float from the buffer
+
+<CodeTabs
+  uhc={`F32 getF32(Buffer buffer)`}
+  cpp={`float getF32(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="getF64">getF64</H2>
+
+Read a 64-bit float from the buffer
+
+<CodeTabs
+  uhc={`F64 getF64(Buffer buffer)`}
+  cpp={`double getF64(Buffer::It& buffer);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+
+**Returns** — The value read
+
+---
+
+<H2 id="putI8">putI8</H2>
+
+Write a signed 8-bit integer to the buffer
+
+<CodeTabs
+  uhc={`U0 putI8(Buffer buffer, I8 value)`}
+  cpp={`void putI8(Buffer::It& buffer, char value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putU8">putU8</H2>
+
+Write an unsigned 8-bit integer to the buffer
+
+<CodeTabs
+  uhc={`U0 putU8(Buffer buffer, U8 value)`}
+  cpp={`void putU8(Buffer::It& buffer, unsigned char value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putI16">putI16</H2>
+
+Write a signed 16-bit integer to the buffer
+
+<CodeTabs
+  uhc={`U0 putI16(Buffer buffer, I16 value)`}
+  cpp={`void putI16(Buffer::It& buffer, short value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putU16">putU16</H2>
+
+Write an unsigned 16-bit integer to the buffer
+
+<CodeTabs
+  uhc={`U0 putU16(Buffer buffer, U16 value)`}
+  cpp={`void putU16(Buffer::It& buffer, unsigned short value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putI32">putI32</H2>
+
+Write a signed 32-bit integer to the buffer
+
+<CodeTabs
+  uhc={`U0 putI32(Buffer buffer, I32 value)`}
+  cpp={`void putI32(Buffer::It& buffer, int value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putU32">putU32</H2>
+
+Write an unsigned 32-bit integer to the buffer
+
+<CodeTabs
+  uhc={`U0 putU32(Buffer buffer, U32 value)`}
+  cpp={`void putU32(Buffer::It& buffer, unsigned int value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putI64">putI64</H2>
+
+Write a signed 64-bit integer to the buffer
+
+<CodeTabs
+  uhc={`U0 putI64(Buffer buffer, I64 value)`}
+  cpp={`void putI64(Buffer::It& buffer, long long value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putU64">putU64</H2>
+
+Write an unsigned 64-bit integer to the buffer
+
+<CodeTabs
+  uhc={`U0 putU64(Buffer buffer, U64 value)`}
+  cpp={`void putU64(Buffer::It& buffer, unsigned long long value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putF32">putF32</H2>
+
+Write a 32-bit float to the buffer
+
+<CodeTabs
+  uhc={`U0 putF32(Buffer buffer, F32 value)`}
+  cpp={`void putF32(Buffer::It& buffer, float value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write
+
+---
+
+<H2 id="putF64">putF64</H2>
+
+Write a 64-bit float to the buffer
+
+<CodeTabs
+  uhc={`U0 putF64(Buffer buffer, F64 value)`}
+  cpp={`void putF64(Buffer::It& buffer, double value);`}
+/>
+
+**Parameters**
+- `buffer` — The buffer
+- `value` — The value to write

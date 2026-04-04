@@ -23,9 +23,22 @@ File, logging and other I/O operation
         UHC_LOG_WARN,
         UHC_LOG_ERROR,
     };
+    U0 trace(const I8* fmt, ...)
+    U0 debug(const I8* fmt, ...)
+    U0 info (const I8* fmt, ...)
+    U0 warn (const I8* fmt, ...)
+    U0 error(const I8* fmt, ...)
+    U0 msg  (const I8* fmt, ...)
 }
 
 namespace File {
+    self {
+        FILE* handle
+        I64 size
+    }
+    File open(const I8* filePath)
+    U0 close(File file)
+    I8* read(File file)
 }
   `}
   cpp={`namespace Log {
@@ -36,9 +49,22 @@ namespace File {
         UHC_LOG_WARN,
         UHC_LOG_ERROR,
     };
+    void trace(const char* fmt, ...);
+    void debug(const char* fmt, ...);
+    void info (const char* fmt, ...);
+    void warn (const char* fmt, ...);
+    void error(const char* fmt, ...);
+    void msg  (const char* fmt, ...);
 }
 
 namespace File {
+    struct It {
+        FILE* handle;
+        long long size;
+    };
+    File::It open(const char* filePath);
+    void close(File::It& file);
+    char* read(File::It& file);
 }
   `}
 />

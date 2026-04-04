@@ -2,3 +2,118 @@
 
 Scalar math helper functions
 
+<H2 id="rad">rad</H2>
+
+Convert degrees to radians
+
+<CodeTabs
+  uhc={`F32 rad(F32 angle)`}
+  cpp={`float rad(float angle);`}
+/>
+
+**Parameters**
+- `angle` — Angle in degrees
+
+**Returns** — Equivalent angle in radians
+
+---
+
+<H2 id="sign">sign</H2>
+
+Return the sign of an integer value
+
+<CodeTabs
+  uhc={`I8 sign(I32 value)`}
+  cpp={`char sign(int value);`}
+/>
+
+**Parameters**
+- `value` — The value to inspect
+
+**Returns** — -1 if negative, 0 if zero, 1 if positive
+
+---
+
+<H2 id="fsign">fsign</H2>
+
+Return the sign of a float as an integer
+
+<CodeTabs
+  uhc={`I8 fsign(F32 value)`}
+  cpp={`char fsign(float value);`}
+/>
+
+**Parameters**
+- `value` — The value to inspect
+
+**Returns** — -1 if negative, 0 if zero, 1 if positive
+
+---
+
+<H2 id="fsignf">fsignf</H2>
+
+Return the sign of a float as a float
+
+<CodeTabs
+  uhc={`F32 fsignf(F32 value)`}
+  cpp={`float fsignf(float value);`}
+/>
+
+**Parameters**
+- `value` — The value to inspect
+
+**Returns** — -1.0 if negative, 0.0 if zero, 1.0 if positive
+
+---
+
+<H2 id="clamp">clamp</H2>
+
+Clamp an integer between min and max
+
+<CodeTabs
+  uhc={`I32 clamp(I32 v, I32 min, I32 max)`}
+  cpp={`int clamp(int v, int min, int max);`}
+/>
+
+**Parameters**
+- `v` — Value to clamp
+- `min` — Lower bound (inclusive)
+- `max` — Upper bound (inclusive)
+
+**Returns** — Clamped integer value
+
+---
+
+<H2 id="fclamp">fclamp</H2>
+
+Clamp a float between boundaries, return as integer
+
+<CodeTabs
+  uhc={`I32 fclamp(F32 v, F32 min, F32 max)`}
+  cpp={`int fclamp(float v, float min, float max);`}
+/>
+
+**Parameters**
+- `v` — Value to clamp
+- `min` — Lower bound
+- `max` — Upper bound
+
+**Returns** — Clamped value as integer
+
+---
+
+<H2 id="fclampf">fclampf</H2>
+
+Clamp a float between boundaries, return as float
+
+<CodeTabs
+  uhc={`F32 fclampf(F32 v, F32 min, F32 max)`}
+  cpp={`float fclampf(float v, float min, float max);`}
+/>
+
+**Parameters**
+- `v` — Value to clamp
+- `min` — Lower bound
+- `max` — Upper bound
+
+**Returns** — Clamped float value

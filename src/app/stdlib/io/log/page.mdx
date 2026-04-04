@@ -24,3 +24,93 @@ Log level values for filtering output
 };
   `}
 />
+
+---
+
+<H2 id="trace">trace</H2>
+
+Log a message at TRACE level
+
+<CodeTabs
+  uhc={`U0 trace(const I8* fmt, ...)`}
+  cpp={`void trace(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — printf-style format string
+- `...` — Format arguments
+
+---
+
+<H2 id="debug">debug</H2>
+
+Log a message at DEBUG level
+
+<CodeTabs
+  uhc={`U0 debug(const I8* fmt, ...)`}
+  cpp={`void debug(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — printf-style format string
+- `...` — Format arguments
+
+---
+
+<H2 id="info">info</H2>
+
+Log a message at INFO level
+
+<CodeTabs
+  uhc={`U0 info (const I8* fmt, ...)`}
+  cpp={`void info (const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — printf-style format string
+- `...` — Format arguments
+
+---
+
+<H2 id="warn">warn</H2>
+
+Log a message at WARN level
+
+<CodeTabs
+  uhc={`U0 warn (const I8* fmt, ...)`}
+  cpp={`void warn (const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — printf-style format string
+- `...` — Format arguments
+
+---
+
+<H2 id="error">error</H2>
+
+Log a message at ERROR level
+
+<CodeTabs
+  uhc={`U0 error(const I8* fmt, ...)`}
+  cpp={`void error(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — printf-style format string
+- `...` — Format arguments
+
+---
+
+<H2 id="msg">msg</H2>
+
+Log a raw message without a level prefix
+
+<CodeTabs
+  uhc={`U0 msg  (const I8* fmt, ...)`}
+  cpp={`void msg  (const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — printf-style format string
+- `...` — Format arguments
