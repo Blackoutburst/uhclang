@@ -8,145 +8,17 @@ Integer vector object
 
 <CodeTabs
   uhc={`struct It {
-    I32 x;
-    I32 y;
-    I32 z;
-    I32 w;
+    I32 x = 0
+    I32 y = 0
+    I32 z = 0
+    I32 w = 0
 };
   `}
   cpp={`struct It {
-    int x;
-    int y;
-    int z;
-    int w;
+    int x = 0
+    int y = 0
+    int z = 0
+    int w = 0
 };
   `}
 />
-
----
-
-<H2 id="equals">equals</H2>
-
-Test whether two integer vectors are component-wise equal
-
-<CodeTabs
-  uhc={`U8 equals(VectorI.It& a, VectorI.It& b);`}
-  cpp={`unsigned char equals(VectorI::It& a, VectorI::It& b);`}
-/>
-
-**Parameters**
-- `a` — First vector
-- `b` — Second vector
-
-**Returns** — Non-zero if equal
-
----
-
-<H2 id="set">set</H2>
-
-Set all four components of an integer vector
-
-<CodeTabs
-  uhc={`U0 set(VectorI.It& vec, I32 x, I32 y, I32 z, I32 w);`}
-  cpp={`void set(VectorI::It& vec, int x, int y, int z, int w);`}
-/>
-
-**Parameters**
-- `vec` — Target vector
-- `x` — X component
-- `y` — Y component
-- `z` — Z component
-- `w` — W component
-
----
-
-<H2 id="normalize">normalize</H2>
-
-Normalize an integer vector to unit length in-place
-
-<CodeTabs
-  uhc={`U0 normalize(VectorI.It& vec);`}
-  cpp={`void normalize(VectorI::It& vec);`}
-/>
-
-**Parameters**
-- `vec` — Vector to normalize
-
----
-
-<H2 id="length">length</H2>
-
-Compute the length (magnitude) of an integer vector
-
-<CodeTabs
-  uhc={`F32 length(VectorI.It& vec);`}
-  cpp={`float length(VectorI::It& vec);`}
-/>
-
-**Parameters**
-- `vec` — The vector
-
-**Returns** — Euclidean length as float
-
----
-
-<H2 id="zero">zero</H2>
-
-Set all components of an integer vector to zero
-
-<CodeTabs
-  uhc={`U0 zero(VectorI.It& vec);`}
-  cpp={`void zero(VectorI::It& vec);`}
-/>
-
-**Parameters**
-- `vec` — Vector to zero
-
----
-
-<H2 id="dot">dot</H2>
-
-Compute the dot product of two integer vectors
-
-<CodeTabs
-  uhc={`I32 dot(VectorI.It& a, VectorI.It& b);`}
-  cpp={`int dot(VectorI::It& a, VectorI::It& b);`}
-/>
-
-**Parameters**
-- `a` — First vector
-- `b` — Second vector
-
-**Returns** — Dot product
-
----
-
-<H2 id="cross">cross</H2>
-
-Compute the cross product of two integer vectors
-
-<CodeTabs
-  uhc={`U0 cross(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
-  cpp={`void cross(VectorI::It& result, VectorI::It& a, VectorI::It& b);`}
-/>
-
-**Parameters**
-- `result` — Vector to store the result
-- `a` — First vector
-- `b` — Second vector
-
----
-
-<H2 id="sub">sub</H2>
-
-Subtract one integer vector from another
-
-<CodeTabs
-  uhc={`U0 sub(VectorI.It& result, VectorI.It& a, VectorI.It& b);`}
-  cpp={`void sub(VectorI::It& result, VectorI::It& a, VectorI::It& b);`}
-/>
-
-**Parameters**
-- `result` — Vector to store the result
-- `a` — Minuend vector
-- `b` — Subtrahend vector

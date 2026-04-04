@@ -20,47 +20,18 @@ Math helper and structure (Matrix, Vector)
   uhc={`#define UHC_PI 3.141592653589793
 
 namespace Math {
-    F32 rad(F32 angle);
-    I8 sign(I32 value);
-    I8 fsign(F32 value);
-    F32 fsignf(F32 value);
-    I32 clamp(I32 v, I32 min, I32 max);
-    I32 fclamp(F32 v, F32 min, F32 max);
-    F32 fclampf(F32 v, F32 min, F32 max);
 }
 
 namespace VectorF {
-    struct It {
-        F32 x;
-        F32 y;
-        F32 z;
-        F32 w;
-    };
-    U8 equals(VectorF.It& a, VectorF.It& b);
-    U0 set(VectorF.It& vec, F32 x, F32 y, F32 z, F32 w);
-    U0 normalize(VectorF.It& vec);
-    F32 length(VectorF.It& vec);
-    U0 zero(VectorF.It& vec);
-    F32 dot(VectorF.It& a, VectorF.It& b);
-    U0 cross(VectorF.It& result, VectorF.It& a, VectorF.It& b);
-    U0 sub(VectorF.It& result, VectorF.It& a, VectorF.It& b);
 }
 
 namespace VectorI {
     struct It {
-        I32 x;
-        I32 y;
-        I32 z;
-        I32 w;
+        I32 x = 0
+        I32 y = 0
+        I32 z = 0
+        I32 w = 0
     };
-    U8 equals(VectorI.It& a, VectorI.It& b);
-    U0 set(VectorI.It& vec, I32 x, I32 y, I32 z, I32 w);
-    U0 normalize(VectorI.It& vec);
-    F32 length(VectorI.It& vec);
-    U0 zero(VectorI.It& vec);
-    I32 dot(VectorI.It& a, VectorI.It& b);
-    U0 cross(VectorI.It& result, VectorI.It& a, VectorI.It& b);
-    U0 sub(VectorI.It& result, VectorI.It& a, VectorI.It& b);
 }
 
 namespace Matrix {
@@ -81,64 +52,25 @@ namespace Matrix {
     #define M32 0x0E
     #define M33 0x0F
     struct It {
-        F32 values[16];
+        F32 values[16]{ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 }
     };
-    U0 setIdentity(Matrix.It& mat);
-    U0 multiply(Matrix.It& result, Matrix.It& left, Matrix.It& right);
-    U0 copy(Matrix.It& src, Matrix.It& dest);
-    U0 ortho2D(Matrix.It& mat, F32 left, F32 right, F32 bottom, F32 top, F32 near, F32 far);
-    U0 ortho2DVk(Matrix.It& mat, F32 left, F32 right, F32 bottom, F32 top, F32 near, F32 far);
-    U0 projection(Matrix.It& mat, F32 width, F32 height, F32 fov, F32 near, F32 far);
-    U0 scale(Matrix.It& mat, F32 x, F32 y, F32 z, F32 w);
-    U0 translate(Matrix.It& mat, F32 x, F32 y, F32 z, F32 w);
-    U0 rotate(Matrix.It& mat, F32 angle, F32 x, F32 y, F32 z);
-    U0 lookAt(Matrix.It& mat, VectorF.It& eye, VectorF.It& center, VectorF.It& up);
 }
   `}
   cpp={`#define UHC_PI 3.141592653589793
 
 namespace Math {
-    float rad(float angle);
-    char sign(int value);
-    char fsign(float value);
-    float fsignf(float value);
-    int clamp(int v, int min, int max);
-    int fclamp(float v, float min, float max);
-    float fclampf(float v, float min, float max);
 }
 
 namespace VectorF {
-    struct It {
-        float x;
-        float y;
-        float z;
-        float w;
-    };
-    unsigned char equals(VectorF::It& a, VectorF::It& b);
-    void set(VectorF::It& vec, float x, float y, float z, float w);
-    void normalize(VectorF::It& vec);
-    float length(VectorF::It& vec);
-    void zero(VectorF::It& vec);
-    float dot(VectorF::It& a, VectorF::It& b);
-    void cross(VectorF::It& result, VectorF::It& a, VectorF::It& b);
-    void sub(VectorF::It& result, VectorF::It& a, VectorF::It& b);
 }
 
 namespace VectorI {
     struct It {
-        int x;
-        int y;
-        int z;
-        int w;
+        int x = 0
+        int y = 0
+        int z = 0
+        int w = 0
     };
-    unsigned char equals(VectorI::It& a, VectorI::It& b);
-    void set(VectorI::It& vec, int x, int y, int z, int w);
-    void normalize(VectorI::It& vec);
-    float length(VectorI::It& vec);
-    void zero(VectorI::It& vec);
-    int dot(VectorI::It& a, VectorI::It& b);
-    void cross(VectorI::It& result, VectorI::It& a, VectorI::It& b);
-    void sub(VectorI::It& result, VectorI::It& a, VectorI::It& b);
 }
 
 namespace Matrix {
@@ -159,18 +91,8 @@ namespace Matrix {
     #define M32 0x0E
     #define M33 0x0F
     struct It {
-        float values[16];
+        float values[16]{ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 }
     };
-    void setIdentity(Matrix::It& mat);
-    void multiply(Matrix::It& result, Matrix::It& left, Matrix::It& right);
-    void copy(Matrix::It& src, Matrix::It& dest);
-    void ortho2D(Matrix::It& mat, float left, float right, float bottom, float top, float near, float far);
-    void ortho2DVk(Matrix::It& mat, float left, float right, float bottom, float top, float near, float far);
-    void projection(Matrix::It& mat, float width, float height, float fov, float near, float far);
-    void scale(Matrix::It& mat, float x, float y, float z, float w);
-    void translate(Matrix::It& mat, float x, float y, float z, float w);
-    void rotate(Matrix::It& mat, float angle, float x, float y, float z);
-    void lookAt(Matrix::It& mat, VectorF::It& eye, VectorF::It& center, VectorF::It& up);
 }
   `}
 />

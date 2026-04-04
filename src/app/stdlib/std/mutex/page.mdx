@@ -9,77 +9,22 @@ Platform-specific mutex handle
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
   struct It {
-    CRITICAL_SECTION handle;
-  };
+    CRITICAL_SECTION handle
+  }
 #else
   struct It {
-    pthread_mutex_t handle;
-  };
+    pthread_mutex_t handle
+  }
 #endif
   `}
   cpp={`#if defined(_WIN32) || defined(_WIN64)
   struct It {
-    CRITICAL_SECTION handle;
-  };
+    CRITICAL_SECTION handle
+  }
 #else
   struct It {
-    pthread_mutex_t handle;
-  };
+    pthread_mutex_t handle
+  }
 #endif
   `}
 />
-
----
-
-<H2 id="create">create</H2>
-
-Create and initialize a new mutex
-
-<CodeTabs
-  uhc={`Mutex.It create();`}
-  cpp={`Mutex::It create();`}
-/>
-
-**Returns** — Initialized mutex object
-
----
-
-<H2 id="destroy">destroy</H2>
-
-Destroy a mutex and release its resources
-
-<CodeTabs
-  uhc={`U0 destroy(Mutex.It& mutex);`}
-  cpp={`void destroy(Mutex::It& mutex);`}
-/>
-
-**Parameters**
-- `mutex` — The mutex to destroy
-
----
-
-<H2 id="lock">lock</H2>
-
-Acquire a mutex, blocking until it is available
-
-<CodeTabs
-  uhc={`U0 lock(Mutex.It& mutex);`}
-  cpp={`void lock(Mutex::It& mutex);`}
-/>
-
-**Parameters**
-- `mutex` — The mutex to lock
-
----
-
-<H2 id="unlock">unlock</H2>
-
-Release a previously acquired mutex
-
-<CodeTabs
-  uhc={`U0 unlock(Mutex.It& mutex);`}
-  cpp={`void unlock(Mutex::It& mutex);`}
-/>
-
-**Parameters**
-- `mutex` — The mutex to unlock
