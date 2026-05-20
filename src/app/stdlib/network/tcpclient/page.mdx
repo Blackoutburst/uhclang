@@ -10,24 +10,24 @@ Platform-specific TCP client handle
   uhc={`#if defined(_WIN32) || defined(_WIN64)
   struct It {
     SOCKET sockfd = INVALID_SOCKET
-    HANDLE thread = NULL
+    Thread thread = {}
   }
 #else
   struct It {
     I32 sockfd = -1
-    pthread_t thread = NULL
+    Thread thread = {}
   }
 #endif
   `}
   cpp={`#if defined(_WIN32) || defined(_WIN64)
   struct It {
     SOCKET sockfd = INVALID_SOCKET;
-    HANDLE thread = NULL;
+    Thread::It thread = {}
   }
 #else
   struct It {
     int sockfd = -1;
-    pthread_t thread = NULL;
+    Thread::It thread = {}
   }
 #endif
   `}
@@ -71,8 +71,8 @@ Destroy a TCP client and close the connection
 Send data to the server
 
 <CodeTabs
-  uhc={`U8 write(TcpClient client, I8* buffer, U32 size)`}
-  cpp={`unsigned char write(TcpClient::It& client, char* buffer, unsigned int size);`}
+  uhc={`U8 write(TcpClient client, const I8* buffer, U32 size)`}
+  cpp={`unsigned char write(TcpClient::It& client, const char* buffer, unsigned int size);`}
 />
 
 **Parameters**

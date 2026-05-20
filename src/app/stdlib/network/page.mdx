@@ -19,17 +19,17 @@ TCP networking
     #if defined(_WIN32) || defined(_WIN64)
       struct It {
         SOCKET sockfd = INVALID_SOCKET
-        HANDLE thread = NULL
+        Thread thread = {}
       }
     #else
       struct It {
         I32 sockfd = -1
-        pthread_t thread = NULL
+        Thread thread = {}
       }
     #endif
     TcpClient create(I8* ip, I16 port)
     U0 destroy(TcpClient client)
-    U8 write(TcpClient client, I8* buffer, U32 size)
+    U8 write(TcpClient client, const I8* buffer, U32 size)
     U8 read(TcpClient client, I8* buffer, U32 size)
     U8 readAll(TcpClient client, I8* buffer, U32 size)
 }
@@ -50,28 +50,28 @@ namespace TcpServer {
     #endif
     TcpServer create(I16 port, U16 slots)
     U0 destroy(TcpServer server)
-    U0 listen(TcpServer server, U0 (*callback)(TcpClient*))
-    U8 write(TcpClient client, I8* buffer, U32 size)
+    U0 listen(TcpServer server, U0 (*callback)(TcpClient))
+    U8 write(TcpClient client, const I8* buffer, U32 size)
     U8 read(TcpClient client, I8* buffer, U32 size)
     U8 readAll(TcpClient client, I8* buffer, U32 size)
-    U0 broadcast(List<TcpClient> clients, I8* buffer, U32 size)
+    U0 broadcast(List<TcpClient> clients, const I8* buffer, U32 size)
 }
   `}
   cpp={`namespace TcpClient {
     #if defined(_WIN32) || defined(_WIN64)
       struct It {
         SOCKET sockfd = INVALID_SOCKET;
-        HANDLE thread = NULL;
+        Thread::It thread = {}
       }
     #else
       struct It {
         int sockfd = -1;
-        pthread_t thread = NULL;
+        Thread::It thread = {}
       }
     #endif
     TcpClient::It create(char* ip, short port);
     void destroy(TcpClient::It& client);
-    unsigned char write(TcpClient::It& client, char* buffer, unsigned int size);
+    unsigned char write(TcpClient::It& client, const char* buffer, unsigned int size);
     unsigned char read(TcpClient::It& client, char* buffer, unsigned int size);
     unsigned char readAll(TcpClient::It& client, char* buffer, unsigned int size);
 }
@@ -92,11 +92,11 @@ namespace TcpServer {
     #endif
     TcpServer::It create(short port, unsigned short slots);
     void destroy(TcpServer::It& server);
-    void listen(TcpServer::It& server, void (*callback)(TcpClient::It*));
-    unsigned char write(TcpClient::It& client, char* buffer, unsigned int size);
+    void listen(TcpServer::It& server, void (*callback)(TcpClient::It));
+    unsigned char write(TcpClient::It& client, const char* buffer, unsigned int size);
     unsigned char read(TcpClient::It& client, char* buffer, unsigned int size);
     unsigned char readAll(TcpClient::It& client, char* buffer, unsigned int size);
-    void broadcast(List::It<TcpClient::It>& clients, char* buffer, unsigned int size);
+    void broadcast(List::It<TcpClient::It>& clients, const char* buffer, unsigned int size);
 }
   `}
 />
