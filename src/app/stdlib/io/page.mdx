@@ -36,9 +36,9 @@ namespace File {
         FILE* handle
         I64 size
     }
-    File open(const I8* filePath)
+    File open(String filePath)
     U0 close(File file)
-    I8* read(File file)
+    String read(File file)
 }
   `}
   cpp={`namespace Log {
@@ -62,9 +62,9 @@ namespace File {
         FILE* handle;
         long long size;
     };
-    File::It open(const char* filePath);
+    File::It open(String filePath);
     void close(File::It& file);
-    char* read(File::It& file);
+    String read(File::It& file);
 }
   `}
 />

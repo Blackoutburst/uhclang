@@ -65,6 +65,10 @@ export const stdlibNav = [
           { label: "translate", slug: "translate" },
           { label: "rotate", slug: "rotate" },
           { label: "lookAt", slug: "lookAt" },
+          { label: "add", slug: "add" },
+          { label: "sub", slug: "sub" },
+          { label: "mul", slug: "mul" },
+          { label: "inverse", slug: "inverse" },
         ],
       },
       {
@@ -79,7 +83,11 @@ export const stdlibNav = [
           { label: "zero", slug: "zero" },
           { label: "dot", slug: "dot" },
           { label: "cross", slug: "cross" },
+          { label: "add", slug: "add" },
           { label: "sub", slug: "sub" },
+          { label: "mul", slug: "mul" },
+          { label: "scale", slug: "scale" },
+          { label: "div", slug: "div" },
         ],
       },
       {
@@ -94,7 +102,11 @@ export const stdlibNav = [
           { label: "zero", slug: "zero" },
           { label: "dot", slug: "dot" },
           { label: "cross", slug: "cross" },
+          { label: "add", slug: "add" },
           { label: "sub", slug: "sub" },
+          { label: "mul", slug: "mul" },
+          { label: "scale", slug: "scale" },
+          { label: "div", slug: "div" },
         ],
       },
     ],
@@ -178,7 +190,7 @@ export const stdlibNav = [
         label: "List",
         slug: "list",
         methods: [
-          { label: "It", slug: "It" },
+          { label: "unknown", slug: "unknown" },
           { label: "add", slug: "add" },
           { label: "addAt", slug: "addAt" },
           { label: "remove", slug: "remove" },
@@ -212,6 +224,12 @@ export const stdlibNav = [
           { label: "join", slug: "join" },
         ],
       },
+    ],
+  },
+  {
+    label: "Lambda",
+    slug: "lambda",
+    namespaces: [
     ],
   }
 ]

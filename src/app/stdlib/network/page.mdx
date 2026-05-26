@@ -17,17 +17,17 @@ TCP networking
 <CodeTabs
   uhc={`namespace TcpClient {
     #if defined(_WIN32) || defined(_WIN64)
-      struct It {
+      self {
         SOCKET sockfd = INVALID_SOCKET
         Thread thread = {}
       }
     #else
-      struct It {
+      self {
         I32 sockfd = -1
         Thread thread = {}
       }
     #endif
-    TcpClient create(I8* ip, I16 port)
+    TcpClient create(String ip, I16 port)
     U0 destroy(TcpClient client)
     U8 write(TcpClient client, const I8* buffer, U32 size)
     U8 read(TcpClient client, I8* buffer, U32 size)
@@ -36,13 +36,13 @@ TCP networking
 
 namespace TcpServer {
     #if defined(_WIN32) || defined(_WIN64)
-      struct It {
+      self {
         SOCKET sockfd = INVALID_SOCKET
         U8 running = 0
         U16 slots = 0
       }
     #else
-      struct It {
+      self {
         I32 sockfd = -1
         U8 running = 0
         U16 slots = 0
@@ -69,7 +69,7 @@ namespace TcpServer {
         Thread::It thread = {}
       }
     #endif
-    TcpClient::It create(char* ip, short port);
+    TcpClient::It create(String ip, short port);
     void destroy(TcpClient::It& client);
     unsigned char write(TcpClient::It& client, const char* buffer, unsigned int size);
     unsigned char read(TcpClient::It& client, char* buffer, unsigned int size);

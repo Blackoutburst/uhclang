@@ -8,12 +8,12 @@ Platform-specific TCP client handle
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
-  struct It {
+  self {
     SOCKET sockfd = INVALID_SOCKET
     Thread thread = {}
   }
 #else
-  struct It {
+  self {
     I32 sockfd = -1
     Thread thread = {}
   }
@@ -40,8 +40,8 @@ Platform-specific TCP client handle
 Create a TCP client and connect to a server
 
 <CodeTabs
-  uhc={`TcpClient create(I8* ip, I16 port)`}
-  cpp={`TcpClient::It create(char* ip, short port);`}
+  uhc={`TcpClient create(String ip, I16 port)`}
+  cpp={`TcpClient::It create(String ip, short port);`}
 />
 
 **Parameters**

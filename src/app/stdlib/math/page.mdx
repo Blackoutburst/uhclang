@@ -35,6 +35,13 @@ namespace VectorF {
         F32 y
         F32 z
         F32 w
+        bool operator{ return x; }
+        It operator+(const It& o) { return {x+o.x, y+o.y, z+o.z, w+o.w}; }
+        It operator-(const It& o) { return {x-o.x, y-o.y, z-o.z, w-o.w}; }
+        It operator-() { return {-x, -y, -z, -w}; }
+        It operator*(const It& o) { return {x*o.x, y*o.y, z*o.z, w*o.w}; }
+        It operator*(float s) { return {x*s, y*s, z*s, w*s}; }
+        It operator/(float s) { return {x/s, y/s, z/s, w/s}; }
     }
     U8 equals(VectorF a, VectorF b)
     U0 set(VectorF vec, F32 x, F32 y, F32 z, F32 w)
@@ -43,16 +50,27 @@ namespace VectorF {
     U0 zero(VectorF vec)
     F32 dot(VectorF a, VectorF b)
     U0 cross(VectorF result, VectorF a, VectorF b)
+    U0 add(VectorF result, VectorF a, VectorF b)
     U0 sub(VectorF result, VectorF a, VectorF b)
+    U0 mul(VectorF result, VectorF a, VectorF b)
+    U0 scale(VectorF result, VectorF a, F32 s)
+    U0 div(VectorF result, VectorF a, F32 s)
 }
 
 namespace VectorI {
-    struct It {
+    self {
         I32 x
         I32 y
         I32 z
         I32 w
-    };
+        bool operator{ return x; }
+        It operator+(const It& o) { return {x+o.x, y+o.y, z+o.z, w+o.w}; }
+        It operator-(const It& o) { return {x-o.x, y-o.y, z-o.z, w-o.w}; }
+        It operator-() { return {-x, -y, -z, -w}; }
+        It operator*(const It& o) { return {x*o.x, y*o.y, z*o.z, w*o.w}; }
+        It operator*(int s) { return {x*s, y*s, z*s, w*s}; }
+        It operator/(int s) { return {x/s, y/s, z/s, w/s}; }
+    }
     U8 equals(VectorI a, VectorI b)
     U0 set(VectorI vec, I32 x, I32 y, I32 z, I32 w)
     U0 normalize(VectorI vec)
@@ -60,7 +78,11 @@ namespace VectorI {
     U0 zero(VectorI vec)
     I32 dot(VectorI a, VectorI b)
     U0 cross(VectorI result, VectorI a, VectorI b)
+    U0 add(VectorI result, VectorI a, VectorI b)
     U0 sub(VectorI result, VectorI a, VectorI b)
+    U0 mul(VectorI result, VectorI a, VectorI b)
+    U0 scale(VectorI result, VectorI a, I32 s)
+    U0 div(VectorI result, VectorI a, I32 s)
 }
 
 namespace Matrix {
@@ -80,9 +102,14 @@ namespace Matrix {
     #define M31 0x0D
     #define M32 0x0E
     #define M33 0x0F
-    struct It {
+    self {
         F32 values[16]
-    };
+        bool operator{ for (int i;i<16;i++) if (values[i]!; return true; }
+        It operator+(const It& o) { It r; for (int i;i<16;i++) r.values[i]; return r; }
+        It operator-(const It& o) { It r; for (int i;i<16;i++) r.values[i]; return r; }
+        It operator*(const It& o) { It r; for (int row;row<4;row++) for (int col;col<4;col++) { r.values[row*4+col]; for (int k;k<4;k++) r.values[row*4+col]+; } return r; }
+        It operator*(float s) { It r; for (int i;i<16;i++) r.values[i]; return r; }
+    }
     U0 setIdentity(Matrix mat)
     U0 multiply(Matrix result, Matrix left, Matrix right)
     U0 copy(Matrix src, Matrix dest)
@@ -93,6 +120,10 @@ namespace Matrix {
     U0 translate(Matrix mat, F32 x, F32 y, F32 z, F32 w)
     U0 rotate(Matrix mat, F32 angle, F32 x, F32 y, F32 z)
     U0 lookAt(Matrix mat, VectorF eye, VectorF center, VectorF up)
+    U0 add(Matrix result, Matrix a, Matrix b)
+    U0 sub(Matrix result, Matrix a, Matrix b)
+    U0 mul(Matrix result, Matrix a, Matrix b)
+    U8 inverse(Matrix result, Matrix src)
 }
   `}
   cpp={`#define UHC_PI 3.141592653589793
@@ -113,6 +144,13 @@ namespace VectorF {
         float y;
         float z;
         float w;
+        bool operator{ return x; }
+        It operator+(const It& o) { return {x+o.x, y+o.y, z+o.z, w+o.w}; }
+        It operator-(const It& o) { return {x-o.x, y-o.y, z-o.z, w-o.w}; }
+        It operator-() { return {-x, -y, -z, -w}; }
+        It operator*(const It& o) { return {x*o.x, y*o.y, z*o.z, w*o.w}; }
+        It operator*(float s) { return {x*s, y*s, z*s, w*s}; }
+        It operator/(float s) { return {x/s, y/s, z/s, w/s}; }
     };
     unsigned char equals(VectorF::It& a, VectorF::It& b);
     void set(VectorF::It& vec, float x, float y, float z, float w);
@@ -121,7 +159,11 @@ namespace VectorF {
     void zero(VectorF::It& vec);
     float dot(VectorF::It& a, VectorF::It& b);
     void cross(VectorF::It& result, VectorF::It& a, VectorF::It& b);
+    void add(VectorF::It& result, VectorF::It& a, VectorF::It& b);
     void sub(VectorF::It& result, VectorF::It& a, VectorF::It& b);
+    void mul(VectorF::It& result, VectorF::It& a, VectorF::It& b);
+    void scale(VectorF::It& result, VectorF::It& a, float s);
+    void div(VectorF::It& result, VectorF::It& a, float s);
 }
 
 namespace VectorI {
@@ -130,6 +172,13 @@ namespace VectorI {
         int y;
         int z;
         int w;
+        bool operator{ return x; }
+        It operator+(const It& o) { return {x+o.x, y+o.y, z+o.z, w+o.w}; }
+        It operator-(const It& o) { return {x-o.x, y-o.y, z-o.z, w-o.w}; }
+        It operator-() { return {-x, -y, -z, -w}; }
+        It operator*(const It& o) { return {x*o.x, y*o.y, z*o.z, w*o.w}; }
+        It operator*(int s) { return {x*s, y*s, z*s, w*s}; }
+        It operator/(int s) { return {x/s, y/s, z/s, w/s}; }
     };
     unsigned char equals(VectorI::It& a, VectorI::It& b);
     void set(VectorI::It& vec, int x, int y, int z, int w);
@@ -138,7 +187,11 @@ namespace VectorI {
     void zero(VectorI::It& vec);
     int dot(VectorI::It& a, VectorI::It& b);
     void cross(VectorI::It& result, VectorI::It& a, VectorI::It& b);
+    void add(VectorI::It& result, VectorI::It& a, VectorI::It& b);
     void sub(VectorI::It& result, VectorI::It& a, VectorI::It& b);
+    void mul(VectorI::It& result, VectorI::It& a, VectorI::It& b);
+    void scale(VectorI::It& result, VectorI::It& a, int s);
+    void div(VectorI::It& result, VectorI::It& a, int s);
 }
 
 namespace Matrix {
@@ -160,6 +213,11 @@ namespace Matrix {
     #define M33 0x0F
     struct It {
         float values[16];
+        bool operator{ for (int i;i<16;i++) if (values[i]!; return true; }
+        It operator+(const It& o) { It r; for (int i;i<16;i++) r.values[i]; return r; }
+        It operator-(const It& o) { It r; for (int i;i<16;i++) r.values[i]; return r; }
+        It operator*(const It& o) { It r; for (int row;row<4;row++) for (int col;col<4;col++) { r.values[row*4+col]; for (int k;k<4;k++) r.values[row*4+col]+; } return r; }
+        It operator*(float s) { It r; for (int i;i<16;i++) r.values[i]; return r; }
     };
     void setIdentity(Matrix::It& mat);
     void multiply(Matrix::It& result, Matrix::It& left, Matrix::It& right);
@@ -171,6 +229,10 @@ namespace Matrix {
     void translate(Matrix::It& mat, float x, float y, float z, float w);
     void rotate(Matrix::It& mat, float angle, float x, float y, float z);
     void lookAt(Matrix::It& mat, VectorF::It& eye, VectorF::It& center, VectorF::It& up);
+    void add(Matrix::It& result, Matrix::It& a, Matrix::It& b);
+    void sub(Matrix::It& result, Matrix::It& a, Matrix::It& b);
+    void mul(Matrix::It& result, Matrix::It& a, Matrix::It& b);
+    unsigned char inverse(Matrix::It& result, Matrix::It& src);
 }
   `}
 />

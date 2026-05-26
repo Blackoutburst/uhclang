@@ -2,19 +2,13 @@
 
 Generic doubly-linked list
 
-<H2 id="It">It</H2>
+<H2 id="unknown">unknown</H2>
 
 List container object
 
 <CodeTabs
-  uhc={`struct It {
-    std::list<T> handle
-};
-  `}
-  cpp={`struct It {
-    std::list<T> handle;
-};
-  `}
+  uhc={`self;`}
+  cpp={`struct It;`}
 />
 
 ---
@@ -84,18 +78,18 @@ Remove the element at a specific index
 
 <H2 id="get">get</H2>
 
-Get a pointer to the element at a specific index
+Get a reference to the element at a specific index
 
 <CodeTabs
-  uhc={`T* get(List<T> list, I32 index);`}
-  cpp={`T* get(List::It<T>& list, int index);`}
+  uhc={`T& get(List<T> list, I32 index);`}
+  cpp={`T& get(List::It<T>& list, int index);`}
 />
 
 **Parameters**
 - `list` — Target list
 - `index` — Zero-based position
 
-**Returns** — Pointer to the element
+**Returns** — Reference to the element
 
 ---
 
@@ -117,33 +111,33 @@ Set the value of an element at a specific index
 
 <H2 id="first">first</H2>
 
-Get a pointer to the first element
+Get a reference to the first element
 
 <CodeTabs
-  uhc={`T* first(List<T> list);`}
-  cpp={`T* first(List::It<T>& list);`}
+  uhc={`T& first(List<T> list);`}
+  cpp={`T& first(List::It<T>& list);`}
 />
 
 **Parameters**
 - `list` — Target list
 
-**Returns** — Pointer to first element, or NULL if empty
+**Returns** — Reference to first element (undefined behavior if empty)
 
 ---
 
 <H2 id="last">last</H2>
 
-Get a pointer to the last element
+Get a reference to the last element
 
 <CodeTabs
-  uhc={`T* last(List<T> list);`}
-  cpp={`T* last(List::It<T>& list);`}
+  uhc={`T& last(List<T> list);`}
+  cpp={`T& last(List::It<T>& list);`}
 />
 
 **Parameters**
 - `list` — Target list
 
-**Returns** — Pointer to last element, or NULL if empty
+**Returns** — Reference to last element (undefined behavior if empty)
 
 ---
 

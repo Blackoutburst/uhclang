@@ -12,6 +12,13 @@ Float vector object
     F32 y
     F32 z
     F32 w
+    bool operator==(const It& o) { return x==o.x && y==o.y && z==o.z && w==o.w; }
+    It operator+(const It& o) { return {x+o.x, y+o.y, z+o.z, w+o.w}; }
+    It operator-(const It& o) { return {x-o.x, y-o.y, z-o.z, w-o.w}; }
+    It operator-() { return {-x, -y, -z, -w}; }
+    It operator*(const It& o) { return {x*o.x, y*o.y, z*o.z, w*o.w}; }
+    It operator*(float s) { return {x*s, y*s, z*s, w*s}; }
+    It operator/(float s) { return {x/s, y/s, z/s, w/s}; }
 }
   `}
   cpp={`struct It {
@@ -19,6 +26,13 @@ Float vector object
     float y;
     float z;
     float w;
+    bool operator==(const It& o) { return x==o.x && y==o.y && z==o.z && w==o.w; }
+    It operator+(const It& o) { return {x+o.x, y+o.y, z+o.z, w+o.w}; }
+    It operator-(const It& o) { return {x-o.x, y-o.y, z-o.z, w-o.w}; }
+    It operator-() { return {-x, -y, -z, -w}; }
+    It operator*(const It& o) { return {x*o.x, y*o.y, z*o.z, w*o.w}; }
+    It operator*(float s) { return {x*s, y*s, z*s, w*s}; }
+    It operator/(float s) { return {x/s, y/s, z/s, w/s}; }
 };
   `}
 />
@@ -137,6 +151,22 @@ Compute the cross product of two float vectors
 
 ---
 
+<H2 id="add">add</H2>
+
+Add two float vectors component-wise
+
+<CodeTabs
+  uhc={`U0 add(VectorF result, VectorF a, VectorF b)`}
+  cpp={`void add(VectorF::It& result, VectorF::It& a, VectorF::It& b);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — First vector
+- `b` — Second vector
+
+---
+
 <H2 id="sub">sub</H2>
 
 Subtract one float vector from another
@@ -150,3 +180,51 @@ Subtract one float vector from another
 - `result` — Vector to store the result
 - `a` — Minuend vector
 - `b` — Subtrahend vector
+
+---
+
+<H2 id="mul">mul</H2>
+
+Multiply two float vectors component-wise
+
+<CodeTabs
+  uhc={`U0 mul(VectorF result, VectorF a, VectorF b)`}
+  cpp={`void mul(VectorF::It& result, VectorF::It& a, VectorF::It& b);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — First vector
+- `b` — Second vector
+
+---
+
+<H2 id="scale">scale</H2>
+
+Multiply a float vector by a scalar
+
+<CodeTabs
+  uhc={`U0 scale(VectorF result, VectorF a, F32 s)`}
+  cpp={`void scale(VectorF::It& result, VectorF::It& a, float s);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — Source vector
+- `s` — Scalar factor
+
+---
+
+<H2 id="div">div</H2>
+
+Divide a float vector by a scalar
+
+<CodeTabs
+  uhc={`U0 div(VectorF result, VectorF a, F32 s)`}
+  cpp={`void div(VectorF::It& result, VectorF::It& a, float s);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — Source vector
+- `s` — Scalar divisor

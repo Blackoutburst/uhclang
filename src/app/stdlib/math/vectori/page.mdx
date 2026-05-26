@@ -7,18 +7,32 @@ Four-component integer vector (x, y, z, w)
 Integer vector object
 
 <CodeTabs
-  uhc={`struct It {
+  uhc={`self {
     I32 x
     I32 y
     I32 z
     I32 w
-};
+    bool operator==(const It& o) { return x==o.x && y==o.y && z==o.z && w==o.w; }
+    It operator+(const It& o) { return {x+o.x, y+o.y, z+o.z, w+o.w}; }
+    It operator-(const It& o) { return {x-o.x, y-o.y, z-o.z, w-o.w}; }
+    It operator-() { return {-x, -y, -z, -w}; }
+    It operator*(const It& o) { return {x*o.x, y*o.y, z*o.z, w*o.w}; }
+    It operator*(int s) { return {x*s, y*s, z*s, w*s}; }
+    It operator/(int s) { return {x/s, y/s, z/s, w/s}; }
+}
   `}
   cpp={`struct It {
     int x;
     int y;
     int z;
     int w;
+    bool operator==(const It& o) { return x==o.x && y==o.y && z==o.z && w==o.w; }
+    It operator+(const It& o) { return {x+o.x, y+o.y, z+o.z, w+o.w}; }
+    It operator-(const It& o) { return {x-o.x, y-o.y, z-o.z, w-o.w}; }
+    It operator-() { return {-x, -y, -z, -w}; }
+    It operator*(const It& o) { return {x*o.x, y*o.y, z*o.z, w*o.w}; }
+    It operator*(int s) { return {x*s, y*s, z*s, w*s}; }
+    It operator/(int s) { return {x/s, y/s, z/s, w/s}; }
 };
   `}
 />
@@ -137,6 +151,22 @@ Compute the cross product of two integer vectors
 
 ---
 
+<H2 id="add">add</H2>
+
+Add two integer vectors component-wise
+
+<CodeTabs
+  uhc={`U0 add(VectorI result, VectorI a, VectorI b)`}
+  cpp={`void add(VectorI::It& result, VectorI::It& a, VectorI::It& b);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — First vector
+- `b` — Second vector
+
+---
+
 <H2 id="sub">sub</H2>
 
 Subtract one integer vector from another
@@ -150,3 +180,51 @@ Subtract one integer vector from another
 - `result` — Vector to store the result
 - `a` — Minuend vector
 - `b` — Subtrahend vector
+
+---
+
+<H2 id="mul">mul</H2>
+
+Multiply two integer vectors component-wise
+
+<CodeTabs
+  uhc={`U0 mul(VectorI result, VectorI a, VectorI b)`}
+  cpp={`void mul(VectorI::It& result, VectorI::It& a, VectorI::It& b);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — First vector
+- `b` — Second vector
+
+---
+
+<H2 id="scale">scale</H2>
+
+Multiply an integer vector by a scalar
+
+<CodeTabs
+  uhc={`U0 scale(VectorI result, VectorI a, I32 s)`}
+  cpp={`void scale(VectorI::It& result, VectorI::It& a, int s);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — Source vector
+- `s` — Scalar factor
+
+---
+
+<H2 id="div">div</H2>
+
+Divide an integer vector by a scalar
+
+<CodeTabs
+  uhc={`U0 div(VectorI result, VectorI a, I32 s)`}
+  cpp={`void div(VectorI::It& result, VectorI::It& a, int s);`}
+/>
+
+**Parameters**
+- `result` — Vector to store the result
+- `a` — Source vector
+- `s` — Scalar divisor

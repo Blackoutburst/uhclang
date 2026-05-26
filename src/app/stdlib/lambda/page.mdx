@@ -1,0 +1,25 @@
+# Lambda
+
+Higher-order list operations: forEach, filter, map
+
+
+
+<H2 id="Header">Header</H2>
+
+<CodeTabs
+  uhc={`#include <lambda.uhh>`}
+  cpp={`#include <lambda.hh>`}
+/>
+
+<H2 id="Header">Cheat sheet</H2>
+
+<CodeTabs
+  uhc={`U0 forEach(List<T> list, lambda block(T) -> U0);
+List<T> filter(List<T> list, lambda pred(T) -> U8);
+List<T> map(List<T> list, lambda block(T) -> T);
+  `}
+  cpp={`void forEach(List::It<T>& list, lambda block(T) -> void);
+List::It<T> filter(List::It<T>& list, lambda pred(T) -> unsigned char);
+List::It<T> map(List::It<T>& list, lambda block(T) -> T);
+  `}
+/>

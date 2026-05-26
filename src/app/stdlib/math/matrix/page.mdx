@@ -7,12 +7,22 @@
 Matrix object (16 floats, initialized to identity)
 
 <CodeTabs
-  uhc={`struct It {
+  uhc={`self {
     F32 values[16]
-};
+    bool operator==(const It& o) { for (int i=0;i<16;i++) if (values[i]!=o.values[i]) return false; return true; }
+    It operator+(const It& o) { It r; for (int i=0;i<16;i++) r.values[i]=values[i]+o.values[i]; return r; }
+    It operator-(const It& o) { It r; for (int i=0;i<16;i++) r.values[i]=values[i]-o.values[i]; return r; }
+    It operator*(const It& o) { It r; for (int row=0;row<4;row++) for (int col=0;col<4;col++) { r.values[row*4+col]=0.0f; for (int k=0;k<4;k++) r.values[row*4+col]+=values[row*4+k]*o.values[k*4+col]; } return r; }
+    It operator*(float s) { It r; for (int i=0;i<16;i++) r.values[i]=values[i]*s; return r; }
+}
   `}
   cpp={`struct It {
     float values[16];
+    bool operator==(const It& o) { for (int i=0;i<16;i++) if (values[i]!=o.values[i]) return false; return true; }
+    It operator+(const It& o) { It r; for (int i=0;i<16;i++) r.values[i]=values[i]+o.values[i]; return r; }
+    It operator-(const It& o) { It r; for (int i=0;i<16;i++) r.values[i]=values[i]-o.values[i]; return r; }
+    It operator*(const It& o) { It r; for (int row=0;row<4;row++) for (int col=0;col<4;col++) { r.values[row*4+col]=0.0f; for (int k=0;k<4;k++) r.values[row*4+col]+=values[row*4+k]*o.values[k*4+col]; } return r; }
+    It operator*(float s) { It r; for (int i=0;i<16;i++) r.values[i]=values[i]*s; return r; }
 };
   `}
 />
@@ -191,3 +201,68 @@ Build a view matrix from eye position, target, and up vector
 - `eye` — Camera position
 - `center` — Camera target point
 - `up` — World up direction
+
+---
+
+<H2 id="add">add</H2>
+
+Add two matrices element-wise
+
+<CodeTabs
+  uhc={`U0 add(Matrix result, Matrix a, Matrix b)`}
+  cpp={`void add(Matrix::It& result, Matrix::It& a, Matrix::It& b);`}
+/>
+
+**Parameters**
+- `result` — Matrix to store the result
+- `a` — First matrix
+- `b` — Second matrix
+
+---
+
+<H2 id="sub">sub</H2>
+
+Subtract two matrices element-wise
+
+<CodeTabs
+  uhc={`U0 sub(Matrix result, Matrix a, Matrix b)`}
+  cpp={`void sub(Matrix::It& result, Matrix::It& a, Matrix::It& b);`}
+/>
+
+**Parameters**
+- `result` — Matrix to store the result
+- `a` — Minuend matrix
+- `b` — Subtrahend matrix
+
+---
+
+<H2 id="mul">mul</H2>
+
+Multiply two matrices (matrix product)
+
+<CodeTabs
+  uhc={`U0 mul(Matrix result, Matrix a, Matrix b)`}
+  cpp={`void mul(Matrix::It& result, Matrix::It& a, Matrix::It& b);`}
+/>
+
+**Parameters**
+- `result` — Matrix to store the result
+- `a` — Left matrix
+- `b` — Right matrix
+
+---
+
+<H2 id="inverse">inverse</H2>
+
+Compute the inverse of a 4x4 matrix
+
+<CodeTabs
+  uhc={`U8 inverse(Matrix result, Matrix src)`}
+  cpp={`unsigned char inverse(Matrix::It& result, Matrix::It& src);`}
+/>
+
+**Parameters**
+- `result` — Matrix to store the inverse
+- `src` — Source matrix to invert
+
+**Returns** — 1 on success, 0 if matrix is singular

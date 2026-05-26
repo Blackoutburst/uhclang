@@ -8,11 +8,11 @@ Platform-specific mutex handle
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
-  struct It {
+  self {
     CRITICAL_SECTION handle
   }
 #else
-  struct It {
+  self {
     pthread_mutex_t handle
   }
 #endif
@@ -36,7 +36,7 @@ Platform-specific mutex handle
 Create and initialize a new mutex
 
 <CodeTabs
-  uhc={`Mutex.It create()`}
+  uhc={`Mutex create()`}
   cpp={`Mutex::It create();`}
 />
 

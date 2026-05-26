@@ -23,26 +23,26 @@ Various utilities such as mutex, thread, ...
 
 namespace Mutex {
     #if defined(_WIN32) || defined(_WIN64)
-      struct It {
+      self {
         CRITICAL_SECTION handle
       }
     #else
-      struct It {
+      self {
         pthread_mutex_t handle
       }
     #endif
-    Mutex.It create()
+    Mutex create()
     U0 destroy(Mutex mutex)
     U0 lock(Mutex mutex)
     U0 unlock(Mutex mutex)
 }
 
 namespace Buffer {
-    struct It {
+    self {
         U0* handle
         U8 order
         U32 cursor
-    };
+    }
     U0 setOrder(Buffer buffer, U8 order)
     U0 reset(Buffer buffer)
     I8 getI8(Buffer buffer)
@@ -70,51 +70,102 @@ namespace Buffer {
 namespace Thread {
     typedef U0* (*Fn)(U0*)
     #if defined(_WIN32) || defined(_WIN64)
-      struct It {
+      self {
         HANDLE handle
       }
     #else
-      struct It {
+      self {
         pthread_t handle
       }
     #endif
-    Thread.It start(Thread.Fn method, U0* arg)
+    Thread start(Thread.Fn method, U0* arg)
     U0 join(Thread thread)
 }
 
-namespace DynamicLibrary {
-    #if defined(_WIN32) || defined(_WIN64)
-      struct It {
-        HINSTANCE handle
-        I8* name
-        U8 isValid
-      }
-    #else
-      struct It {
-        U0* handle
-        I8* name
-        U8 isValid
-      }
-    #endif
-    DynamicLibrary.It load(const I8* name)
-    U0* get(DynamicLibrary dll, const I8* functionName)
-    U0 unload(DynamicLibrary dll)
-}
-
 namespace List {
-    struct It {
-        std::list<T> handle
-    };
+    self;
     U0 add(List<T> list, T value);
     U0 addAt(List<T> list, T value, I32 index);
     U8 remove(List<T> list, T value);
     U0 removeAt(List<T> list, I32 index);
-    T* get(List<T> list, I32 index);
+    T& get(List<T> list, I32 index);
     U0 set(List<T> list, I32 index, T value);
-    T* first(List<T> list);
-    T* last(List<T> list);
+    T& first(List<T> list);
+    T& last(List<T> list);
     U64 size(List<T> list);
     U0 clear(List<T> list);
+}
+
+namespace String {
+    self {
+        std::string handle;
+        It();
+        It(const I8* s) : handle(s ? s : "") {}
+        It(const std::string& s) : handle(s) {}
+        It operator+(const It& o) { return It(handle + o.handle); }
+        It operator+(const I8* s) { return It(handle + (s ? s : "")); }
+        friend It operator+(const I8* s, const It& o) { return It(std::string(s ? s : "") + o.handle); }
+        U8 operator{ return handle; }
+        U8 operator!{ return handle !; }
+    }
+    String from(const I8* s)
+    String fromI32(I32 n)
+    String fromI64(I64 n)
+    String fromF32(F32 f)
+    String fromF64(F64 f)
+    const I8* c(const String s)
+    I8* strdup(const String s)
+    U64 length(const String s)
+    U8 isEmpty(const String s)
+    I8 charAt(const String s, I32 i)
+    U8 equals(const String a, const String b)
+    U8 contains(const String s, const String sub)
+    U8 startsWith(const String s, const String prefix)
+    U8 endsWith(const String s, const String suffix)
+    I64 indexOf(const String s, const String sub)
+    I64 lastIndexOf(const String s, const String sub)
+    String toUpperCase(const String s)
+    String toLowerCase(const String s)
+    String trim(const String s)
+    String trimStart(const String s)
+    String trimEnd(const String s)
+    String replace(const String s, const String from, const String to)
+    String substring(const String s, I32 start)
+    String substring(const String s, I32 start, I32 end)
+    String repeat(const String s, I32 n)
+    String reverse(const String s)
+    I32 toI32(const String s)
+    I64 toI64(const String s)
+    F32 toF32(const String s)
+    F64 toF64(const String s)
+    String format(const I8* fmt, ...)
+    List<String> split(const String s, const String delim)
+    String join(List<String> parts, const String sep)
+    const I8* toString(const String s)
+}
+
+namespace DynamicLibrary {
+    #if defined(_WIN32) || defined(_WIN64)
+      self {
+        HINSTANCE handle
+        String name
+        U8 isValid
+      }
+    #else
+      self {
+        U0* handle
+        String name
+        U8 isValid
+      }
+    #endif
+    DynamicLibrary load(String name)
+    U0* get(DynamicLibrary dll, String functionName)
+    U0 unload(DynamicLibrary dll)
+}
+
+namespace Time {
+    U0 sleep(U64 ms)
+    U64 millis()
 }
   `}
   cpp={`#define UHC_LITTLE_ENDIAN 0
@@ -181,39 +232,90 @@ namespace Thread {
     void join(Thread::It& thread);
 }
 
+namespace List {
+    struct It;
+    void add(List::It<T>& list, T value);
+    void addAt(List::It<T>& list, T value, int index);
+    unsigned char remove(List::It<T>& list, T value);
+    void removeAt(List::It<T>& list, int index);
+    T& get(List::It<T>& list, int index);
+    void set(List::It<T>& list, int index, T value);
+    T& first(List::It<T>& list);
+    T& last(List::It<T>& list);
+    unsigned long long size(List::It<T>& list);
+    void clear(List::It<T>& list);
+}
+
+namespace String {
+    struct It {
+        std::string handle;
+        It();
+        It(const char* s) : handle(s ? s : "") {}
+        It(const std::string& s) : handle(s) {}
+        It operator+(const It& o) { return It(handle + o.handle); }
+        It operator+(const char* s) { return It(handle + (s ? s : "")); }
+        friend It operator+(const char* s, const It& o) { return It(std::string(s ? s : "") + o.handle); }
+        unsigned char operator{ return handle; }
+        unsigned char operator!{ return handle !; }
+    };
+    String from(const char* s);
+    String fromI32(int n);
+    String fromI64(long long n);
+    String fromF32(float f);
+    String fromF64(double f);
+    const char* c(const String s);
+    char* strdup(const String s);
+    unsigned long long length(const String s);
+    unsigned char isEmpty(const String s);
+    char charAt(const String s, int i);
+    unsigned char equals(const String a, const String b);
+    unsigned char contains(const String s, const String sub);
+    unsigned char startsWith(const String s, const String prefix);
+    unsigned char endsWith(const String s, const String suffix);
+    long long indexOf(const String s, const String sub);
+    long long lastIndexOf(const String s, const String sub);
+    String toUpperCase(const String s);
+    String toLowerCase(const String s);
+    String trim(const String s);
+    String trimStart(const String s);
+    String trimEnd(const String s);
+    String replace(const String s, const String from, const String to);
+    String substring(const String s, int start);
+    String substring(const String s, int start, int end);
+    String repeat(const String s, int n);
+    String reverse(const String s);
+    int toI32(const String s);
+    long long toI64(const String s);
+    float toF32(const String s);
+    double toF64(const String s);
+    String format(const char* fmt, ...);
+    List::It<String> split(const String s, const String delim);
+    String join(List::It<String>& parts, const String sep);
+    const char* toString(const String s);
+}
+
 namespace DynamicLibrary {
     #if defined(_WIN32) || defined(_WIN64)
       struct It {
         HINSTANCE handle;
-        char* name;
+        String name;
         unsigned char isValid;
       }
     #else
       struct It {
         void* handle;
-        char* name;
+        String name;
         unsigned char isValid;
       }
     #endif
-    DynamicLibrary::It load(const char* name);
-    void* get(DynamicLibrary::It& dll, const char* functionName);
+    DynamicLibrary::It load(String name);
+    void* get(DynamicLibrary::It& dll, String functionName);
     void unload(DynamicLibrary::It& dll);
 }
 
-namespace List {
-    struct It {
-        std::list<T> handle;
-    };
-    void add(List::It<T>& list, T value);
-    void addAt(List::It<T>& list, T value, int index);
-    unsigned char remove(List::It<T>& list, T value);
-    void removeAt(List::It<T>& list, int index);
-    T* get(List::It<T>& list, int index);
-    void set(List::It<T>& list, int index, T value);
-    T* first(List::It<T>& list);
-    T* last(List::It<T>& list);
-    unsigned long long size(List::It<T>& list);
-    void clear(List::It<T>& list);
+namespace Time {
+    void sleep(unsigned long long ms);
+    unsigned long long millis();
 }
   `}
 />

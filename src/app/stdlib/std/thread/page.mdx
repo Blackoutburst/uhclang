@@ -19,11 +19,11 @@ Platform-specific thread handle
 
 <CodeTabs
   uhc={`#if defined(_WIN32) || defined(_WIN64)
-  struct It {
+  self {
     HANDLE handle
   }
 #else
-  struct It {
+  self {
     pthread_t handle
   }
 #endif
@@ -47,7 +47,7 @@ Platform-specific thread handle
 Start a new thread running the given function
 
 <CodeTabs
-  uhc={`Thread.It start(Thread.Fn method, U0* arg)`}
+  uhc={`Thread start(Thread.Fn method, U0* arg)`}
   cpp={`Thread::It start(Thread::Fn method, void* arg);`}
 />
 

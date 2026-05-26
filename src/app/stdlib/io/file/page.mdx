@@ -26,8 +26,8 @@ The file objects
 Open a file for reading
 
 <CodeTabs
-  uhc={`File open(const I8* filePath)`}
-  cpp={`File::It open(const char* filePath);`}
+  uhc={`File open(String filePath)`}
+  cpp={`File::It open(String filePath);`}
 />
 
 **Parameters**
@@ -53,14 +53,14 @@ Close an open file
 
 <H2 id="read">read</H2>
 
-Read the entire file contents into a heap-allocated string
+Read the entire file contents into a String
 
 <CodeTabs
-  uhc={`I8* read(File file)`}
-  cpp={`char* read(File::It& file);`}
+  uhc={`String read(File file)`}
+  cpp={`String read(File::It& file);`}
 />
 
 **Parameters**
 - `file` — The file
 
-**Returns** — Null-terminated file contents — caller must free
+**Returns** — File contents, or empty string on error
