@@ -1,0 +1,593 @@
+# String
+
+UTF-8 string with value semantics and Kotlin-style API
+
+<H2 id="It">It</H2>
+
+
+
+<CodeTabs
+  uhc={`self {
+    std::string handle;
+    It();
+    It(const I8* s) : handle(s ? s : "") {}
+    It(const std::string& s) : handle(s) {}
+    It operator+(const It& o) { return It(handle + o.handle); }
+    It operator+(const I8* s) { return It(handle + (s ? s : "")); }
+    friend It operator+(const I8* s, const It& o) { return It(std::string(s ? s : "") + o.handle); }
+    U8 operator==(const It& o) { return handle == o.handle ? 1 : 0; }
+    U8 operator!=(const It& o) { return handle != o.handle ? 1 : 0; }
+}
+  `}
+  cpp={`struct It {
+    std::string handle;
+    It();
+    It(const char* s) : handle(s ? s : "") {}
+    It(const std::string& s) : handle(s) {}
+    It operator+(const It& o) { return It(handle + o.handle); }
+    It operator+(const char* s) { return It(handle + (s ? s : "")); }
+    friend It operator+(const char* s, const It& o) { return It(std::string(s ? s : "") + o.handle); }
+    unsigned char operator==(const It& o) { return handle == o.handle ? 1 : 0; }
+    unsigned char operator!=(const It& o) { return handle != o.handle ? 1 : 0; }
+};
+  `}
+/>
+
+---
+
+<H2 id="from">from</H2>
+
+Create a String from a C string literal or pointer — null becomes empty string
+
+<CodeTabs
+  uhc={`String from(const I8* s)`}
+  cpp={`String from(const char* s);`}
+/>
+
+**Parameters**
+- `s` — Source C string (may be null)
+
+**Returns** — New String value
+
+---
+
+<H2 id="fromI32">fromI32</H2>
+
+Create a String from a signed 32-bit integer
+
+<CodeTabs
+  uhc={`String fromI32(I32 n)`}
+  cpp={`String fromI32(int n);`}
+/>
+
+**Parameters**
+- `n` — Integer to convert
+
+**Returns** — Decimal string representation
+
+---
+
+<H2 id="fromI64">fromI64</H2>
+
+Create a String from a signed 64-bit integer
+
+<CodeTabs
+  uhc={`String fromI64(I64 n)`}
+  cpp={`String fromI64(long long n);`}
+/>
+
+**Parameters**
+- `n` — Integer to convert
+
+**Returns** — Decimal string representation
+
+---
+
+<H2 id="fromF32">fromF32</H2>
+
+Create a String from a 32-bit float
+
+<CodeTabs
+  uhc={`String fromF32(F32 f)`}
+  cpp={`String fromF32(float f);`}
+/>
+
+**Parameters**
+- `f` — Float to convert
+
+**Returns** — Decimal string representation
+
+---
+
+<H2 id="fromF64">fromF64</H2>
+
+Create a String from a 64-bit float
+
+<CodeTabs
+  uhc={`String fromF64(F64 f)`}
+  cpp={`String fromF64(double f);`}
+/>
+
+**Parameters**
+- `f` — Float to convert
+
+**Returns** — Decimal string representation
+
+---
+
+<H2 id="c">c</H2>
+
+Return the underlying C string pointer — valid only while the String is alive
+
+<CodeTabs
+  uhc={`const I8* c(const String s)`}
+  cpp={`const char* c(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Read-only C string pointer
+
+---
+
+<H2 id="strdup">strdup</H2>
+
+Return a heap-allocated copy of the C string — caller must free()
+
+<CodeTabs
+  uhc={`I8* strdup(const String s)`}
+  cpp={`char* strdup(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Owned C string pointer
+
+---
+
+<H2 id="length">length</H2>
+
+Return the number of bytes in the string (not Unicode code points)
+
+<CodeTabs
+  uhc={`U64 length(const String s)`}
+  cpp={`unsigned long long length(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Byte count
+
+---
+
+<H2 id="isEmpty">isEmpty</H2>
+
+Return 1 if the string has zero bytes, 0 otherwise
+
+<CodeTabs
+  uhc={`U8 isEmpty(const String s)`}
+  cpp={`unsigned char isEmpty(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — 1 if empty, 0 if not
+
+---
+
+<H2 id="charAt">charAt</H2>
+
+Return the byte at the given index — no bounds checking
+
+<CodeTabs
+  uhc={`I8 charAt(const String s, I32 i)`}
+  cpp={`char charAt(const String s, int i);`}
+/>
+
+**Parameters**
+- `s` — Source string
+- `i` — Zero-based byte index
+
+**Returns** — Byte value at that position
+
+---
+
+<H2 id="equals">equals</H2>
+
+Return 1 if both strings have identical content
+
+<CodeTabs
+  uhc={`U8 equals(const String a, const String b)`}
+  cpp={`unsigned char equals(const String a, const String b);`}
+/>
+
+**Parameters**
+- `a` — First string
+- `b` — Second string
+
+**Returns** — 1 if equal, 0 if not
+
+---
+
+<H2 id="contains">contains</H2>
+
+Return 1 if sub appears anywhere inside s
+
+<CodeTabs
+  uhc={`U8 contains(const String s, const String sub)`}
+  cpp={`unsigned char contains(const String s, const String sub);`}
+/>
+
+**Parameters**
+- `s` — String to search in
+- `sub` — Substring to find
+
+**Returns** — 1 if found, 0 if not
+
+---
+
+<H2 id="startsWith">startsWith</H2>
+
+Return 1 if s begins with prefix
+
+<CodeTabs
+  uhc={`U8 startsWith(const String s, const String prefix)`}
+  cpp={`unsigned char startsWith(const String s, const String prefix);`}
+/>
+
+**Parameters**
+- `s` — String to test
+- `prefix` — Prefix to look for
+
+**Returns** — 1 if s starts with prefix, 0 if not
+
+---
+
+<H2 id="endsWith">endsWith</H2>
+
+Return 1 if s ends with suffix
+
+<CodeTabs
+  uhc={`U8 endsWith(const String s, const String suffix)`}
+  cpp={`unsigned char endsWith(const String s, const String suffix);`}
+/>
+
+**Parameters**
+- `s` — String to test
+- `suffix` — Suffix to look for
+
+**Returns** — 1 if s ends with suffix, 0 if not
+
+---
+
+<H2 id="indexOf">indexOf</H2>
+
+Return the byte offset of the first occurrence of sub, or -1 if not found
+
+<CodeTabs
+  uhc={`I64 indexOf(const String s, const String sub)`}
+  cpp={`long long indexOf(const String s, const String sub);`}
+/>
+
+**Parameters**
+- `s` — String to search in
+- `sub` — Substring to find
+
+**Returns** — Zero-based offset, or -1
+
+---
+
+<H2 id="lastIndexOf">lastIndexOf</H2>
+
+Return the byte offset of the last occurrence of sub, or -1 if not found
+
+<CodeTabs
+  uhc={`I64 lastIndexOf(const String s, const String sub)`}
+  cpp={`long long lastIndexOf(const String s, const String sub);`}
+/>
+
+**Parameters**
+- `s` — String to search in
+- `sub` — Substring to find
+
+**Returns** — Zero-based offset, or -1
+
+---
+
+<H2 id="toUpperCase">toUpperCase</H2>
+
+Return a copy of s with all ASCII letters uppercased
+
+<CodeTabs
+  uhc={`String toUpperCase(const String s)`}
+  cpp={`String toUpperCase(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Uppercased string
+
+---
+
+<H2 id="toLowerCase">toLowerCase</H2>
+
+Return a copy of s with all ASCII letters lowercased
+
+<CodeTabs
+  uhc={`String toLowerCase(const String s)`}
+  cpp={`String toLowerCase(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Lowercased string
+
+---
+
+<H2 id="trim">trim</H2>
+
+Return a copy of s with leading and trailing ASCII whitespace removed
+
+<CodeTabs
+  uhc={`String trim(const String s)`}
+  cpp={`String trim(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Trimmed string
+
+---
+
+<H2 id="trimStart">trimStart</H2>
+
+Return a copy of s with leading ASCII whitespace removed
+
+<CodeTabs
+  uhc={`String trimStart(const String s)`}
+  cpp={`String trimStart(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Left-trimmed string
+
+---
+
+<H2 id="trimEnd">trimEnd</H2>
+
+Return a copy of s with trailing ASCII whitespace removed
+
+<CodeTabs
+  uhc={`String trimEnd(const String s)`}
+  cpp={`String trimEnd(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Right-trimmed string
+
+---
+
+<H2 id="replace">replace</H2>
+
+Return a copy of s with every occurrence of from replaced by to
+
+<CodeTabs
+  uhc={`String replace(const String s, const String from, const String to)`}
+  cpp={`String replace(const String s, const String from, const String to);`}
+/>
+
+**Parameters**
+- `s` — Source string
+- `from` — Substring to find
+- `to` — Replacement value
+
+**Returns** — Modified string
+
+---
+
+<H2 id="substring">substring</H2>
+
+Return the substring from start to the end of the string
+
+<CodeTabs
+  uhc={`String substring(const String s, I32 start)`}
+  cpp={`String substring(const String s, int start);`}
+/>
+
+**Parameters**
+- `s` — Source string
+- `start` — Zero-based start index (inclusive)
+
+**Returns** — Substring
+
+---
+
+<H2 id="substring">substring</H2>
+
+Return the substring from start (inclusive) to end (exclusive)
+
+<CodeTabs
+  uhc={`String substring(const String s, I32 start, I32 end)`}
+  cpp={`String substring(const String s, int start, int end);`}
+/>
+
+**Parameters**
+- `s` — Source string
+- `start` — Zero-based start index (inclusive)
+- `end` — Zero-based end index (exclusive)
+
+**Returns** — Substring
+
+---
+
+<H2 id="repeat">repeat</H2>
+
+Return the string repeated n times
+
+<CodeTabs
+  uhc={`String repeat(const String s, I32 n)`}
+  cpp={`String repeat(const String s, int n);`}
+/>
+
+**Parameters**
+- `s` — Source string
+- `n` — Number of repetitions
+
+**Returns** — Repeated string
+
+---
+
+<H2 id="reverse">reverse</H2>
+
+Return a copy of s with its bytes in reverse order
+
+<CodeTabs
+  uhc={`String reverse(const String s)`}
+  cpp={`String reverse(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Reversed string
+
+---
+
+<H2 id="toI32">toI32</H2>
+
+Parse the string as a signed 32-bit integer — throws on failure
+
+<CodeTabs
+  uhc={`I32 toI32(const String s)`}
+  cpp={`int toI32(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Parsed integer
+
+---
+
+<H2 id="toI64">toI64</H2>
+
+Parse the string as a signed 64-bit integer — throws on failure
+
+<CodeTabs
+  uhc={`I64 toI64(const String s)`}
+  cpp={`long long toI64(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Parsed integer
+
+---
+
+<H2 id="toF32">toF32</H2>
+
+Parse the string as a 32-bit float — throws on failure
+
+<CodeTabs
+  uhc={`F32 toF32(const String s)`}
+  cpp={`float toF32(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Parsed float
+
+---
+
+<H2 id="toF64">toF64</H2>
+
+Parse the string as a 64-bit float — throws on failure
+
+<CodeTabs
+  uhc={`F64 toF64(const String s)`}
+  cpp={`double toF64(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Parsed float
+
+---
+
+<H2 id="format">format</H2>
+
+Build a String using printf-style formatting
+
+<CodeTabs
+  uhc={`String format(const I8* fmt, ...)`}
+  cpp={`String format(const char* fmt, ...);`}
+/>
+
+**Parameters**
+- `fmt` — Format string (same specifiers as printf)
+
+**Returns** — Formatted string (capped at 4096 bytes)
+
+---
+
+<H2 id="split">split</H2>
+
+Split s on every occurrence of delim and return all parts as a list
+
+<CodeTabs
+  uhc={`List<String> split(const String s, const String delim)`}
+  cpp={`List::It<String> split(const String s, const String delim);`}
+/>
+
+**Parameters**
+- `s` — Source string
+- `delim` — Delimiter to split on
+
+**Returns** — List of substrings (always at least one element)
+
+---
+
+<H2 id="join">join</H2>
+
+Concatenate all strings in parts, inserting sep between each pair
+
+<CodeTabs
+  uhc={`String join(List<String> parts, const String sep)`}
+  cpp={`String join(List::It<String>& parts, const String sep);`}
+/>
+
+**Parameters**
+- `parts` — List of strings to join
+- `sep` — Separator inserted between elements
+
+**Returns** — Joined string
+
+---
+
+<H2 id="toString">toString</H2>
+
+Return the underlying C string pointer — used by %T format specifier
+
+<CodeTabs
+  uhc={`const I8* toString(const String s)`}
+  cpp={`const char* toString(const String s);`}
+/>
+
+**Parameters**
+- `s` — Source string
+
+**Returns** — Read-only C string pointer

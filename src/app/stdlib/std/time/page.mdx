@@ -1,0 +1,28 @@
+# Time
+
+Cross-platform time utilities
+
+<H2 id="sleep">sleep</H2>
+
+Sleep for the given number of milliseconds
+
+<CodeTabs
+  uhc={`U0 sleep(U64 ms)`}
+  cpp={`void sleep(unsigned long long ms);`}
+/>
+
+**Parameters**
+- `ms` — Duration in milliseconds
+
+---
+
+<H2 id="millis">millis</H2>
+
+Current value of a monotonic clock in milliseconds. Subtract two calls to measure elapsed time.
+
+<CodeTabs
+  uhc={`U64 millis()`}
+  cpp={`unsigned long long millis();`}
+/>
+
+**Returns** — Milliseconds since an arbitrary fixed start point
