@@ -98,6 +98,24 @@ namespace List {
     U0 clear(List<T> list);
 }
 
+namespace HashMap {
+    self;
+    U0 put(HashMap<K, V> map, K key, V value);
+    V& get(HashMap<K, V> map, K key);
+    V getOrDefault(HashMap<K, V> map, K key, V defaultValue);
+    U8 remove(HashMap<K, V> map, K key);
+    U8 containsKey(HashMap<K, V> map, K key);
+    U8 containsValue(HashMap<K, V> map, V value);
+    U64 size(HashMap<K, V> map);
+    U8 isEmpty(HashMap<K, V> map);
+    U0 clear(HashMap<K, V> map);
+    List<K> keys(HashMap<K, V> map);
+    List<V> values(HashMap<K, V> map);
+    U0 putAll(HashMap<K, V> map, HashMap<K, V> other);
+    U8 putIfAbsent(HashMap<K, V> map, K key, V value);
+    U0 forEach(HashMap<K, V> map, lambda block(K, V) -> U0);
+}
+
 namespace String {
     self {
         std::string handle;
@@ -144,6 +162,13 @@ namespace String {
     List<String> split(const String s, const String delim)
     String join(List<String> parts, const String sep)
     const I8* toString(const String s)
+}
+
+namespace std {
+    struct It {
+        std::size_t operator()(const String::It& s) const noexcept {
+        return std::hash<std::string>{}(s.handle);
+    };
 }
 
 namespace DynamicLibrary {
@@ -248,6 +273,24 @@ namespace List {
     void clear(List::It<T>& list);
 }
 
+namespace HashMap {
+    struct It;
+    void put(HashMap<K, V> map, K key, V value);
+    V& get(HashMap<K, V> map, K key);
+    V getOrDefault(HashMap<K, V> map, K key, V defaultValue);
+    unsigned char remove(HashMap<K, V> map, K key);
+    unsigned char containsKey(HashMap<K, V> map, K key);
+    unsigned char containsValue(HashMap<K, V> map, V value);
+    unsigned long long size(HashMap<K, V> map);
+    unsigned char isEmpty(HashMap<K, V> map);
+    void clear(HashMap<K, V> map);
+    List::It<K> keys(HashMap<K, V> map);
+    List::It<V> values(HashMap<K, V> map);
+    void putAll(HashMap<K, V> map, HashMap<K, V> other);
+    unsigned char putIfAbsent(HashMap<K, V> map, K key, V value);
+    void forEach(HashMap<K, V> map, lambda block(K, V) -> void);
+}
+
 namespace String {
     struct It {
         std::string handle;
@@ -294,6 +337,13 @@ namespace String {
     List::It<String> split(const String s, const String delim);
     String join(List::It<String>& parts, const String sep);
     const char* toString(const String s);
+}
+
+namespace std {
+    struct It {
+        std::size_t operator()(const String::It& s) const noexcept {
+        return std::hash<std::string>{}(s.handle);
+    };
 }
 
 namespace DynamicLibrary {

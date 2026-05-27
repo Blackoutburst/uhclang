@@ -15,8 +15,8 @@ UTF-8 string with value semantics and Kotlin-style API
     It operator+(const It& o) { return It(handle + o.handle); }
     It operator+(const I8* s) { return It(handle + (s ? s : "")); }
     friend It operator+(const I8* s, const It& o) { return It(std::string(s ? s : "") + o.handle); }
-    U8 operator==(const It& o) { return handle == o.handle ? 1 : 0; }
-    U8 operator!=(const It& o) { return handle != o.handle ? 1 : 0; }
+    U8 operator==(const It& o) const { return handle == o.handle ? 1 : 0; }
+    U8 operator!=(const It& o) const { return handle != o.handle ? 1 : 0; }
 }
   `}
   cpp={`struct It {
@@ -27,8 +27,8 @@ UTF-8 string with value semantics and Kotlin-style API
     It operator+(const It& o) { return It(handle + o.handle); }
     It operator+(const char* s) { return It(handle + (s ? s : "")); }
     friend It operator+(const char* s, const It& o) { return It(std::string(s ? s : "") + o.handle); }
-    unsigned char operator==(const It& o) { return handle == o.handle ? 1 : 0; }
-    unsigned char operator!=(const It& o) { return handle != o.handle ? 1 : 0; }
+    unsigned char operator==(const It& o) const { return handle == o.handle ? 1 : 0; }
+    unsigned char operator!=(const It& o) const { return handle != o.handle ? 1 : 0; }
 };
   `}
 />
